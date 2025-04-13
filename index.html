@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singlish - Improve English Through Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .hero {
+            padding: 100px 10%;
+            text-align: left;
+            background-color: white;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .artists-page {
+            display: none;
+            padding: 50px 10%;
+        }
+
+        .songs-page {
+            display: none;
+            padding: 50px 10%;
+        }
+
+        .player-page {
+            display: none;
+            padding: 50px 10%;
+            background: linear-gradient(180deg, #1DB954 0%, #191414 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .artists-container, .songs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .artist-card, .song-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .artist-image-container, .song-image-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artist-image, .song-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .artist-info, .song-info {
+            padding: 20px;
+        }
+
+        .artist-name, .song-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .artist-genre, .song-artist {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .social-links, .platform-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a, .platform-links a {
+            color: #2c3e50;
+            font-size: 18px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .player-page .page-title {
+            color: white;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .player-page .back-button {
+            color: white;
+        }
+
+        /* Spotify-style player */
+        .player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .player-album-art {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .player-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .player-song-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .player-song-artist {
+            font-size: 18px;
+            color: #b3b3b3;
+        }
+
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .progress-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #535353;
+            border-radius: 2px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: #1DB954;
+            border-radius: 2px;
+            width: 0%;
+        }
+
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 12px;
+            color: #b3b3b3;
+        }
+
+        .player-buttons {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .player-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .play-button {
+            background: white;
+            color: #191414;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 200px;
+            margin-top: 20px;
+        }
+
+        .volume-slider {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: #535353;
+            border-radius: 2px;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Singlish</div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showHome()">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#" onclick="showArtists()">Tasks</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home-page">
+        <h1>Improve English<br>Through Music</h1>
+        <p>Learn English naturally by exploring lyrics of your favorite songs and completing fun language tasks!</p>
+        <a href="#" class="cta-button" onclick="showArtists()">Let's Rock</a>
+    </section>
+
+    <section class="artists-page" id="artists-page">
+        <h2 class="page-title">Choose an Artist</h2>
+        <p>Select your favorite musician to start learning English with their songs</p>
+        
+        <div class="artists-container">
+            <div class="artist-card" onclick="showSongs('Ivoxygen')">
+                <div class="artist-image-container">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/refs/heads/main/Images/kita-ikuyo-doodle-dance.webp" 
+                         alt="Ivoxygen" 
+                         class="artist-image"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+                <div class="artist-info">
+                    <h3 class="artist-name">Ivoxygen</h3>
+                    <p class="artist-genre">Hip-Hop</p>
+                    <div class="social-links">
+                        <a href="https://twitter.com/IVOXYGEN" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com/@IVOXYGEN333" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/ivoxygen_official" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://soundcloud.com/ivoxxxygen" target="_blank" rel="noopener noreferrer"><i class="fab fa-soundcloud"></i></a>
+                        <a href="https://open.spotify.com/artist/6K9KevAu0cpln7xOsM3Wkm" target="_blank" rel="noopener noreferrer"><i class="fab fa-spotify"></i></a>
+                        <a href="https://music.apple.com/us/artist/ivoxygen/1455519418" target="_blank" rel="noopener noreferrer"><i class="fab fa-apple"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="songs-page" id="songs-page">
+        <a href="#" class="back-button" onclick="showArtists()">&larr; Back to Artists</a>
+        <h2 class="page-title">Ivoxygen Songs</h2>
+        <p>Choose a song to start learning</p>
+        
+        <div class="songs-container">
+            <div class="song-card" onclick="showPlayer('Skin', 'Ivoxygen', 'https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg', 'https://github.com/S1ngl1sh/singlish/blob/main/Musics/Skin.mp3')">
+                <div class="song-image-container">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg" 
+                         alt="Skin Cover" 
+                         class="song-image"
+                         loading="lazy">
+                </div>
+                <div class="song-info">
+                    <h3 class="song-title">Skin</h3>
+                    <p class="song-artist">Ivoxygen</p>
+                    <div class="platform-links">
+                        <a href="https://soundcloud.com/ivoxxxygen/skin-1" target="_blank" rel="noopener noreferrer" title="Listen on SoundCloud"><i class="fab fa-soundcloud"></i></a>
+                        <a href="https://open.spotify.com/track/6uGiIWcwnl6GZmL5fKSdGU?si=4b0cffd09c644e7e" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><i class="fab fa-spotify"></i></a>
+                        <a href="https://www.youtube.com/watch?v=ku8ZbjgVtVU" target="_blank" rel="noopener noreferrer" title="Watch on YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://music.apple.com/us/song/skin/1641054238" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music"><i class="fab fa-apple"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="player-page" id="player-page">
+        <a href="#" class="back-button" onclick="showSongs(currentArtist)">&larr; Back to Songs</a>
+        <div class="player-container">
+            <img src="" alt="Album Art" class="player-album-art" id="player-album-art">
+            <div class="player-info">
+                <h2 class="player-song-title" id="player-song-title"></h2>
+                <p class="player-song-artist" id="player-song-artist"></p>
+            </div>
+            <div class="player-controls">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time-info">
+                        <span id="current-time">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+                <div class="player-buttons">
+                    <button class="player-button"><i class="fas fa-random"></i></button>
+                    <button class="player-button"><i class="fas fa-step-backward"></i></button>
+                    <button class="play-button" id="play-button"><i class="fas fa-play"></i></button>
+                    <button class="player-button"><i class="fas fa-step-forward"></i></button>
+                    <button class="player-button"><i class="fas fa-redo"></i></button>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+            </div>
+        </div>
+        <audio id="audio-player"></audio>
+    </section>
+
+    <script>
+        let currentArtist = '';
+        const audioPlayer = document.getElementById('audio-player');
+        const playButton = document.getElementById('play-button');
+        const progressBar = document.getElementById('progress-bar');
+        const progress = document.getElementById('progress');
+        const currentTimeElement = document.getElementById('current-time');
+        const durationElement = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        function showArtists() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('artists-page').style.display = 'block';
+            document.getElementById('songs-page').style.display = 'none';
+            document.getElementById('player-page').style.display = 'none';
+            return false;
+        }
+
+        function showHome() {
+            document.getElementById('artists-page').style.display = 'none';
+            document.getElementById('songs-page').style.display = 'none';
+            document.getElementById('player-page').style.display = 'none';
+            document.getElementById('home-page').style.display = 'block';
+            return false;
+        }
+
+        function showSongs(artistName) {
+            currentArtist = artistName;
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('artists-page').style.display = 'none';
+            document.getElementById('songs-page').style.display = 'block';
+            document.getElementById('player-page').style.display = 'none';
+            document.querySelector('#songs-page .page-title').textContent = artistName + ' Songs';
+            return false;
+        }
+
+        function showPlayer(songTitle, artistName, albumArtUrl, audioUrl) {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('artists-page').style.display = 'none';
+            document.getElementById('songs-page').style.display = 'none';
+            document.getElementById('player-page').style.display = 'block';
+            
+            document.getElementById('player-song-title').textContent = songTitle;
+            document.getElementById('player-song-artist').textContent = artistName;
+            document.getElementById('player-album-art').src = albumArtUrl;
+            
+            audioPlayer.src = audioUrl;
+            audioPlayer.load();
+            
+            return false;
+        }
+
+        // Player controls
+        playButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playButton.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audioPlayer.pause();
+                playButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            const currentTime = audioPlayer.currentTime;
+            const duration = audioPlayer.duration;
+            
+            progress.style.width = (currentTime / duration) * 100 + '%';
+            
+            currentTimeElement.textContent = formatTime(currentTime);
+            if (duration) {
+                durationElement.textContent = formatTime(duration);
+            }
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = pos * audioPlayer.duration;
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            audioPlayer.volume = volumeSlider.value;
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
+            progress.style.width = '0%';
+            currentTimeElement.textContent = '0:00';
+        });
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    </script>
+</body>
+</html>
