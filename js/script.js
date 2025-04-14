@@ -8,8 +8,6 @@ const durationElement = document.getElementById('duration');
 const volumeSlider = document.getElementById('volume-slider');
 const volumeSliderProgress = document.getElementById('volume-slider-progress');
 const lyricsContent = document.getElementById('lyrics-content');
-const repeatButton = document.querySelector('.repeat-button');
-let repeatMode = 'none';
 
 function showArtists() {
     document.getElementById('home-page').style.display = 'none';
@@ -55,16 +53,17 @@ function showPlayer(songTitle, artistName, albumArtUrl, audioUrl) {
     return false;
 }
 
-function toggleRepeat() {
-    if (repeatMode === 'none') {
-        repeatMode = 'one';
-        repeatButton.classList.add('active');
-        audioPlayer.loop = true;
-    } else {
-        repeatMode = 'none';
-        repeatButton.classList.remove('active');
-        audioPlayer.loop = false;
-    }
+function toggleLoop() {
+    audioPlayer.loop = !audioPlayer.loop;
+    document.querySelector('.loop-button').classList.toggle('active', audioPlayer.loop);
+}
+
+function skipBackward() {
+    audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
+}
+
+function skipForward() {
+    audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 5);
 }
 
 function restartSong() {
@@ -116,7 +115,7 @@ volumeSlider.addEventListener('input', () => {
 });
 
 audioPlayer.addEventListener('ended', () => {
-    if (repeatMode === 'none') {
+    if (!audioPlayer.loop) {
         playButton.innerHTML = '<i class="fas fa-play"></i>';
     }
 });
