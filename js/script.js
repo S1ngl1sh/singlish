@@ -9,9 +9,7 @@ const volumeSlider = document.getElementById('volume-slider');
 const volumeSliderProgress = document.getElementById('volume-slider-progress');
 const lyricsContent = document.getElementById('lyrics-content');
 const repeatButton = document.querySelector('.repeat-button');
-const repeatIndicator = document.querySelector('.repeat-indicator');
-
-let repeatMode = 'none'; // 'none', 'all', 'one'
+let repeatMode = 'none';
 
 function showArtists() {
     document.getElementById('home-page').style.display = 'none';
@@ -57,15 +55,33 @@ function showPlayer(songTitle, artistName, albumArtUrl, audioUrl) {
     return false;
 }
 
+function toggleRepeat() {
+    if (repeatMode === 'none') {
+        repeatMode = 'one';
+        repeatButton.classList.add('active');
+        audioPlayer.loop = true;
+    } else {
+        repeatMode = 'none';
+        repeatButton.classList.remove('active');
+        audioPlayer.loop = false;
+    }
+}
+
+function restartSong() {
+    audioPlayer.currentTime = 0;
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+    }
+}
+
 function updateVolumeSlider() {
     const volume = audioPlayer.volume;
     volumeSliderProgress.style.width = `${volume * 100}%`;
 }
 
-// Initialize volume
 updateVolumeSlider();
 
-// Player controls
 playButton.addEventListener('click', () => {
     if (audioPlayer.paused) {
         audioPlayer.play();
@@ -99,37 +115,9 @@ volumeSlider.addEventListener('input', () => {
     updateVolumeSlider();
 });
 
-audioPlayer.addEventListener('volumechange', () => {
-    updateVolumeSlider();
-});
-
 audioPlayer.addEventListener('ended', () => {
     if (repeatMode === 'none') {
         playButton.innerHTML = '<i class="fas fa-play"></i>';
-        progress.style.width = '0%';
-        currentTimeElement.textContent = '0:00';
-    } else if (repeatMode === 'all') {
-        // For playlist, you would play next song here
-        audioPlayer.currentTime = 0;
-        audioPlayer.play();
-    }
-    // 'one' mode is handled by the loop attribute
-});
-
-repeatButton.addEventListener('click', () => {
-    if (repeatMode === 'none') {
-        repeatMode = 'all';
-        audioPlayer.loop = false;
-        repeatButton.classList.add('active');
-        repeatIndicator.innerHTML = '<i class="fas fa-infinity"></i>';
-    } else if (repeatMode === 'all') {
-        repeatMode = 'one';
-        audioPlayer.loop = true;
-        repeatIndicator.innerHTML = '1';
-    } else {
-        repeatMode = 'none';
-        audioPlayer.loop = false;
-        repeatButton.classList.remove('active');
     }
 });
 
