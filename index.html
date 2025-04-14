@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singlish - Improve English Through Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Singlish</div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showHome()">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#" onclick="showArtists()">Tasks</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home-page">
+        <h1>Improve English<br>Through Music</h1>
+        <p>Learn English naturally by exploring lyrics of your favorite songs and completing fun language tasks!</p>
+        <a href="#" class="cta-button" onclick="showArtists()">Let's Rock</a>
+    </section>
+
+    <section class="artists-page" id="artists-page">
+        <h2 class="page-title">Choose an Artist</h2>
+        <p>Select your favorite musician to start learning English with their songs</p>
+        
+        <div class="artists-container">
+            <div class="artist-card" onclick="showSongs('Ivoxygen')">
+                <div class="artist-image-container">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/refs/heads/main/Images/kita-ikuyo-doodle-dance.webp" 
+                         alt="Ivoxygen" 
+                         class="artist-image"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+                <div class="artist-info">
+                    <h3 class="artist-name">Ivoxygen</h3>
+                    <p class="artist-genre">Hip-Hop</p>
+                    <div class="social-links">
+                        <a href="https://twitter.com/IVOXYGEN" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com/@IVOXYGEN333" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/ivoxygen_official" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://soundcloud.com/ivoxxxygen" target="_blank" rel="noopener noreferrer"><i class="fab fa-soundcloud"></i></a>
+                        <a href="https://open.spotify.com/artist/6K9KevAu0cpln7xOsM3Wkm" target="_blank" rel="noopener noreferrer"><i class="fab fa-spotify"></i></a>
+                        <a href="https://music.apple.com/us/artist/ivoxygen/1455519418" target="_blank" rel="noopener noreferrer"><i class="fab fa-apple"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="songs-page" id="songs-page">
+        <a href="#" class="back-button" onclick="showArtists()">&larr; Back to Artists</a>
+        <h2 class="page-title">Ivoxygen Songs</h2>
+        <p>Choose a song to start learning</p>
+        
+        <div class="songs-container">
+            <div class="song-card" onclick="showPlayer('Skin', 'Ivoxygen', 'https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg', 'https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Musics/Skin.mp3')">
+                <div class="song-image-container">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg" 
+                         alt="Skin Cover" 
+                         class="song-image"
+                         loading="lazy">
+                </div>
+                <div class="song-info">
+                    <h3 class="song-title">Skin</h3>
+                    <p class="song-artist">Ivoxygen</p>
+                    <div class="platform-links">
+                        <a href="https://soundcloud.com/ivoxxxygen/skin-1" target="_blank" rel="noopener noreferrer" title="Listen on SoundCloud"><i class="fab fa-soundcloud"></i></a>
+                        <a href="https://open.spotify.com/track/6uGiIWcwnl6GZmL5fKSdGU?si=4b0cffd09c644e7e" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><i class="fab fa-spotify"></i></a>
+                        <a href="https://www.youtube.com/watch?v=ku8ZbjgVtVU" target="_blank" rel="noopener noreferrer" title="Watch on YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://music.apple.com/us/song/skin/1641054238" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music"><i class="fab fa-apple"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="player-page" id="player-page">
+        <a href="#" class="back-button" onclick="showSongs(currentArtist)">&larr; Back to Songs</a>
+        <div class="player-container">
+            <img src="" alt="Album Art" class="player-album-art" id="player-album-art">
+            <div class="player-info">
+                <h2 class="player-song-title" id="player-song-title"></h2>
+                <p class="player-song-artist" id="player-song-artist"></p>
+            </div>
+            <div class="player-controls">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time-info">
+                        <span id="current-time">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+                <div class="player-buttons">
+                    <button class="player-button repeat-button" onclick="toggleRepeat()"><i class="fas fa-retweet"></i></button>
+                    <button class="player-button" onclick="restartSong()"><i class="fas fa-undo"></i></button>
+                    <button class="play-button" id="play-button"><i class="fas fa-play"></i></button>
+                    <button class="player-button"><i class="fas fa-step-forward"></i></button>
+                    <button class="player-button"><i class="fas fa-random"></i></button>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-down"></i>
+                    <div class="volume-slider-container">
+                        <div class="volume-slider-bar">
+                            <div class="volume-slider-progress" id="volume-slider-progress"></div>
+                        </div>
+                        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
+                    </div>
+                    <i class="fas fa-volume-up"></i>
+                </div>
+            </div>
+            <div class="lyrics-section">
+                <h3 class="lyrics-title">Lyrics</h3>
+                <div class="lyrics-content" id="lyrics-content">
+                    Lyrics will be displayed here...
+                </div>
+            </div>
+        </div>
+        <audio id="audio-player"></audio>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
