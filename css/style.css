@@ -231,7 +231,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
     margin: 25px 0;
 }
 
@@ -241,7 +241,7 @@ body {
     color: #2c3e50;
     font-size: 18px;
     cursor: pointer;
-    padding: 8px;
+    padding: 10px;
     transition: color 0.2s;
 }
 
@@ -268,7 +268,7 @@ body {
     transform: scale(1.05);
 }
 
-.repeat-button.active {
+.loop-button.active {
     color: #3498db;
 }
 
