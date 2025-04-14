@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn English through music with Singlish! Explore song lyrics and complete fun language tasks.">
+    <meta name="keywords" content="learn English, music, song lyrics, language learning, Singlish">
     <title>Singlish - Improve English Through Music</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Singlish</div>
+        <!-- Логотип с иконкой микрофона слева -->
+        <div class="logo">
+            <i class="fas fa-microphone"></i> Singlish
+        </div>
         <ul class="nav-links">
             <li><a href="#" onclick="showHome()">Home</a></li>
             <li><a href="#">About</a></li>
@@ -33,7 +39,7 @@
             <div class="artist-card" onclick="showSongs('Ivoxygen')">
                 <div class="artist-image-container">
                     <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/refs/heads/main/Images/kita-ikuyo-doodle-dance.webp" 
-                         alt="Ivoxygen" 
+                         alt="Ivoxygen Artist Image" 
                          class="artist-image"
                          loading="lazy"
                          decoding="async">
@@ -63,7 +69,7 @@
             <div class="song-card" onclick="showPlayer('Skin', 'Ivoxygen', 'https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg', 'https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Musics/Skin.mp3')">
                 <div class="song-image-container">
                     <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg" 
-                         alt="Skin Cover" 
+                         alt="Skin Song Cover" 
                          class="song-image"
                          loading="lazy">
                 </div>
@@ -128,5 +134,6 @@
     </section>
 
     <script src="js/script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9304e06888ea7b90',t:'MTc0NDY1MTI1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
