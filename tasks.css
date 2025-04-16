@@ -512,6 +512,7 @@
 
 .player-info {
     flex-grow: 1;
+    text-align: left;
 }
 
 .player-info h2 {
@@ -519,11 +520,13 @@
     margin-bottom: 0.5rem;
     color: #3498db;
     text-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+    text-align: left;
 }
 
 .player-info p {
     color: #ccc;
     font-size: 1.2rem;
+    text-align: left;
 }
 
 .player-controls {
@@ -641,17 +644,23 @@
 @media (max-width: 768px) {
     .player-header {
         flex-direction: column;
-        text-align: center;
+        text-align: left;
         gap: 1rem;
     }
 
     .player-cover {
         width: 150px;
         height: 150px;
+        align-self: flex-start;
     }
 
     .player-info h2 {
         font-size: 2rem;
+        text-align: left;
+    }
+
+    .player-info p {
+        text-align: left;
     }
 
     .controls {
@@ -701,22 +710,27 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: rgba(52, 152, 219, 0.2);
-    color: #3498db;
+    padding: 0.8rem 1.5rem;
+    background: rgba(52, 152, 219, 0.2);
+    color: white;
     text-decoration: none;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    border-radius: 30px;
+    font-weight: bold;
     transition: all 0.3s ease;
+    border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
 .nav-button:hover {
-    background-color: rgba(52, 152, 219, 0.3);
+    background: rgba(52, 152, 219, 0.3);
     transform: translateX(-5px);
 }
 
 .nav-button i {
-    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-button:hover i {
+    transform: translateX(-5px);
 }
 
 @media (max-width: 768px) {
@@ -726,8 +740,8 @@
     }
     
     .nav-button {
-        width: 100%;
-        justify-content: center;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -766,5 +780,55 @@
     .hero-header .nav-button {
         order: 1;
         align-self: flex-start;
+    }
+}
+
+.search-container {
+    position: relative;
+    margin-left: 2rem;
+}
+
+.search-container input {
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 1rem;
+    width: 200px;
+    transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #3498db;
+    width: 250px;
+}
+
+.search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        margin: 1rem 0;
+        width: 100%;
+    }
+
+    .search-container input {
+        width: 100%;
+    }
+
+    .search-container input:focus {
+        width: 100%;
     }
 } 
