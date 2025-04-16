@@ -116,13 +116,11 @@ nav {
     top: 50%;
     transform: translateY(-50%);
     width: 300px;
-    padding-right: 2rem;
 }
 
 .search-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
+    width: 100%;
 }
 
 .search-container input {
@@ -139,6 +137,7 @@ nav {
 .search-container input:focus {
     outline: none;
     border-color: #3498db;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .search-container input::placeholder {
@@ -151,7 +150,6 @@ nav {
     top: 50%;
     transform: translateY(-50%);
     color: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
 }
 
 .search-results {

@@ -77,10 +77,24 @@
     </main>
 
     <script>
-        // Обработчик для основного меню
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
+        // Обработчик для мобильного меню
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const searchContainer = document.querySelector('.search-container');
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        const searchInput = document.getElementById('searchInput');
+
+        // Функция для закрытия мобильного меню
+        function closeMobileMenu() {
+            mobileMenuToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Обработчик для кнопки мобильного меню
+        mobileMenuToggle.addEventListener('click', function() {
             this.classList.toggle('active');
-            document.querySelector('.nav-links').classList.toggle('active');
+            mobileNav.classList.toggle('active');
             
             if (this.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
@@ -89,47 +103,38 @@
             }
         });
 
-        // Обработчик для мобильного меню
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const mobileButtons = document.querySelector('.mobile-buttons');
-        const searchContainer = document.querySelector('.search-container');
-
-        mobileMenuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            mobileButtons.classList.toggle('active');
-            
-            // Закрываем поиск при открытии меню
-            if (mobileButtons.classList.contains('active')) {
-                searchContainer.style.display = 'none';
-            } else {
-                searchContainer.style.display = 'block';
-            }
-        });
-
         // Закрываем меню при клике вне него
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.mobile-buttons') && !e.target.closest('.mobile-menu-toggle')) {
-                mobileButtons.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                searchContainer.style.display = 'block';
+            if (!e.target.closest('.mobile-nav') && !e.target.closest('.mobile-menu-toggle')) {
+                closeMobileMenu();
             }
         });
 
-        // Закрываем меню при клике на кнопки
-        document.querySelectorAll('.mobile-button').forEach(button => {
-            button.addEventListener('click', () => {
-                mobileButtons.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                searchContainer.style.display = 'block';
+        // Закрываем меню при клике на ссылки
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
             });
         });
+
+        // Синхронизация поиска между мобильной и десктопной версией
+        function syncSearchInputs() {
+            const value = this.value;
+            if (this === searchInput) {
+                mobileSearchInput.value = value;
+            } else {
+                searchInput.value = value;
+            }
+        }
+
+        searchInput.addEventListener('input', syncSearchInputs);
+        mobileSearchInput.addEventListener('input', syncSearchInputs);
 
         // Обработчик для навигационных ссылок
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                document.querySelector('.menu-toggle').classList.remove('active');
-                document.querySelector('.nav-links').classList.remove('active');
-                document.body.style.overflow = '';
+                document.querySelector('.nav-links a.active').classList.remove('active');
+                link.classList.add('active');
             });
         });
     </script>
