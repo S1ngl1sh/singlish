@@ -390,35 +390,29 @@ p {
     }
 
     .logo {
+        position: static;
+        transform: none;
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        width: auto;
         margin-bottom: 0;
     }
 
     .logo svg {
         width: 30px;
         height: 30px;
-        flex-shrink: 0;
     }
 
     .logo span {
         font-size: 1rem;
-        margin-left: 0;
     }
 
     .search-container {
         position: static;
         transform: none;
         width: 100%;
-        padding: 0;
         margin: 1rem 0;
-        order: 1;
-    }
-
-    .search-container input {
-        width: 100%;
+        order: 2;
     }
 
     .nav-links {
@@ -462,6 +456,10 @@ p {
 
     main {
         padding: 1rem;
+    }
+
+    .hero {
+        margin-top: 2rem;
     }
 
     .hero h1 {
@@ -550,7 +548,7 @@ p {
     }
 
     .search-container {
-        margin: 0.3rem 0;
+        margin: 0.5rem 0;
     }
 
     .hero h1 {
