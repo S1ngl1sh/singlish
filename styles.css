@@ -338,6 +338,8 @@ p {
 
     .menu-toggle {
         display: flex;
+        position: relative;
+        z-index: 1001;
     }
 
     .nav-links {
@@ -352,9 +354,10 @@ p {
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        z-index: 999;
+        z-index: 1000;
         transform: none;
         left: 0;
+        padding: 80px 0;
     }
 
     .nav-links.active {
@@ -363,6 +366,7 @@ p {
 
     .nav-links a {
         font-size: 1.2rem;
+        padding: 0.5rem 1rem;
     }
 
     .nav-links a.active::after {
@@ -372,14 +376,24 @@ p {
     .search-container {
         margin: 1rem 0;
         width: 100%;
+        position: relative;
+        z-index: 1002;
     }
 
     .search-container input {
         width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
     }
 
     .search-container input:focus {
         width: 100%;
+        max-width: 200px;
+    }
+
+    .search-results {
+        max-width: 200px;
+        margin: 0 auto;
     }
 
     h1 {
