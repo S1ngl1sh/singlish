@@ -35,6 +35,9 @@
                 </div>
                 <div id="searchResults" class="search-results"></div>
             </div>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="mobile-buttons">
                 <a href="tasks.html" class="mobile-button">
                     <i class="fas fa-music"></i>
@@ -82,6 +85,11 @@
                 document.querySelector('.nav-links').classList.remove('active');
                 document.body.style.overflow = '';
             });
+        });
+
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.mobile-buttons').classList.toggle('active');
         });
     </script>
     <script src="search.js"></script>

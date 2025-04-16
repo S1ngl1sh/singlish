@@ -932,6 +932,21 @@ p {
     }
 }
 
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    color: #3498db;
+}
+
 .mobile-buttons {
     display: none;
     width: 100%;
@@ -939,6 +954,17 @@ p {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     margin-top: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.mobile-buttons.active {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .mobile-button {
@@ -971,6 +997,13 @@ p {
 }
 
 @media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+
     .mobile-buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -979,6 +1012,11 @@ p {
 }
 
 @media (max-width: 480px) {
+    .mobile-menu-toggle {
+        font-size: 1.3rem;
+        padding: 0.4rem;
+    }
+
     .mobile-buttons {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.3rem;
