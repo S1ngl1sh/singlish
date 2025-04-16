@@ -190,16 +190,10 @@ nav {
     background: rgba(52, 152, 219, 0.2);
 }
 
-.search-result-item img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.search-result-item i {
+    font-size: 1.5rem;
     margin-right: 1rem;
-    object-fit: cover;
-}
-
-.search-result-item .song-img {
-    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .search-result-item .content {

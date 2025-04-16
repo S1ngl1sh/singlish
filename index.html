@@ -41,6 +41,7 @@
                         <input type="search" id="mobileSearchInput" placeholder="Search..." />
                         <i class="fas fa-search"></i>
                     </div>
+                    <div id="mobileSearchResults" class="search-results"></div>
                     <div class="mobile-links">
                         <a href="index.html" class="mobile-link">
                             <i class="fas fa-home"></i>
@@ -83,6 +84,8 @@
         const searchContainer = document.querySelector('.search-container');
         const mobileSearchInput = document.getElementById('mobileSearchInput');
         const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const mobileSearchResults = document.getElementById('mobileSearchResults');
 
         // Функция для закрытия мобильного меню
         function closeMobileMenu() {
@@ -117,13 +120,41 @@
             });
         });
 
+        // Функция для обновления результатов поиска
+        function updateSearchResults(query, resultsContainer) {
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            // Здесь будет логика поиска
+            // Пока что просто показываем пример результатов
+            const results = [
+                { title: 'Song 1', artist: 'Artist 1' },
+                { title: 'Song 2', artist: 'Artist 2' },
+                { title: 'Song 3', artist: 'Artist 3' }
+            ];
+
+            resultsContainer.innerHTML = results.map(result => `
+                <div class="search-result-item">
+                    <i class="fas fa-music"></i>
+                    <div class="content">
+                        <h3>${result.title}</h3>
+                        <p>${result.artist}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // Синхронизация поиска между мобильной и десктопной версией
         function syncSearchInputs() {
             const value = this.value;
             if (this === searchInput) {
                 mobileSearchInput.value = value;
+                updateSearchResults(value, searchResults);
             } else {
                 searchInput.value = value;
+                updateSearchResults(value, mobileSearchResults);
             }
         }
 
