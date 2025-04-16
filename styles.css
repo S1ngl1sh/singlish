@@ -920,3 +920,80 @@ p {
 .social-links a[title*="X (Twitter)"]:hover {
     background: #000000;
 }
+
+@media (hover: none) {
+    .artist-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .social-links a:hover {
+        transform: none;
+    }
+}
+
+.mobile-buttons {
+    display: none;
+    width: 100%;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    margin-top: 1rem;
+}
+
+.mobile-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.3rem;
+}
+
+.mobile-button i {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.mobile-button span {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.mobile-button:hover {
+    background: rgba(52, 152, 219, 0.3);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .mobile-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.3rem;
+        padding: 0.3rem;
+    }
+
+    .mobile-button {
+        padding: 0.6rem;
+    }
+
+    .mobile-button i {
+        font-size: 1.1rem;
+    }
+
+    .mobile-button span {
+        font-size: 0.75rem;
+    }
+}
