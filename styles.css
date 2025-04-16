@@ -367,8 +367,6 @@ p {
         align-items: center;
         gap: 2rem;
         z-index: 1000;
-        transform: none;
-        left: 0;
         padding: 80px 0;
     }
 
@@ -386,17 +384,13 @@ p {
     }
 
     .search-container {
-        margin: 1rem 0;
         width: auto;
-        position: relative;
-        z-index: 1002;
         margin-left: auto;
         margin-right: 1rem;
     }
 
     .search-container input {
         width: 150px;
-        margin: 0;
     }
 
     .search-container input:focus {
@@ -405,7 +399,6 @@ p {
 
     .search-results {
         width: 150px;
-        margin: 0;
         right: 0;
         left: auto;
     }
