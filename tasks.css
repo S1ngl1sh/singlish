@@ -297,4 +297,15 @@
 
 .social-links a[title*="X (Twitter)"]:hover {
     background: #000000;
+}
+
+@media (hover: none) {
+    .artist-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .social-links a:hover {
+        transform: none;
+    }
 } 
