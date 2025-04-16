@@ -16,45 +16,54 @@
                 </svg>
                 <span>Singlish</span>
             </div>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="tasks.html">Tasks</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Reviews</a></li>
-            </ul>
-            <div class="search-container">
-                <div class="search-wrapper">
-                    <input type="search" id="searchInput" placeholder="Search artists and songs..." />
-                    <i class="fas fa-search search-icon"></i>
+            <div class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="tasks.html">Tasks</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Reviews</a></li>
+                </ul>
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="search" id="searchInput" placeholder="Search artists and songs..." />
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <div id="searchResults" class="search-results"></div>
                 </div>
-                <div id="searchResults" class="search-results"></div>
             </div>
-            <button class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="mobile-buttons">
-                <a href="tasks.html" class="mobile-button">
-                    <i class="fas fa-music"></i>
-                    <span>Tasks</span>
-                </a>
-                <a href="#" class="mobile-button">
-                    <i class="fas fa-info-circle"></i>
-                    <span>About</span>
-                </a>
-                <a href="#" class="mobile-button">
-                    <i class="fas fa-envelope"></i>
-                    <span>Contact</span>
-                </a>
-                <a href="#" class="mobile-button">
-                    <i class="fas fa-star"></i>
-                    <span>Reviews</span>
-                </a>
+            <div class="mobile-menu">
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="mobile-nav">
+                    <div class="mobile-search">
+                        <input type="search" id="mobileSearchInput" placeholder="Search..." />
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="mobile-links">
+                        <a href="index.html" class="mobile-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="tasks.html" class="mobile-link">
+                            <i class="fas fa-music"></i>
+                            <span>Tasks</span>
+                        </a>
+                        <a href="#" class="mobile-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                        <a href="#" class="mobile-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                        <a href="#" class="mobile-link">
+                            <i class="fas fa-star"></i>
+                            <span>Reviews</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
