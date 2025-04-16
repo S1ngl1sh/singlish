@@ -100,8 +100,8 @@ nav {
 
 .search-container {
     position: relative;
-    width: 100%;
-    margin: 1rem 0;
+    width: 300px;
+    margin-left: 2rem;
 }
 
 .search-wrapper {
@@ -212,12 +212,11 @@ main {
     margin: 0 auto;
 }
 
-h1 {
+.hero h1 {
     font-size: 5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     letter-spacing: 2px;
     line-height: 1.1;
-    text-align: center;
 }
 
 h2 {
@@ -278,7 +277,6 @@ p {
     max-width: 800px;
     margin: 0 auto 2rem;
     color: #fff;
-    text-align: center;
 }
 
 .cta-button {
@@ -379,6 +377,15 @@ p {
         display: block;
         order: 2;
         margin: 1rem 0;
+        width: 100%;
+    }
+
+    .search-container input {
+        width: 100%;
+    }
+
+    .search-container input:focus {
+        width: 100%;
     }
 
     .nav-links {
