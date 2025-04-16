@@ -350,8 +350,20 @@ p {
         padding: 1rem;
     }
 
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .logo {
+        width: 100%;
+        justify-content: space-between;
+    }
+
     .menu-toggle {
         display: flex;
+        margin-left: auto;
     }
 
     .nav-links {
@@ -384,23 +396,23 @@ p {
     }
 
     .search-container {
-        width: auto;
-        margin-left: auto;
-        margin-right: 1rem;
+        width: 100%;
+        margin: 0 0 1rem 0;
+        order: -1;
     }
 
     .search-container input {
-        width: 150px;
+        width: 100%;
     }
 
     .search-container input:focus {
-        width: 150px;
+        width: 100%;
     }
 
     .search-results {
-        width: 150px;
+        width: 100%;
         right: 0;
-        left: auto;
+        left: 0;
     }
 
     h1 {
