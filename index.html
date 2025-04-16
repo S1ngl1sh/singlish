@@ -68,6 +68,7 @@
     </main>
 
     <script>
+        // Обработчик для основного меню
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             this.classList.toggle('active');
             document.querySelector('.nav-links').classList.toggle('active');
@@ -79,17 +80,48 @@
             }
         });
 
+        // Обработчик для мобильного меню
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileButtons = document.querySelector('.mobile-buttons');
+        const searchContainer = document.querySelector('.search-container');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileButtons.classList.toggle('active');
+            
+            // Закрываем поиск при открытии меню
+            if (mobileButtons.classList.contains('active')) {
+                searchContainer.style.display = 'none';
+            } else {
+                searchContainer.style.display = 'block';
+            }
+        });
+
+        // Закрываем меню при клике вне него
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.mobile-buttons') && !e.target.closest('.mobile-menu-toggle')) {
+                mobileButtons.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                searchContainer.style.display = 'block';
+            }
+        });
+
+        // Закрываем меню при клике на кнопки
+        document.querySelectorAll('.mobile-button').forEach(button => {
+            button.addEventListener('click', () => {
+                mobileButtons.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                searchContainer.style.display = 'block';
+            });
+        });
+
+        // Обработчик для навигационных ссылок
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.querySelector('.menu-toggle').classList.remove('active');
                 document.querySelector('.nav-links').classList.remove('active');
                 document.body.style.overflow = '';
             });
-        });
-
-        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-            this.classList.toggle('active');
-            document.querySelector('.mobile-buttons').classList.toggle('active');
         });
     </script>
     <script src="search.js"></script>

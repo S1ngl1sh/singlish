@@ -941,6 +941,7 @@ p {
     cursor: pointer;
     padding: 0.5rem;
     transition: all 0.3s ease;
+    z-index: 1000;
 }
 
 .mobile-menu-toggle:hover {
@@ -951,20 +952,23 @@ p {
     display: none;
     width: 100%;
     padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 15px;
     margin-top: 1rem;
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
+    right: 0;
     transform: translateY(-100%);
     opacity: 0;
     transition: all 0.3s ease;
+    z-index: 999;
 }
 
 .mobile-buttons.active {
     transform: translateY(0);
     opacity: 1;
+    margin-top: 4rem;
 }
 
 .mobile-button {
@@ -999,7 +1003,7 @@ p {
 @media (max-width: 768px) {
     .mobile-menu-toggle {
         display: block;
-        position: absolute;
+        position: fixed;
         right: 1rem;
         top: 1rem;
     }
@@ -1008,6 +1012,10 @@ p {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
+    }
+
+    .search-container {
+        margin-top: 3rem;
     }
 }
 
