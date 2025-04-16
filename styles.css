@@ -934,26 +934,40 @@ p {
 
 .mobile-menu-toggle {
     display: none;
-    background: none;
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.8rem;
     transition: all 0.3s ease;
     z-index: 1000;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .mobile-menu-toggle:hover {
-    color: #3498db;
+    background: rgba(52, 152, 219, 0.3);
+    transform: rotate(90deg);
+}
+
+.mobile-menu-toggle.active {
+    background: rgba(52, 152, 219, 0.5);
 }
 
 .mobile-buttons {
     display: none;
     width: 100%;
-    padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 15px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     margin-top: 1rem;
     position: fixed;
     top: 0;
@@ -963,6 +977,7 @@ p {
     opacity: 0;
     transition: all 0.3s ease;
     z-index: 999;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .mobile-buttons.active {
@@ -973,44 +988,57 @@ p {
 
 .mobile-button {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 0.8rem;
+    justify-content: flex-start;
+    padding: 1rem;
     color: white;
     text-decoration: none;
     transition: all 0.3s ease;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0.3rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 0.5rem 0;
+    gap: 1rem;
 }
 
 .mobile-button i {
-    font-size: 1.2rem;
-    margin-bottom: 0.3rem;
+    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(52, 152, 219, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 .mobile-button span {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
 .mobile-button:hover {
-    background: rgba(52, 152, 219, 0.3);
-    transform: translateY(-2px);
+    background: rgba(52, 152, 219, 0.2);
+    transform: translateX(5px);
+}
+
+.mobile-button:hover i {
+    background: rgba(52, 152, 219, 0.4);
+    transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
     .mobile-menu-toggle {
-        display: block;
+        display: flex;
         position: fixed;
         right: 1rem;
         top: 1rem;
     }
 
     .mobile-buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: column;
         gap: 0.5rem;
     }
 
@@ -1022,24 +1050,26 @@ p {
 @media (max-width: 480px) {
     .mobile-menu-toggle {
         font-size: 1.3rem;
-        padding: 0.4rem;
+        width: 40px;
+        height: 40px;
+        padding: 0.7rem;
     }
 
     .mobile-buttons {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.3rem;
-        padding: 0.3rem;
+        padding: 0.8rem;
     }
 
     .mobile-button {
-        padding: 0.6rem;
+        padding: 0.8rem;
     }
 
     .mobile-button i {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        width: 35px;
+        height: 35px;
     }
 
     .mobile-button span {
-        font-size: 0.75rem;
+        font-size: 0.9rem;
     }
 }
