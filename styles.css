@@ -358,7 +358,17 @@ p {
 
     .logo {
         width: 100%;
+        display: flex;
+        align-items: center;
         justify-content: space-between;
+    }
+
+    .logo svg {
+        flex-shrink: 0;
+    }
+
+    .logo span {
+        margin-left: 0.5rem;
     }
 
     .menu-toggle {
@@ -396,23 +406,7 @@ p {
     }
 
     .search-container {
-        width: 100%;
-        margin: 0 0 1rem 0;
-        order: -1;
-    }
-
-    .search-container input {
-        width: 100%;
-    }
-
-    .search-container input:focus {
-        width: 100%;
-    }
-
-    .search-results {
-        width: 100%;
-        right: 0;
-        left: 0;
+        display: none;
     }
 
     h1 {
