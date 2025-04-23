@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,7 +35,7 @@
         .artist-card h3{font-size:24px;margin:15px 0;font-weight:500;color:#fff}
         .artist-card a{text-decoration:none;color:inherit;display:block}
         .social-links{display:flex;justify-content:center;gap:15px;padding:15px 0 20px}
-        .social-links a{font-size:24px;color:#fff;background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);padding:8px;border-radius:50%;transition:transform 0.3s ease,box-shadow 0.3s ease}
+        .social-links a{display:flex;justify-content:center;align-items:center;width:40px;height:40px;font-size:20px;color:#fff;background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border-radius:50%;transition:transform 0.3s ease,box-shadow 0.3s ease}
         .social-links a:hover{transform:scale(1.2);box-shadow:0 4px 15px rgba(0,255,255,0.5)}
     </style>
 </head>
@@ -102,12 +63,12 @@
         <h1>Learn English with Your Favorite Artists</h1>
         <div class="artists-grid">
             <div class="artist-card">
-                <a href="#">
+                <a href="./artist-ivoxygen.html">
                     <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/IVOXYGEN.jpg" alt="IVOXYGEN">
                     <h3>IVOXYGEN</h3>
                 </a>
                 <div class="social-links">
-                    <a href="https://twitter.com/ivoxygen?lang=fi" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://twitter.com/ivoxygen?lang=fi" target="_blank" title="X"><i class="fab fa-x-twitter"></i></a>
                     <a href="https://www.instagram.com/ivoxygen_official/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/ivoxygen/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.youtube.com/channel/UC6RUnPaFp5x31-kIrAnrVfA" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
