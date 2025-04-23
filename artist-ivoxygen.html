@@ -1,50 +1,11 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singlish - IVOXYGEN Tracks</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
         body{background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative}
@@ -70,9 +31,12 @@
         .tracks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;padding:20px}
         .track-card{background:#1a1a1a;border-radius:15px;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
         .track-card:hover{transform:translateY(-10px);box-shadow:0 8px 25px rgba(0,255,255,0.3)}
+        .track-card a{display:block;text-decoration:none;color:inherit}
         .track-card img{width:100%;height:200px;object-fit:cover}
         .track-card h3{font-size:24px;margin:15px 0;font-weight:500;color:#fff}
-        .track-card p{font-size:16px;color:#d1d5db;padding:0 15px 20px;line-height:1.6}
+        .platform-links{display:flex;justify-content:center;gap:15px;padding:10px 0}
+        .platform-links a{display:flex;justify-content:center;align-items:center;width:40px;height:40px;font-size:20px;color:#fff;background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border-radius:50%;line-height:1;text-decoration:none;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease;pointer-events:auto}
+        .platform-links a:hover{transform:scale(1.2);box-shadow:0 4px 15px rgba(0,255,255,0.5)}
     </style>
 </head>
 <body>
@@ -99,19 +63,40 @@
         <h1>IVOXYGEN Tracks</h1>
         <div class="tracks-grid">
             <div class="track-card">
-                <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg" alt="Skin">
-                <h3>Skin</h3>
-                <p>An introspective track with haunting melodies, perfect for learning emotional and poetic English expressions.</p>
+                <a href="./track-skin.html">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg" alt="Skin">
+                    <h3>Skin</h3>
+                </a>
+                <div class="platform-links">
+                    <a href="https://soundcloud.com/ivoxxxygen/skin-1" target="_blank" title="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+                    <a href="https://open.spotify.com/track/6uGiIWcwnl6GZmL5fKSdGU?si=4b0cffd09c644e7e" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="https://music.apple.com/us/song/skin/1641054238" target="_blank" title="Apple Music"><i class="fab fa-apple"></i></a>
+                    <a href="https://www.youtube.com/watch?v=ku8ZbjgVtVU" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
             <div class="track-card">
-                <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Muddy%20Shoes.jpg" alt="Muddy Shoes">
-                <h3>Muddy Shoes</h3>
-                <p>A gritty, atmospheric song that explores resilience, ideal for mastering conversational slang and metaphors.</p>
+                <a href="./track-muddy-shoes.html">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Muddy%20Shoes.jpg" alt="Muddy Shoes">
+                    <h3>Muddy Shoes</h3>
+                </a>
+                <div class="platform-links">
+                    <a href="https://soundcloud.com/ivoxxxygen/muddy-shoes" target="_blank" title="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+                    <a href="https://open.spotify.com/track/7CBWzHqkXzelf2wussjHXP" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="https://music.apple.com/md/song/muddy-shoes/1789888699" target="_blank" title="Apple Music"><i class="fab fa-apple"></i></a>
+                    <a href="https://www.youtube.com/watch?v=Ivbg8cokqCw" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
             <div class="track-card">
-                <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Lifestyle.jpg" alt="Lifestyle">
-                <h3>Lifestyle</h3>
-                <p>An upbeat track about modern living, great for picking up trendy phrases and casual English.</p>
+                <a href="./track-lifestyle.html">
+                    <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Lifestyle.jpg" alt="Lifestyle">
+                    <h3>Lifestyle</h3>
+                </a>
+                <div class="platform-links">
+                    <a href="https://soundcloud.com/ivoxxxygen/lifestyle-1" target="_blank" title="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+                    <a href="https://open.spotify.com/track/3tw5smQGfpOSUr9fndQs8h?si=4fc9becf4eff482d&nd=1&dlsi=067bf5ffe4374746" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="https://music.apple.com/us/song/lifestyle/1790316782" target="_blank" title="Apple Music"><i class="fab fa-apple"></i></a>
+                    <a href="https://www.youtube.com/watch?v=JXA97H2rB4A" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
         </div>
     </div>
