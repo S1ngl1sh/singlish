@@ -1,0 +1,433 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singlish - Muddy Shoes by IVOXYGEN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+        body{background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative}
+        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out}
+        .particle:nth-child(1){width:15px;height:15px;top:10%;left:15%;animation-delay:0s}
+        .particle:nth-child(2){width:20px;height:20px;top:30%;right:10%;animation-delay:2s}
+        .particle:nth-child(3){width:10px;height:10px;bottom:20%;left:25%;animation-delay:4s}
+        .particle:nth-child(4){width:25px;height:25px;bottom:15%;right:20%;animation-delay:6s}
+        .particle:nth-child(5){width:18px;height:18px;top:50%;left:5%;animation-delay:8s}
+        @keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:0.2}50%{transform:translateY(-50px) scale(1.2);opacity:0.6}}
+        header{position:absolute;top:30px;width:90%;display:flex;justify-content:space-between;align-items:center;z-index:10}
+        .logo{font-size:28px;font-weight:700;color:#fff;transition:transform 0.3s ease}
+        .logo:hover{transform:scale(1.1)}
+        .logo::before{content:"♦ ";color:#00FFFF}
+        nav a{color:#fff;text-decoration:none;margin:0 20px;font-size:16px;font-weight:500;transition:color 0.3s ease}
+        nav a:hover,nav a.active{color:#00FFFF}
+        .sign-up,.sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
+        .sign-up:hover,.sign-out:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
+        .sign-up:disabled,.sign-out:disabled{opacity:0.6;cursor:not-allowed}
+        .track-content{max-width:800px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation:fadeIn 1.5s ease-in-out;padding-top:100px}
+        @keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
+        h1{font-size:48px;margin-bottom:20px;font-weight:700;background:linear-gradient(90deg,#fff 0%,#a5f3fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        img{width:100%;max-width:300px;height:auto;border-radius:15px;margin:20px 0}
+        .back-button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff;padding:10px 30px;border:none;border-radius:25px;font-size:18px;font-weight:500;cursor:pointer;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;text-decoration:none;line-height:1;overflow:hidden}
+        .back-button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
+        .audio-player{width:100%;max-width:300px;background:#1a1a1a;border-radius:15px;padding:15px;margin:20px 0;box-shadow:0 4px 15px rgba(0,255,255,0.2)}
+        .progress-bar-container{width:100%;height:6px;background:#333;border-radius:3px;cursor:pointer;margin:10px 0}
+        .progress-bar{height:100%;background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border-radius:3px;transition:width 0.1s linear}
+        .controls{display:flex;justify-content:center;gap:15px;margin:10px 0}
+        .control-btn{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:18px;border:none;cursor:pointer;box-shadow:0 2px 10px rgba(0,255,255,0.3);transition:transform 0.2s ease,box-shadow 0.2s ease}
+        .control-btn:hover{transform:scale(1.1);box-shadow:0 4px 15px rgba(0,255,255,0.5)}
+        .time-display{display:flex;justify-content:space-between;font-size:14px;color:#a5f3fc}
+        .volume-control{display:flex;align-items:center;gap:10px;margin-top:10px}
+        .volume-control i{font-size:18px;color:#fff}
+        .volume-slider{width:80px;height:6px;border-radius:3px;background:#333;appearance:none;outline:none}
+        .volume-slider::-webkit-slider-thumb{appearance:none;width:12px;height:12px;background:#00FFFF;border-radius:50%;cursor:pointer}
+        .volume-slider::-moz-range-thumb{width:12px;height:12px;background:#00FFFF;border-radius:50%;cursor:pointer}
+        .exercise-container{width:100%;max-width:800px;margin:20px 0}
+        .exercise{background:#1a1a1a;border-radius:5px;padding:20px;box-shadow:0 4px 10px rgba(0,0,0,0.1),0 4px 15px rgba(0,255,255,0.3)}
+        .exercise h2{font-size:24px;margin-bottom:20px;color:#fff;font-weight:700}
+        .question{padding:10px;margin-bottom:10px}
+        .question p{font-size:16px;color:#fff;line-height:1.5;text-align:left}
+        .question p span{font-weight:700}
+        .question select{background:#333;color:#fff;border:1px solid #00FFFF;padding:5px;border-radius:5px;font-size:14px;cursor:pointer;outline:none}
+        .question select:focus{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff}
+        .question select option{background:#333;color:#fff}
+        .check-answers{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff;padding:10px 20px;border:none;border-radius:25px;font-size:16px;font-weight:500;cursor:pointer;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;display:block;margin:20px auto 0}
+        .check-answers:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
+        .result{font-size:16px;color:#fff;margin-top:15px;text-align:center}
+        @media (max-width: 480px){
+            .audio-player,.exercise-container{max-width:90%}
+            .track-content{padding-top:80px}
+        }
+    </style>
+</head>
+<body>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <header>
+        <div class="logo">Singlish</div>
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="./courses.html">Courses</a>
+            <a href="#">About Us</a>
+            <a href="#">Reviews</a>
+            <a href="#">Contacts</a>
+        </nav>
+        <div id="authButtons">
+            <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
+        </div>
+    </header>
+    <div class="track-content">
+        <h1>Muddy Shoes</h1>
+        <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Muddy%20Shoes.jpg" alt="Muddy Shoes">
+        <a href="./artist-ivoxygen.html" class="back-button">Back to Tracks</a>
+        <div class="audio-player">
+            <audio id="audio" src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Tracks/Muddy%20Shoes.mp3"></audio>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="time-display">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+            <div class="controls">
+                <button class="control-btn" id="skipBackward"><i class="fas fa-backward"></i></button>
+                <button class="control-btn" id="playPause"><i class="fas fa-play"></i></button>
+                <button class="control-btn" id="skipForward"><i class="fas fa-forward"></i></button>
+            </div>
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+            </div>
+        </div>
+        <div class="exercise-container">
+            <div class="exercise">
+                <h2>Fill in the Blanks</h2>
+                <div class="question">
+                    <p><span>1.</span> Oh, you're just not what we're <select name="q1">
+                        <option value="">Select</option>
+                        <option value="a">saying</option>
+                        <option value="b">doing</option>
+                        <option value="c">like</option>
+                        <option value="d">seeing</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>2.</span> You're just not that so <select name="q2">
+                        <option value="">Select</option>
+                        <option value="a">bright</option>
+                        <option value="b">white</option>
+                        <option value="c">kind</option>
+                        <option value="d">right</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>3.</span> You're just not born too <select name="q3">
+                        <option value="">Select</option>
+                        <option value="a">fast</option>
+                        <option value="b">wild</option>
+                        <option value="c">strong</option>
+                        <option value="d">rich</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>4.</span> And so I rebel <select name="q4">
+                        <option value="">Select</option>
+                        <option value="a">deep</option>
+                        <option value="b">dark</option>
+                        <option value="c">wild</option>
+                        <option value="d">far</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>5.</span> You like to sow the <select name="q5">
+                        <option value="">Select</option>
+                        <option value="a">field</option>
+                        <option value="b">storm</option>
+                        <option value="c">wild</option>
+                        <option value="d">wind</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>6.</span> My anger fills the <select name="q6">
+                        <option value="">Select</option>
+                        <option value="a">fire</option>
+                        <option value="b">storm</option>
+                        <option value="c">air</option>
+                        <option value="d">ground</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>7.</span> I'm devil in human <select name="q7">
+                        <option value="">Select</option>
+                        <option value="a">mind</option>
+                        <option value="b">soul</option>
+                        <option value="c">form</option>
+                        <option value="d">skin</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>8.</span> Let this whole world break and <select name="q8">
+                        <option value="">Select</option>
+                        <option value="a">scream</option>
+                        <option value="b">flood</option>
+                        <option value="c">shake</option>
+                        <option value="d">end</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>9.</span> Let the table turn, is a <select name="q9">
+                        <option value="">Select</option>
+                        <option value="a">silence</option>
+                        <option value="b">riot</option>
+                        <option value="c">burn</option>
+                        <option value="d">storm</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>10.</span> You can run, but you can't <select name="q10">
+                        <option value="">Select</option>
+                        <option value="a">shout</option>
+                        <option value="b">lie</option>
+                        <option value="c">hide</option>
+                        <option value="d">win</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>11.</span> My blood will suffice your <select name="q11">
+                        <option value="">Select</option>
+                        <option value="a">fear</option>
+                        <option value="b">pride</option>
+                        <option value="c">fire</option>
+                        <option value="d">skin</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>12.</span> Visionary, I'm so damn <select name="q12">
+                        <option value="">Select</option>
+                        <option value="a">real</option>
+                        <option value="b">wise</option>
+                        <option value="c">strong</option>
+                        <option value="d">wild</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>13.</span> I don't care my shoes in the <select name="q13">
+                        <option value="">Select</option>
+                        <option value="a">water</option>
+                        <option value="b">rain</option>
+                        <option value="c">mud</option>
+                        <option value="d">blood</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>14.</span> Each step turns me <select name="q14">
+                        <option value="">Select</option>
+                        <option value="a">protagonist</option>
+                        <option value="b">antagonist</option>
+                        <option value="c">illusionist</option>
+                        <option value="d">anarchist</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>15.</span> Black cloud with fire in <select name="q15">
+                        <option value="">Select</option>
+                        <option value="a">sky</option>
+                        <option value="b">soul</option>
+                        <option value="c">lungs</option>
+                        <option value="d">eyes</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>16.</span> Is a nightmare what I <select name="q16">
+                        <option value="">Select</option>
+                        <option value="a">know</option>
+                        <option value="b">need</option>
+                        <option value="c">like</option>
+                        <option value="d">feel</option>
+                    </select>?</p>
+                </div>
+                <button class="check-answers">Check Answers</button>
+                <div class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
+            authDomain: "singlish-a97c0.firebaseapp.com",
+            projectId: "singlish-a97c0",
+            storageBucket: "singlish-a97c0.firebasestorage.app",
+            messagingSenderId: "28888918608",
+            appId: "1:28888918608:web:27785a06c684813b693f55",
+            measurementId: "G-HSYY3YS05R"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.signInWithGoogle = async () => {
+            const signUpButton = document.getElementById("signUpButton");
+            signUpButton.disabled = true;
+            try {
+                const result = await signInWithPopup(auth, provider);
+                updateAuthButtons(true);
+            } catch (error) {
+                console.error("Sign-in error:", error);
+                alert(`Failed to sign in: ${error.message}`);
+            } finally {
+                signUpButton.disabled = false;
+            }
+        };
+
+        window.signOut = async () => {
+            const signOutButton = document.getElementById("signOutButton");
+            signOutButton.disabled = true;
+            try {
+                await signOut(auth);
+                updateAuthButtons(false);
+            } catch (error) {
+                console.error("Sign-out error:", error);
+                alert(`Failed to sign out: ${error.message}`);
+            } finally {
+                signOutButton.disabled = false;
+            }
+        };
+
+        function updateAuthButtons(isSignedIn) {
+            document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
+            document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            updateAuthButtons(!!user);
+        });
+    </script>
+
+    <!-- Audio Player Script -->
+    <script>
+        const audio = document.getElementById('audio');
+        const playPauseBtn = document.getElementById('playPause');
+        const skipBackwardBtn = document.getElementById('skipBackward');
+        const skipForwardBtn = document.getElementById('skipForward');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.querySelector('.progress-bar-container');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volumeSlider');
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${percent}%`;
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        skipBackwardBtn.addEventListener('click', () => {
+            audio.currentTime = Math.max(0, audio.currentTime - 10);
+        });
+
+        skipForwardBtn.addEventListener('click', () => {
+            audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+        });
+
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const percent = offsetX / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = volumeSlider.value;
+        });
+    </script>
+
+    <!-- Exercise Script -->
+    <script>
+        const checkBtn = document.querySelector('.check-answers');
+        const resultEl = document.querySelector('.result');
+
+        const answers = ['c', 'b', 'd', 'c', 'd', 'b', 'c', 'b', 'b', 'c', 'b', 'd', 'c', 'b', 'c', 'c'];
+
+        checkBtn.addEventListener('click', () => {
+            let correct = 0;
+            for (let i = 1; i <= 16; i++) {
+                const selected = document.querySelector(`select[name="q${i}"]`).value;
+                if (selected && selected === answers[i - 1]) {
+                    correct++;
+                }
+            }
+            resultEl.textContent = `You got ${correct}/16 correct!`;
+        });
+    </script>
+</body>
+</html>
