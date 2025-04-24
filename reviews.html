@@ -37,7 +37,8 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script><!DOCTYPE html>
+</script>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -61,17 +62,17 @@
         .logo::before{content:"♦ ";color:#00FFFF}
         nav a{color:#fff;text-decoration:none;margin:0 20px;font-size:16px;font-weight:500;transition:color 0.3s ease}
         nav a:hover, nav a.active{color:#00FFFF}
-        .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor-pointer}
+        .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
         .sign-up:hover, .sign-out:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
         .sign-up:disabled, .sign-out:disabled{opacity:0.6;cursor:not-allowed}
         .reviews-content{text-align:center;max-width:1200px;padding:100px 20px;animation:fadeIn 1.5s ease-in-out}
         @keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
         h1{font-size:48px;margin-bottom:40px;font-weight:700;background:linear-gradient(90deg,#fff 0%,#a5f3fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .review-form{display:none;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
-        .review-form.active{display:block}
+        .review-form{display:none;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;gap:15px}
+        .review-form.active{display:flex}
         .review-form textarea{width:100%;height:100px;background:#1a1a1a;color:#fff;border:1px solid #00FFFF;border-radius:10px;padding:10px;font-size:16px;resize:vertical;outline:none}
         .review-form textarea:focus{border-color:#00CED1;box-shadow:0 0 10px rgba(0,255,255,0.3)}
-        .review-form button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor-pointer}
+        .review-form button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer;align-self:center}
         .review-form button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,245,255,0.5)}
         .review-form button:disabled{opacity:0.6;cursor:not-allowed}
         .reviews-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
@@ -249,5 +250,7 @@
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a43c8dca534',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a43c8dca534',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9356e4a7cc5c8bb8',t:'MTc0NTUxMTI2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
