@@ -7,44 +7,395 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-        body{background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative}
-        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out}
-        .particle:nth-child(1){width:15px;height:15px;top:10%;left:15%;animation-delay:0s}
-        .particle:nth-child(2){width:20px;height:20px;top:30%;right:10%;animation-delay:2s}
-        .particle:nth-child(3){width:10px;height:10px;bottom:20%;left:25%;animation-delay:4s}
-        .particle:nth-child(4){width:25px;height:25px;bottom:15%;right:20%;animation-delay:6s}
-        .particle:nth-child(5){width:18px;height:18px;top:50%;left:5%;animation-delay:8s}
-        @keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:0.2}50%{transform:translateY(-50px) scale(1.2);opacity:0.6}}
-        header{position:absolute;top:30px;width:90%;display:flex;justify-content:space-between;align-items:center;z-index:10}
-        .logo{font-size:28px;font-weight:700;color:#fff;transition:transform 0.3s ease}
-        .logo:hover{transform:scale(1.1)}
-        .logo::before{content:"♦ ";color:#00FFFF}
-        nav a{color:#fff;text-decoration:none;margin:0 20px;font-size:16px;font-weight:500;transition:color 0.3s ease}
-        nav a:hover, nav a.active{color:#00FFFF}
-        .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
-        .sign-up:hover, .sign-out:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
-        .sign-up:disabled, .sign-out:disabled{opacity:0.6;cursor:not-allowed}
-        .reviews-content{text-align:center;max-width:1200px;padding:100px 20px;animation:fadeIn 1.5s ease-in-out}
-        @keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-        h1{font-size:48px;margin-bottom:20px;font-weight:700;background:linear-gradient(90deg,#fff 0%,#a5f3fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .reviews-content p{font-size:18px;color:#d1d5db;margin-bottom:40px;font-weight:300;line-height:1.5}
-        .review-form{display:none;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
-        .review-form.active{display:block}
-        .review-form textarea{width:100%;height:100px;background:#1a1a1a;color:#fff;border:1px solid #00FFFF;border-radius:10px;padding:10px;font-size:16px;resize:vertical;outline:none}
-        .review-form textarea:focus{border-color:#00CED1;box-shadow:0 0 10px rgba(0,255,255,0.3)}
-        .review-form button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer;margin-top:15px}
-        .review-form button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,245,255,0.5)}
-        .review-form button:disabled{opacity:0.6;cursor:not-allowed}
-        .reviews-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
-        .review-card{background:#1a1a1a;border-radius:15px;padding:20px;box-shadow:0 4px 15px rgba(0,255,255,0.2);transition:transform 0.3s ease}
-        .review-card:hover{transform:translateY(-5px)}
-        .review-card h3{font-size:18px;font-weight:500;color:#00FFFF;margin-bottom:10px}
-        .review-card p{font-size:16px;color:#fff;line-height:1.5}
-        .review-card .date{font-size:14px;color:#a5f3fc;margin-top:10px}
-        @media (max-width: 480px){
-            .reviews-content{padding:80px 10px}
-            .review-form, .reviews-list{max-width:90%}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { width: 15px; height: 15px; top: 10%; left: 15%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 20px; height: 20px; top: 30%; right: 10%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 10px; height: 10px; bottom: 20%; left: 25%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 25px; height: 25px; bottom: 15%; right: 20%; animation-delay: 6s; }
+        .particle:nth-child(5) { width: 18px; height: 18px; top: 50%; left: 5%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-50px) scale(1.2); opacity: 0.6; }
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 15; /* Хедер выше всех */
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo::before {
+            content: "♦ ";
+            color: #00FFFF;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00FFFF;
+        }
+
+        .sign-up, .sign-out {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sign-up:hover, .sign-out:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .sign-up:disabled, .sign-out:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .reviews-content {
+            text-align: center;
+            max-width: 1200px;
+            width: 90%;
+            padding: 80px 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            z-index: 10; /* Контент выше частиц */
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .reviews-content h1 {
+            position: relative;
+            z-index: 12; /* Текст выше всех */
+            font-size: clamp(2rem, 10vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 40px;
+            font-weight: 700;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для читаемости */
+        }
+
+        .reviews-content h1 span {
+            background: linear-gradient(90deg, #fff 0%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent; /* Для кросс-браузерности */
+        }
+
+        .review-form {
+            display: none;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .review-form.active {
+            display: block;
+        }
+
+        .review-form textarea {
+            width: 100%;
+            height: 100px;
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #00FFFF;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+            outline: none;
+        }
+
+        .review-form textarea:focus {
+            border-color: #00CED1;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .review-form button {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 10px 25px;
+            color: #fff;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .review-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .review-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .reviews-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .review-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-card h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #00FFFF;
+            margin-bottom: 10px;
+        }
+
+        .review-card p {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .review-card .date {
+            font-size: 14px;
+            color: #a5f3fc;
+            margin-top: 10px;
+        }
+
+        /* Гамбургер-меню */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 15px 0;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active {
+            color: #00FFFF;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav {
+                display: none; /* Скрываем основное меню */
+            }
+
+            .hamburger {
+                display: flex; /* Показываем гамбургер-меню */
+            }
+
+            .mobile-menu {
+                display: flex; /* Включаем мобильное меню */
+            }
+
+            .sign-up, .sign-out {
+                margin-left: 0;
+                padding: 8px 15px;
+            }
+
+            .reviews-content {
+                padding: 60px 10px;
+            }
+
+            .particle {
+                display: none; /* Отключаем частицы на маленьких экранах */
+            }
+
+            .reviews-list {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reviews-content h1 {
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+            }
+
+            .review-form, .reviews-list {
+                max-width: 90%;
+            }
+
+            .review-form textarea {
+                font-size: 14px;
+            }
+
+            .review-form button {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+
+            .review-card h3 {
+                font-size: 16px;
+            }
+
+            .review-card p {
+                font-size: 14px;
+            }
+
+            .review-card .date {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none !important; /* Скрываем мобильное меню */
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .reviews-content {
+                max-width: 1200px;
+            }
+
+            .reviews-content h1 {
+                font-size: 4rem;
+            }
+
+            .reviews-list {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
         }
     </style>
 </head>
@@ -56,6 +407,11 @@
     <div class="particle"></div>
     <header>
         <div class="logo">Singlish</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <nav>
             <a href="./index.html">Home</a>
             <a href="./courses.html">Courses</a>
@@ -68,15 +424,63 @@
             <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </header>
+    <div class="mobile-menu">
+        <a href="./index.html" onclick="toggleMenu()">Home</a>
+        <a href="./courses.html" onclick="toggleMenu()">Courses</a>
+        <a href="#" onclick="toggleMenu()">About Us</a>
+        <a href="./reviews.html" class="active" onclick="toggleMenu()">Reviews</a>
+        <a href="#" onclick="toggleMenu()">Contacts</a>
+    </div>
     <div class="reviews-content">
-        <h1>Reviews</h1>
-        <p>Here you can leave a review about us or read what others have shared.</p>
+        <h1><span>Reviews</span></h1>
         <div class="review-form" id="reviewForm">
             <textarea id="reviewText" placeholder="Write your review here..." maxlength="500"></textarea>
             <button id="submitReview" onclick="submitReview()">Submit Review</button>
         </div>
         <div class="reviews-list" id="reviewsList"></div>
     </div>
+
+    <!-- XLSX Processing Script -->
+    <script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+
+                    // Convert sheet to JSON to filter blank rows
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                    // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    // Fallback
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+
+                    // Convert filtered JSON back to CSV
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+    </script>
 
     <!-- Firebase SDK (модульная версия) -->
     <script type="module">
@@ -212,7 +616,15 @@
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a43c8dca534',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9357189929dabfa8',t:'MTc0NTUxMzM4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+
+    <!-- Скрипт для гамбургер-меню -->
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
