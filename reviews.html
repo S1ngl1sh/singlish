@@ -1,54 +1,14 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singlish - Reviews</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
         body{background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative}
-        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out}
+        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out;z-index:0}
         .particle:nth-child(1){width:15px;height:15px;top:10%;left:15%;animation-delay:0s}
         .particle:nth-child(2){width:20px;height:20px;top:30%;right:10%;animation-delay:2s}
         .particle:nth-child(3){width:10px;height:10px;bottom:20%;left:25%;animation-delay:4s}
@@ -61,29 +21,17 @@
         .logo::before{content:"♦ ";color:#00FFFF}
         nav a{color:#fff;text-decoration:none;margin:0 20px;font-size:16px;font-weight:500;transition:color 0.3s ease}
         nav a:hover, nav a.active{color:#00FFFF}
-        .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor-pointer}
+        .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
         .sign-up:hover, .sign-out:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
         .sign-up:disabled, .sign-out:disabled{opacity:0.6;cursor:not-allowed}
-        .reviews-content{text-align:center;max-width:1200px;padding:100px 20px;animation:fadeIn 1.5s ease-in-out}
+        .main-content{text-align:center;max-width:800px;padding:80px 20px;animation:fadeIn 1.5s ease-in-out;z-index:20}
         @keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-        h1{font-size:48px;margin-bottom:40px;font-weight:700;background:linear-gradient(90deg,#fff 0%,#a5f3fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .review-form{display:none;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
-        .review-form.active{display:block}
-        .review-form textarea{width:100%;height:100px;background:#1a1a1a;color:#fff;border:1px solid #00FFFF;border-radius:10px;padding:10px;font-size:16px;resize:vertical;outline:none}
-        .review-form textarea:focus{border-color:#00CED1;box-shadow:0 0 10px rgba(0,255,255,0.3)}
-        .review-form button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor-pointer}
-        .review-form button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,245,255,0.5)}
-        .review-form button:disabled{opacity:0.6;cursor:not-allowed}
-        .reviews-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
-        .review-card{background:#1a1a1a;border-radius:15px;padding:20px;box-shadow:0 4px 15px rgba(0,255,255,0.2);transition:transform 0.3s ease}
-        .review-card:hover{transform:translateY(-5px)}
-        .review-card h3{font-size:18px;font-weight:500;color:#00FFFF;margin-bottom:10px}
-        .review-card p{font-size:16px;color:#fff;line-height:1.5}
-        .review-card .date{font-size:14px;color:#a5f3fc;margin-top:10px}
-        @media (max-width: 480px){
-            .reviews-content{padding:80px 10px}
-            .review-form, .reviews-list{max-width:90%}
-        }
+        h1{font-size:48px;margin-bottom:20px;font-weight:700;color:#fff}
+        .review-form{display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:30px}
+        textarea{width:100%;max-width:600px;min-height:150px;padding:15px;font-size:16px;color:#fff;background:#1a1a1a;border:1px solid #00FFFF;border-radius:10px;resize:vertical}
+        .submit-review{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff;padding:12px 40px;border:none;border-radius:50px;font-size:16px;font-weight:500;cursor:pointer;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease}
+        .submit-review:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,255,255,0.5)}
+        .submit-review:disabled{opacity:0.6;cursor:not-allowed}
     </style>
 </head>
 <body>
@@ -106,22 +54,19 @@
             <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </header>
-    <div class="reviews-content">
-        <h1>Reviews</h1>
-        <div class="review-form" id="reviewForm">
-            <textarea id="reviewText" placeholder="Write your review here..." maxlength="500"></textarea>
-            <button id="submitReview" onclick="submitReview()">Submit Review</button>
+    <div class="main-content">
+        <h1>Share Your Experience</h1>
+        <div class="review-form">
+            <textarea placeholder="Write your review here..." required></textarea>
+            <button class="submit-review" id="submitReviewButton">Submit Review</button>
         </div>
-        <div class="reviews-list" id="reviewsList"></div>
     </div>
 
-    <!-- Firebase SDK (модульная версия) -->
+    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Конфигурация Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
             authDomain: "singlish-a97c0.firebaseapp.com",
@@ -132,13 +77,10 @@
             measurementId: "G-HSYY3YS05R"
         };
 
-        // Инициализация Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Функция входа через Google
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
             signUpButton.disabled = true;
@@ -163,7 +105,6 @@
             }
         };
 
-        // Функция выхода
         window.signOut = async () => {
             const signOutButton = document.getElementById("signOutButton");
             signOutButton.disabled = true;
@@ -179,14 +120,11 @@
             }
         };
 
-        // Обновление состояния кнопок и формы
         function updateAuthButtons(isSignedIn) {
             document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
             document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
-            document.getElementById("reviewForm").classList.toggle("active", isSignedIn);
         }
 
-        // Отслеживание состояния аутентификации
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 updateAuthButtons(true);
@@ -196,58 +134,6 @@
                 console.log("No user is signed in.");
             }
         });
-
-        // Отправка отзыва
-        window.submitReview = async () => {
-            const reviewText = document.getElementById("reviewText").value.trim();
-            const submitButton = document.getElementById("submitReview");
-            if (!reviewText) {
-                alert("Please write a review before submitting.");
-                return;
-            }
-            if (reviewText.length > 500) {
-                alert("Review must be 500 characters or less.");
-                return;
-            }
-            submitButton.disabled = true;
-            try {
-                const user = auth.currentUser;
-                if (user) {
-                    await addDoc(collection(db, "reviews"), {
-                        userName: user.displayName || "Anonymous",
-                        text: reviewText,
-                        timestamp: new Date()
-                    });
-                    document.getElementById("reviewText").value = "";
-                    console.log("Review submitted successfully.");
-                } else {
-                    alert("You must be signed in to submit a review.");
-                }
-            } catch (error) {
-                console.error("Error submitting review:", error);
-                alert(`Failed to submit review: ${error.message}`);
-            } finally {
-                submitButton.disabled = false;
-            }
-        };
-
-        // Отображение отзывов в реальном времени
-        const reviewsList = document.getElementById("reviewsList");
-        const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
-            reviewsList.innerHTML = "";
-            snapshot.forEach((doc) => {
-                const review = doc.data();
-                const reviewCard = document.createElement("div");
-                reviewCard.className = "review-card";
-                reviewCard.innerHTML = `
-                    <h3>${review.userName}</h3>
-                    <p>${review.text}</p>
-                    <div class="date">${new Date(review.timestamp.toDate()).toLocaleString()}</div>
-                `;
-                reviewsList.appendChild(reviewCard);
-            });
-        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a43c8dca534',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
