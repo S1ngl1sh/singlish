@@ -7,36 +7,359 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-        body{background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative}
-        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out}
-        .particle:nth-child(1){width:15px;height:15px;top:10%;left:15%;animation-delay:0s}
-        .particle:nth-child(2){width:20px;height:20px;top:30%;right:10%;animation-delay:2s}
-        .particle:nth-child(3){width:10px;height:10px;bottom:20%;left:25%;animation-delay:4s}
-        .particle:nth-child(4){width:25px;height:25px;bottom:15%;right:20%;animation-delay:6s}
-        .particle:nth-child(5){width:18px;height:18px;top:50%;left:5%;animation-delay:8s}
-        @keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:0.2}50%{transform:translateY(-50px) scale(1.2);opacity:0.6}}
-        header{position:absolute;top:30px;width:90%;display:flex;justify-content:space-between;align-items:center;z-index:10}
-        .logo{font-size:28px;font-weight:700;color:#fff;transition:transform 0.3s ease}
-        .logo:hover{transform:scale(1.1)}
-        .logo::before{content:"♦ ";color:#00FFFF}
-        nav a{color:#fff;text-decoration:none;margin:0 20px;font-size:16px;font-weight:500;transition:color 0.3s ease}
-        nav a:hover, nav a.active{color:#00FFFF}
-        .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
-        .sign-up:hover, .sign-out:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
-        .sign-up:disabled, .sign-out:disabled{opacity:0.6;cursor:not-allowed}
-        .courses-content{text-align:center;max-width:1200px;padding:100px 20px;animation:fadeIn 1.5s ease-in-out}
-        @keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-        h1{font-size:48px;margin-bottom:40px;font-weight:700;background:linear-gradient(90deg,#fff 0%,#a5f3fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .artists-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;padding:20px}
-        .artist-card{background:#1a1a1a;border-radius:15px;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
-        .artist-card:hover{transform:translateY(-10px);box-shadow:0 8px 25px rgba(0,255,255,0.3)}
-        .artist-card img{width:100%;height:200px;object-fit:cover}
-        .artist-card h3{font-size:24px;margin:15px 0;font-weight:500;color:#fff}
-        .artist-card a{text-decoration:none;color:inherit;display:block}
-        .social-links{display:flex;justify-content:center;gap:15px;padding:15px 0 20px}
-        .social-links a{display:flex;justify-content:center;align-items:center;width:40px;height:40px;font-size:20px;color:#fff;background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border-radius:50%;transition:transform 0.3s ease,box-shadow 0.3s ease}
-        .social-links a:hover{transform:scale(1.2);box-shadow:0 4px 15px rgba(0,255,255,0.5)}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { width: 15px; height: 15px; top: 10%; left: 15%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 20px; height: 20px; top: 30%; right: 10%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 10px; height: 10px; bottom: 20%; left: 25%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 25px; height: 25px; bottom: 15%; right: 20%; animation-delay: 6s; }
+        .particle:nth-child(5) { width: 18px; height: 18px; top: 50%; left: 5%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-50px) scale(1.2); opacity: 0.6; }
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 15; /* Хедер выше всех */
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo::before {
+            content: "♦ ";
+            color: #00FFFF;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00FFFF;
+        }
+
+        .sign-up, .sign-out {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sign-up:hover, .sign-out:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .sign-up:disabled, .sign-out:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .courses-content {
+            text-align: center;
+            max-width: 1200px;
+            width: 90%;
+            padding: 80px 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            z-index: 10; /* Контент выше частиц */
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .courses-content h1 {
+            position: relative;
+            z-index: 12; /* Текст выше всех */
+            font-size: clamp(2rem, 10vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 40px;
+            font-weight: 700;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для читаемости */
+        }
+
+        .courses-content h1 span {
+            background: linear-gradient(90deg, #fff 0%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent; /* Для кросс-браузерности */
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .artist-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+        }
+
+        .artist-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .artist-card h3 {
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            margin: 15px 0;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+        }
+
+        .artist-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 0 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: #fff;
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border-radius: 50%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Гамбургер-меню */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 15px 0;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active {
+            color: #00FFFF;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav {
+                display: none; /* Скрываем основное меню */
+            }
+
+            .hamburger {
+                display: flex; /* Показываем гамбургер-меню */
+            }
+
+            .mobile-menu {
+                display: flex; /* Включаем мобильное меню */
+            }
+
+            .sign-up, .sign-out {
+                margin-left: 0;
+                padding: 8px 15px;
+            }
+
+            .courses-content {
+                padding: 60px 10px;
+            }
+
+            .particle {
+                display: none; /* Отключаем частицы на маленьких экранах */
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .courses-content h1 {
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+            }
+
+            .artist-card img {
+                height: 150px;
+            }
+
+            .artist-card h3 {
+                font-size: clamp(1rem, 3vw, 1.25rem);
+            }
+
+            .social-links a {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none !important; /* Скрываем мобильное меню */
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .courses-content {
+                max-width: 1200px;
+            }
+
+            .courses-content h1 {
+                font-size: 4rem;
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
     </style>
 </head>
 <body>
@@ -47,6 +370,11 @@
     <div class="particle"></div>
     <header>
         <div class="logo">Singlish</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <nav>
             <a href="./index.html">Home</a>
             <a href="./courses.html" class="active">Courses</a>
@@ -59,8 +387,15 @@
             <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </header>
+    <div class="mobile-menu">
+        <a href="./index.html" onclick="toggleMenu()">Home</a>
+        <a href="./courses.html" class="active" onclick="toggleMenu()">Courses</a>
+        <a href="#" onclick="toggleMenu()">About Us</a>
+        <a href="./reviews.html" onclick="toggleMenu()">Reviews</a>
+        <a href="#" onclick="toggleMenu()">Contacts</a>
+    </div>
     <div class="courses-content">
-        <h1>Learn English with Your Favorite Artists</h1>
+        <h1><span>Learn English with Your Favorite Artists</span></h1>
         <div class="artists-grid">
             <div class="artist-card">
                 <a href="./artist-ivoxygen.html">
@@ -159,5 +494,15 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a441b1806ea',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+    <!-- Скрипт для гамбургер-меню -->
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+    </script>
+</body>
 </html>
