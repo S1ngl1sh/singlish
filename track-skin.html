@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 15; /* Хедер выше всех */
+            z-index: 15;
             flex-wrap: wrap;
         }
 
@@ -128,7 +128,7 @@
             text-align: center;
             animation: fadeIn 1.5s ease-in-out;
             padding-top: 80px;
-            z-index: 10; /* Контент выше частиц */
+            z-index: 10;
         }
 
         @keyframes fadeIn {
@@ -138,7 +138,7 @@
 
         .track-content h1 {
             position: relative;
-            z-index: 12; /* Текст выше всех */
+            z-index: 12;
             font-size: clamp(2rem, 10vw, 4rem);
             line-height: 1.1;
             margin-bottom: 20px;
@@ -146,7 +146,7 @@
             display: inline-block;
             padding: 5px 10px;
             border-radius: 5px;
-            background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для читаемости */
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .track-content h1 span {
@@ -154,7 +154,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: transparent; /* Для кросс-браузерности */
+            color: transparent;
         }
 
         .track-content img {
@@ -285,32 +285,32 @@
 
         .exercise-container {
             width: 100%;
-            max-width: 300px; /* Соответствует .track-card и .audio-player */
+            max-width: 400px;
             margin: 20px 0;
         }
 
         .exercise {
             background: #1a1a1a;
-            border-radius: 5px; /* Как в исходном track-skin.html */
-            padding: 15px; /* Уменьшено для компактности */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 255, 255, 0.3); /* Исходная тень */
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 255, 255, 0.3);
         }
 
         .exercise h2 {
-            font-size: clamp(1rem, 3vw, 1.25rem); /* Уменьшено для компактности */
-            margin-bottom: 15px;
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            margin-bottom: 20px;
             color: #fff;
             font-weight: 700;
             text-align: center;
         }
 
         .question {
-            padding: 8px; /* Уменьшено */
-            margin-bottom: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
         }
 
         .question p {
-            font-size: clamp(0.75rem, 2.5vw, 0.875rem); /* Уменьшено */
+            font-size: clamp(0.875rem, 3vw, 1rem);
             color: #fff;
             line-height: 1.5;
             text-align: left;
@@ -324,17 +324,16 @@
             background: #333;
             color: #fff;
             border: 1px solid #00FFFF;
-            padding: 4px; /* Уменьшено */
+            padding: 5px;
             border-radius: 5px;
-            font-size: clamp(0.7rem, 2vw, 0.8rem); /* Уменьшено */
+            font-size: 14px;
             cursor: pointer;
             outline: none;
-            width: 100%; /* Для компактности */
         }
 
         .question select:focus {
-            border-color: #00CED1;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            color: #fff;
         }
 
         .question select option {
@@ -345,16 +344,16 @@
         .check-answers {
             background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
             color: #fff;
-            padding: 8px 15px; /* Уменьшено */
+            padding: 10px 20px;
             border: none;
             border-radius: 25px;
-            font-size: clamp(0.75rem, 2.5vw, 0.875rem); /* Уменьшено */
+            font-size: clamp(0.875rem, 3vw, 1rem);
             font-weight: 500;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: block;
-            margin: 15px auto 0;
+            margin: 20px auto 0;
         }
 
         .check-answers:hover {
@@ -363,9 +362,9 @@
         }
 
         .result {
-            font-size: clamp(0.75rem, 2.5vw, 0.875rem); /* Уменьшено */
+            font-size: clamp(0.875rem, 3vw, 1rem);
             color: #fff;
-            margin-top: 10px;
+            margin-top: 15px;
             text-align: center;
         }
 
@@ -441,15 +440,15 @@
             }
 
             nav {
-                display: none; /* Скрываем основное меню */
+                display: none;
             }
 
             .hamburger {
-                display: flex; /* Показываем гамбургер-меню */
+                display: flex;
             }
 
             .mobile-menu {
-                display: flex; /* Включаем мобильное меню */
+                display: flex;
             }
 
             .sign-up, .sign-out, .back-button, .check-answers {
@@ -461,11 +460,11 @@
             }
 
             .particle {
-                display: none; /* Отключаем частицы на маленьких экранах */
+                display: none;
             }
 
             .audio-player, .exercise-container {
-                max-width: 90%; /* Адаптивность для мобильных */
+                max-width: 90%;
             }
         }
 
@@ -493,39 +492,39 @@
             }
 
             .exercise h2 {
-                font-size: clamp(0.875rem, 2.5vw, 1rem); /* Еще меньше */
-                margin-bottom: 10px;
+                font-size: clamp(1rem, 3vw, 1.25rem);
+                margin-bottom: 15px;
             }
 
             .question {
-                padding: 6px; /* Уменьшено */
-                margin-bottom: 6px;
+                padding: 8px;
+                margin-bottom: 8px;
             }
 
             .question p {
-                font-size: clamp(0.7rem, 2vw, 0.8rem);
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
             }
 
             .question select {
-                font-size: clamp(0.65rem, 1.8vw, 0.75rem);
-                padding: 3px;
+                font-size: 12px;
+                padding: 4px;
             }
 
             .check-answers {
-                padding: 6px 12px;
-                font-size: clamp(0.7rem, 2vw, 0.8rem);
-                margin: 10px auto 0;
+                padding: 8px 15px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+                margin: 15px auto 0;
             }
 
             .result {
-                font-size: clamp(0.7rem, 2vw, 0.8rem);
-                margin-top: 8px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+                margin-top: 10px;
             }
         }
 
         @media (min-width: 769px) {
             .mobile-menu {
-                display: none !important; /* Скрываем мобильное меню */
+                display: none !important;
             }
         }
 
