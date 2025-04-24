@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 15; /* Хедер выше всех */
+            z-index: 15;
             flex-wrap: wrap;
         }
 
@@ -123,7 +123,7 @@
             width: 90%;
             padding: 80px 20px;
             animation: fadeIn 1.5s ease-in-out;
-            z-index: 10; /* Контент выше частиц */
+            z-index: 10;
             position: relative;
         }
 
@@ -134,7 +134,7 @@
 
         .courses-content h1 {
             position: relative;
-            z-index: 12; /* Текст выше всех */
+            z-index: 12;
             font-size: clamp(2rem, 10vw, 4rem);
             line-height: 1.1;
             margin-bottom: 40px;
@@ -142,7 +142,7 @@
             display: inline-block;
             padding: 5px 10px;
             border-radius: 5px;
-            background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для читаемости */
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .courses-content h1 span {
@@ -150,7 +150,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: transparent; /* Для кросс-браузерности */
+            color: transparent;
         }
 
         .artists-grid {
@@ -195,18 +195,19 @@
 
         .social-links {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            padding: 15px 0 20px;
+            gap: clamp(10px, 3vw, 15px);
+            padding: clamp(10px, 3vw, 15px) 0 clamp(15px, 4vw, 20px);
         }
 
         .social-links a {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
+            width: clamp(35px, 10vw, 40px);
+            height: clamp(35px, 10vw, 40px);
+            font-size: clamp(16px, 5vw, 20px);
             color: #fff;
             background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
             border-radius: 50%;
@@ -290,15 +291,15 @@
             }
 
             nav {
-                display: none; /* Скрываем основное меню */
+                display: none;
             }
 
             .hamburger {
-                display: flex; /* Показываем гамбургер-меню */
+                display: flex;
             }
 
             .mobile-menu {
-                display: flex; /* Включаем мобильное меню */
+                display: flex;
             }
 
             .sign-up, .sign-out {
@@ -311,13 +312,17 @@
             }
 
             .particle {
-                display: none; /* Отключаем частицы на маленьких экранах */
+                display: none;
             }
 
             .artists-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 20px;
                 padding: 10px;
+            }
+
+            .artist-card img {
+                height: 180px;
             }
         }
 
@@ -326,24 +331,25 @@
                 font-size: clamp(1.5rem, 8vw, 2.5rem);
             }
 
+            .artists-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 15px;
+                padding: 5px;
+            }
+
             .artist-card img {
-                height: 150px;
+                height: 140px;
             }
 
             .artist-card h3 {
-                font-size: clamp(1rem, 3vw, 1.25rem);
-            }
-
-            .social-links a {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
+                font-size: clamp(0.875rem, 2.5vw, 1rem);
+                margin: 10px 0;
             }
         }
 
         @media (min-width: 769px) {
             .mobile-menu {
-                display: none !important; /* Скрываем мобильное меню */
+                display: none !important;
             }
         }
 
@@ -415,12 +421,11 @@
         </div>
     </div>
 
-    <!-- Firebase SDK (модульная версия) -->
+    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        // Конфигурация Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
             authDomain: "singlish-a97c0.firebaseapp.com",
@@ -431,12 +436,10 @@
             measurementId: "G-HSYY3YS05R"
         };
 
-        // Инициализация Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // Функция входа через Google
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
             signUpButton.disabled = true;
@@ -461,7 +464,6 @@
             }
         };
 
-        // Функция выхода
         window.signOut = async () => {
             const signOutButton = document.getElementById("signOutButton");
             signOutButton.disabled = true;
@@ -477,13 +479,11 @@
             }
         };
 
-        // Обновление состояния кнопок
         function updateAuthButtons(isSignedIn) {
             document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
             document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
         }
 
-        // Отслеживание состояния аутентификации
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 updateAuthButtons(true);
