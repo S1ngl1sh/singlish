@@ -8,7 +8,7 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
         body{background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative}
-        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out}
+        .particle{position:absolute;background:rgba(0,255,255,0.2);border-radius:50%;pointer-events:none;animation:float 10s infinite ease-in-out;z-index:0}
         .particle:nth-child(1){width:15px;height:15px;top:10%;left:15%;animation-delay:0s}
         .particle:nth-child(2){width:20px;height:20px;top:30%;right:10%;animation-delay:2s}
         .particle:nth-child(3){width:10px;height:10px;bottom:20%;left:25%;animation-delay:4s}
@@ -24,12 +24,12 @@
         .sign-up, .sign-out{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);border:none;padding:10px 25px;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;font-weight:500;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}
         .sign-up:hover, .sign-out:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,255,255,0.5)}
         .sign-up:disabled, .sign-out:disabled{opacity:0.6;cursor:not-allowed}
-        .main-content{text-align:center;max-width:700px;padding:20px;animation:fadeIn 1.5s ease-in-out}
+        .main-content{text-align:center;max-width:700px;padding:20px;animation:fadeIn 1.5s ease-in-out;z-index:20}
         @keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-        h1{font-size:72px;line-height:1.1;margin-bottom:25px;font-weight:700;background:linear-gradient(90deg,#fff 0%,#a5f3fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        h1 span{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        h1{font-size:72px;line-height:1.1;margin-bottom:25px;font-weight:700;color:#fff}
+        h1 span.english-text{color:#00FFFF}
         p{font-size:18px;line-height:1.8;margin-bottom:40px;color:#d1d5db;font-weight:300}
-        .start-button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff;padding:15px 50px;border:none;border-radius:50px;font-size:18px;font-weight:500;cursor:pointer;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease}
+        .start-button{background:linear-gradient(90deg,#00FFFF 0%,#00CED1 100%);color:#fff;padding:15px 50px;border:none;border-radius:50px;font-size:18px;font-weight:500;text-decoration:none;display:inline-block;box-shadow:0 4px 15px rgba(0,255,255,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease}
         .start-button:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,255,255,0.5)}
     </style>
 </head>
@@ -37,7 +37,7 @@
     <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
-    <div class="particle"></div>
+    <div class="2particle"></div>
     <div class="particle"></div>
     <header>
         <div class="logo">Singlish</div>
@@ -54,9 +54,9 @@
         </div>
     </header>
     <div class="main-content">
-        <h1>Improve <span>English</span><br>Through Music</h1>
+        <h1>Improve <span class="english-text">English</span><br>Through Music</h1>
         <p>Stop struggling with boring textbooks! Groove your way to fluency with catchy lyrics, rhythm, and melody. Because let’s face it—you’ll remember that chorus way longer than any grammar rule. Hit play, sing along, and watch your English skills drop like the hottest beat.</p>
-        <button class="start-button">Start Jamming</button>
+        <a href="./courses.html" class="start-button">Start Jamming</a>
     </div>
 
     <!-- Firebase SDK (модульная версия) -->
@@ -138,5 +138,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a446f438250',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'934f7a446f438250',t:'MTc0NTQzMzUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9356b675f89232f5',t:'MTc0NTUwOTM2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
