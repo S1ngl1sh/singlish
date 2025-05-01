@@ -10,7 +10,7 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box; /* Обеспечивает, что паддинги и бордеры не выходят за пределы элемента */
+            box-sizing: border-box; /* Убедитесь, что padding и border не выходят за пределы */
             font-family: 'Poppins', sans-serif;
         }
 
@@ -153,16 +153,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 50px; /* Убираем изменчивые размеры */
+            width: 50px; /* Строгие размеры для иконки */
             height: 50px;
             font-size: 22px;
             color: #fff;
             background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
             border-radius: 50%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none; /* Убираем артефакт */
+            border: none; /* Убираем артефакты */
             outline: none; /* Убираем выделение */
-            box-shadow: none; /* Убираем лишний бордер */
+            box-shadow: none; /* Убираем бордер и дополнительные тени */
         }
 
         .social-links a:hover {
