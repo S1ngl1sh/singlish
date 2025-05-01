@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singlish - Reviews</title>
+    <title>Singlish - About Us</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -21,6 +20,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             overflow-x: hidden;
             position: relative;
             padding: 20px;
@@ -117,14 +117,13 @@
             cursor: not-allowed;
         }
 
-        .reviews-content {
+        .main-content {
             text-align: center;
-            max-width: 1200px;
+            max-width: 800px;
             width: 90%;
-            padding: 80px 20px;
+            padding: 40px 20px;
             animation: fadeIn 1.5s ease-in-out;
             z-index: 10;
-            position: relative;
         }
 
         @keyframes fadeIn {
@@ -132,17 +131,16 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        .reviews-content h1 {
+        .main-content h1 {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
             position: relative;
             z-index: 12;
-            font-size: clamp(2rem, 10vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 40px;
-            font-weight: 700;
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background: rgba(0, 0, 0, 0.5);
             background: linear-gradient(90deg, #fff 0%, #a5f3fc 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -150,95 +148,46 @@
             color: transparent;
         }
 
-        .review-form {
-            display: none;
+        .section {
             margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        .review-form.active {
-            display: block;
-        }
-
-        .review-form textarea {
-            width: 100%;
-            height: 100px;
-            background: #1a1a1a;
-            color: #fff;
-            border: 1px solid #00FFFF;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 16px;
-            resize: vertical;
-            outline: none;
-        }
-
-        .review-form textarea:focus {
-            border-color: #00CED1;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-        }
-
-        .review-form button {
-            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
-            border: none;
-            padding: 10px 25px;
-            color: #fff;
-            border-radius: 25px;
-            font-size: 16px;
+        .section h2 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 500;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #fff 0%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .section p {
+            font-size: clamp(0.875rem, 3vw, 1.125rem);
+            line-height: 1.8;
+            color: #d1d5db;
+            font-weight: 300;
+        }
+
+        .start-button {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            color: #fff;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(0.9rem, 3vw, 1.125rem);
+            font-weight: 500;
+            cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .review-form button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 245, 255, 0.5);
-        }
-
-        .review-form button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .reviews-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .review-card {
-            background: #1a1a1a;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .review-card:hover {
+        .start-button:hover {
             transform: translateY(-5px);
-        }
-
-        .review-card h3 {
-            font-size: 18px;
-            font-weight: 500;
-            color: #00FFFF;
-            margin-bottom: 10px;
-        }
-
-        .review-card p {
-            font-size: 16px;
-            color: #fff;
-            line-height: 1.5;
-        }
-
-        .review-card .date {
-            font-size: 14px;
-            color: #a5f3fc;
-            margin-top: 10px;
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
         }
 
         .hamburger {
@@ -322,54 +271,44 @@
                 display: flex;
             }
 
-            .sign-up, .sign-out {
-                margin-left: 0;
+            .sign-up, .sign-out, .start-button {
                 padding: 8px 15px;
             }
 
-            .reviews-content {
-                padding: 60px 10px;
+            .main-content {
+                padding: 20px 15px;
             }
 
             .particle {
                 display: none;
             }
-
-            .reviews-list {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 15px;
-                padding: 10px;
-            }
         }
 
         @media (max-width: 480px) {
-            .reviews-content h1 {
+            .main-content h1 {
                 font-size: clamp(1.5rem, 8vw, 2.5rem);
             }
 
-            .review-form, .reviews-list {
-                max-width: 90%;
+            .section h2 {
+                font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
 
-            .review-form textarea {
-                font-size: 14px;
+            .section p {
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
             }
 
-            .review-form button {
-                font-size: 14px;
-                padding: 8px 20px;
+            .start-button {
+                padding: 10px 30px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
             }
 
-            .review-card h3 {
-                font-size: 16px;
+            .logo {
+                font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
 
-            .review-card p {
-                font-size: 14px;
-            }
-
-            .review-card .date {
-                font-size: 12px;
+            .sign-up, .sign-out {
+                padding: 6px 12px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
             }
         }
 
@@ -380,16 +319,12 @@
         }
 
         @media (min-width: 1200px) {
-            .reviews-content {
-                max-width: 1200px;
+            .main-content {
+                max-width: 900px;
             }
 
-            .reviews-content h1 {
+            .main-content h1 {
                 font-size: 4rem;
-            }
-
-            .reviews-list {
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             }
         }
     </style>
@@ -410,8 +345,8 @@
         <nav>
             <a href="./index.html">Home</a>
             <a href="./courses.html">Courses</a>
-            <a href="./about.html">About Us</a>
-            <a href="./reviews.html" class="active">Reviews</a>
+            <a href="./about.html" class="active">About Us</a>
+            <a href="./reviews.html">Reviews</a>
             <a href="./contact.html">Contacts</a>
         </nav>
         <div id="authButtons">
@@ -422,17 +357,28 @@
     <div class="mobile-menu">
         <a href="./index.html" onclick="toggleMenu()">Home</a>
         <a href="./courses.html" onclick="toggleMenu()">Courses</a>
-        <a href="./about.html" onclick="toggleMenu()">About Us</a>
-        <a href="./reviews.html" class="active" onclick="toggleMenu()">Reviews</a>
+        <a href="./about.html" class="active" onclick="toggleMenu()">About Us</a>
+        <a href="./reviews.html" onclick="toggleMenu()">Reviews</a>
         <a href="./contact.html" onclick="toggleMenu()">Contacts</a>
     </div>
-    <div class="reviews-content">
-        <h1>Reviews</h1>
-        <div class="review-form" id="reviewForm">
-            <textarea id="reviewText" placeholder="Write your review here..." maxlength="500"></textarea>
-            <button id="submitReview" onclick="submitReview()">Submit Review</button>
+    <div class="main-content">
+        <h1>About Singlish</h1>
+        <div class="section">
+            <h2>Our Mission</h2>
+            <p>At Singlish, our mission is to make learning English fun, engaging, and effective. We believe that language learning doesn’t have to be tedious—by harnessing the universal power of music, we help learners of all ages and levels improve their English skills naturally and enjoyably.</p>
         </div>
-        <div class="reviews-list" id="reviewsList"></div>
+        <div class="section">
+            <h2>How It Works</h2>
+            <p>Our platform combines interactive music-based lessons with carefully curated songs to teach vocabulary, grammar, and pronunciation. Each lesson is designed to immerse you in the rhythm and flow of English, making learning feel like a jam session rather than a chore.</p>
+        </div>
+        <div class="section">
+            <h2>Why Music?</h2>
+            <p>Music is a powerful tool for memory and emotional connection. Lyrics stick in your mind, melodies make learning effortless, and singing boosts confidence. With Singlish, you’ll learn English faster by tapping into the natural rhythm and repetition of your favorite songs.</p>
+        </div>
+        <div class="section">
+            <h2>Join Us</h2>
+            <p>Ready to transform your English learning journey? Join the Singlish community and start singing your way to fluency. Whether you’re a beginner or an advanced learner, our courses are tailored to help you hit all the right notes.</p>
+        </div>
     </div>
 
     <!-- XLSX Processing Script -->
@@ -481,7 +427,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
@@ -495,7 +440,6 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
         window.signInWithGoogle = async () => {
@@ -540,7 +484,6 @@
         function updateAuthButtons(isSignedIn) {
             document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
             document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
-            document.getElementById("reviewForm").classList.toggle("active", isSignedIn);
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -551,56 +494,6 @@
                 updateAuthButtons(false);
                 console.log("No user is signed in.");
             }
-        });
-
-        window.submitReview = async () => {
-            const reviewText = document.getElementById("reviewText").value.trim();
-            const submitButton = document.getElementById("submitReview");
-            if (!reviewText) {
-                alert("Please write a review before submitting.");
-                return;
-            }
-            if (reviewText.length > 500) {
-                alert("Review must be 500 characters or less.");
-                return;
-            }
-            submitButton.disabled = true;
-            try {
-                const user = auth.currentUser;
-                if (user) {
-                    await addDoc(collection(db, "reviews"), {
-                        userName: user.displayName || "Anonymous",
-                        text: reviewText,
-                        timestamp: new Date()
-                    });
-                    document.getElementById("reviewText").value = "";
-                    console.log("Review submitted successfully.");
-                } else {
-                    alert("You must be signed in to submit a review.");
-                }
-            } catch (error) {
-                console.error("Error submitting review:", error);
-                alert(`Failed to submit review: ${error.message}`);
-            } finally {
-                submitButton.disabled = false;
-            }
-        };
-
-        const reviewsList = document.getElementById("reviewsList");
-        const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
-            reviewsList.innerHTML = "";
-            snapshot.forEach((doc) => {
-                const review = doc.data();
-                const reviewCard = document.createElement("div");
-                reviewCard.className = "review-card";
-                reviewCard.innerHTML = `
-                    <h3>${review.userName}</h3>
-                    <p>${review.text}</p>
-                    <div class="date">${new Date(review.timestamp.toDate()).toLocaleString()}</div>
-                `;
-                reviewsList.appendChild(reviewCard);
-            });
         });
     </script>
 
@@ -613,5 +506,5 @@
             mobileMenu.classList.toggle('active');
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93916f6a0cb03d59',t:'MTc0NjEyNTExOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9391996cbc5f8268',t:'MTc0NjEyNjgzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9391996c9acd8238',t:'MTc0NjEyNjgzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
