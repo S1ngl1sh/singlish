@@ -151,6 +151,14 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .contacts-content p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #d1d5db;
+            font-weight: 300;
+        }
+
         .social-links {
             display: flex;
             justify-content: center;
@@ -170,6 +178,7 @@
             border-radius: 50%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-bottom: none; /* Убираем артефакт */
+            outline: none; /* Убираем выделение при фокусе */
         }
 
         .social-links a:hover {
