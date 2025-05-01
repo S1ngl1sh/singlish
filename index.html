@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singlish - Improve English Through Music</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { width: 15px; height: 15px; top: 10%; left: 15%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 20px; height: 20px; top: 30%; right: 10%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 10px; height: 10px; bottom: 20%; left: 25%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 25px; height: 25px; bottom: 15%; right: 20%; animation-delay: 6s; }
+        .particle:nth-child(5) { width: 18px; height: 18px; top: 50%; left: 5%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-50px) scale(1.2); opacity: 0.6; }
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 15;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo::before {
+            content: "♦ ";
+            color: #00FFFF;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00FFFF;
+        }
+
+        .sign-up, .sign-out {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sign-up:hover, .sign-out:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .sign-up:disabled, .sign-out:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .main-content {
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-content h1 {
+            font-size: clamp(2rem, 10vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 12;
+        }
+
+        .main-content h1 span {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-content p {
+            font-size: clamp(0.875rem, 3vw, 1.125rem);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #d1d5db;
+            font-weight: 300;
+        }
+
+        .start-button {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            color: #fff;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(0.9rem, 3vw, 1.125rem);
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .start-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Гамбургер-меню */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 15px 0;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active {
+            color: #00FFFF;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .sign-up, .sign-out, .start-button {
+                padding: 8px 15px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .particle {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content h1 {
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+            }
+
+            .main-content p {
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+                margin-bottom: 20px;
+            }
+
+            .start-button {
+                padding: 10px 30px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+            }
+
+            .logo {
+                font-size: clamp(1.25rem, 4vw, 1.5rem);
+            }
+
+            .sign-up, .sign-out {
+                padding: 6px 12px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .main-content {
+                max-width: 800px;
+            }
+
+            .main-content h1 {
+                font-size: 4.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <header>
+        <div class="logo">Singlish</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <a href="./index.html" class="active">Home</a>
+            <a href="./courses.html">Courses</a>
+            <a href="#">About Us</a>
+            <a href="./reviews.html">Reviews</a>
+            <a href="#">Contacts</a>
+        </nav>
+        <div id="authButtons">
+            <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
+        </div>
+    </header>
+    <div class="mobile-menu">
+        <a href="./index.html" class="active" onclick="toggleMenu()">Home</a>
+        <a href="./courses.html" onclick="toggleMenu()">Courses</a>
+        <a href="#" onclick="toggleMenu()">About Us</a>
+        <a href="./reviews.html" onclick="toggleMenu()">Reviews</a>
+        <a href="#" onclick="toggleMenu()">Contacts</a>
+    </div>
+    <div class="main-content">
+        <h1>Improve <span>English</span><br>Through Music</h1>
+        <p>Stop struggling with boring textbooks! Groove your way to fluency with catchy lyrics, rhythm, and melody. Because let’s face it—you’ll remember that chorus way longer than any grammar rule. Hit play, sing along, and watch your English skills drop like the hottest beat.</p>
+        <a href="./courses.html" class="start-button">Start Jamming</a>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
+            authDomain: "singlish-a97c0.firebaseapp.com",
+            projectId: "singlish-a97c0",
+            storageBucket: "singlish-a97c0.firebasestorage.app",
+            messagingSenderId: "28888918608",
+            appId: "1:28888918608:web:27785a06c684813b693f55",
+            measurementId: "G-HSYY3YS05R"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.signInWithGoogle = async () => {
+            const signUpButton = document.getElementById("signUpButton");
+            signUpButton.disabled = true;
+            try {
+                console.log("Starting sign-in process...");
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                updateAuthButtons(true);
+                console.log("Sign-in successful:", user.displayName);
+            } catch (error) {
+                console.error("Sign-in error:", error.code, error.message);
+                if (error.code === "auth/cancelled-popup-request") {
+                    alert("Sign-in was cancelled. Please try again.");
+                } else if (error.code === "auth/popup-blocked") {
+                    alert("Popup was blocked by your browser. Please allow popups for this site and try again.");
+                } else {
+                    alert(`Failed to sign in: ${error.message}`);
+                }
+            } finally {
+                signUpButton.disabled = false;
+                console.log("Sign-in process completed.");
+            }
+        };
+
+        window.signOut = async () => {
+            const signOutButton = document.getElementById("signOutButton");
+            signOutButton.disabled = true;
+            try {
+                await signOut(auth);
+                updateAuthButtons(false);
+                console.log("Sign-out successful.");
+            } catch (error) {
+                console.error("Sign-out error:", error);
+                alert(`Failed to sign out: ${error.message}`);
+            } finally {
+                signOutButton.disabled = false;
+            }
+        };
+
+        function updateAuthButtons(isSignedIn) {
+            document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
+            document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                updateAuthButtons(true);
+                console.log("User is signed in:", user.displayName);
+            } else {
+                updateAuthButtons(false);
+                console.log("No user is signed in.");
+            }
+        });
+    </script>
+
+    <!-- Скрипт для гамбургер-меню -->
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
