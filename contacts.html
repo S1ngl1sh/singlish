@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
+        /* Оставляем ваши стили */
         * {
             margin: 0;
             padding: 0;
@@ -352,6 +353,80 @@
         </div>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
+            authDomain: "singlish-a97c0.firebaseapp.com",
+            projectId: "singlish-a97c0",
+            storageBucket: "singlish-a97c0.firebasestorage.app",
+            messagingSenderId: "28888918608",
+            appId: "1:28888918608:web:27785a06c684813b693f55",
+            measurementId: "G-HSYY3YS05R"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.signInWithGoogle = async () => {
+            const signUpButton = document.getElementById("signUpButton");
+            signUpButton.disabled = true;
+            try {
+                console.log("Starting sign-in process...");
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                updateAuthButtons(true);
+                console.log("Sign-in successful:", user.displayName);
+            } catch (error) {
+                console.error("Sign-in error:", error.code, error.message);
+                if (error.code === "auth/cancelled-popup-request") {
+                    alert("Sign-in was cancelled. Please try again.");
+                } else if (error.code === "auth/popup-blocked") {
+                    alert("Popup was blocked by your browser. Please allow popups for this site and try again.");
+                } else {
+                    alert(`Failed to sign in: ${error.message}`);
+                }
+            } finally {
+                signUpButton.disabled = false;
+                console.log("Sign-in process completed.");
+            }
+        };
+
+        window.signOut = async () => {
+            const signOutButton = document.getElementById("signOutButton");
+            signOutButton.disabled = true;
+            try {
+                await signOut(auth);
+                updateAuthButtons(false);
+                console.log("Sign-out successful.");
+            } catch (error) {
+                console.error("Sign-out error:", error);
+                alert(`Failed to sign out: ${error.message}`);
+            } finally {
+                signOutButton.disabled = false;
+            }
+        };
+
+        function updateAuthButtons(isSignedIn) {
+            document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
+            document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                updateAuthButtons(true);
+                console.log("User is signed in:", user.displayName);
+            } else {
+                updateAuthButtons(false);
+                console.log("No user is signed in.");
+            }
+        });
+    </script>
+
+    <!-- Скрипт для гамбургер-меню -->
     <script>
         function toggleMenu() {
             const hamburger = document.querySelector('.hamburger');
