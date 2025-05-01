@@ -26,6 +26,78 @@
             padding: 20px;
         }
 
+        header {
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 15;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            font-weight: 700;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo::before {
+            content: "♦ ";
+            color: #00FFFF;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #00FFFF;
+        }
+
+        .sign-up, .sign-out {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 8px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sign-up:hover, .sign-out:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .sign-up:disabled, .sign-out:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .contacts-content {
             text-align: center;
             max-width: 1200px;
@@ -345,3 +417,4 @@
     </script>
 </body>
 </html>
+
