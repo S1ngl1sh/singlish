@@ -291,15 +291,15 @@
             }
 
             nav {
-                display: none;
+                display: none; /* Скрываем основное меню */
             }
 
             .hamburger {
-                display: flex;
+                display: flex; /* Показываем гамбургер-меню */
             }
 
             .mobile-menu {
-                display: flex;
+                display: flex; /* Включаем мобильное меню */
             }
 
             .sign-up, .sign-out {
@@ -312,7 +312,7 @@
             }
 
             .particle {
-                display: none;
+                display: none; /* Отключаем частицы на маленьких экранах */
             }
 
             .artists-grid {
@@ -349,7 +349,7 @@
 
         @media (min-width: 769px) {
             .mobile-menu {
-                display: none !important;
+                display: none !important; /* Скрываем мобильное меню */
             }
         }
 
@@ -397,7 +397,7 @@
         <a href="./index.html" onclick="toggleMenu()">Home</a>
         <a href="./courses.html" class="active" onclick="toggleMenu()">Courses</a>
         <a href="#" onclick="toggleMenu()">About Us</a>
-        <a href="./reviews.html" onclick="toggleMenu()">Reviews</a>
+        <a href="./reviews.html" class="active" onclick="toggleMenu()">Reviews</a>
         <a href="#" onclick="toggleMenu()">Contacts</a>
     </div>
     <div class="courses-content">
