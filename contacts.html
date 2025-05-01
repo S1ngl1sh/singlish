@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        /* Оставляем ваши стили */
         * {
             margin: 0;
             padding: 0;
@@ -25,97 +24,6 @@
             overflow-x: hidden;
             position: relative;
             padding: 20px;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(0, 255, 255, 0.2);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float 10s infinite ease-in-out;
-        }
-
-        .particle:nth-child(1) { width: 15px; height: 15px; top: 10%; left: 15%; animation-delay: 0s; }
-        .particle:nth-child(2) { width: 20px; height: 20px; top: 30%; right: 10%; animation-delay: 2s; }
-        .particle:nth-child(3) { width: 10px; height: 10px; bottom: 20%; left: 25%; animation-delay: 4s; }
-        .particle:nth-child(4) { width: 25px; height: 25px; bottom: 15%; right: 20%; animation-delay: 6s; }
-        .particle:nth-child(5) { width: 18px; height: 18px; top: 50%; left: 5%; animation-delay: 8s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
-            50% { transform: translateY(-50px) scale(1.2); opacity: 0.6; }
-        }
-
-        header {
-            position: absolute;
-            top: 20px;
-            width: 90%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 15;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: clamp(1.5rem, 5vw, 1.75rem);
-            font-weight: 700;
-            color: #fff;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.1);
-        }
-
-        .logo::before {
-            content: "♦ ";
-            color: #00FFFF;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover, nav a.active {
-            color: #00FFFF;
-        }
-
-        .sign-up, .sign-out {
-            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
-            border: none;
-            padding: 8px 20px;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .sign-up:hover, .sign-out:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
-        }
-
-        .sign-up:disabled, .sign-out:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
         }
 
         .contacts-content {
@@ -182,6 +90,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none; /* Убираем артефакт */
             outline: none; /* Убираем выделение */
+            box-shadow: 0 0 0 0 transparent; /* Убираем лишний бордер */
         }
 
         .social-links a:hover {
@@ -426,7 +335,6 @@
         });
     </script>
 
-    <!-- Скрипт для гамбургер-меню -->
     <script>
         function toggleMenu() {
             const hamburger = document.querySelector('.hamburger');
