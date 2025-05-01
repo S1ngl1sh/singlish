@@ -10,7 +10,7 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Обеспечивает, что паддинги и бордеры не выходят за пределы элемента */
             font-family: 'Poppins', sans-serif;
         }
 
@@ -153,16 +153,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: clamp(40px, 12vw, 50px);
-            height: clamp(40px, 12vw, 50px);
-            font-size: clamp(16px, 5vw, 22px);
+            width: 50px; /* Убираем изменчивые размеры */
+            height: 50px;
+            font-size: 22px;
             color: #fff;
             background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
             border-radius: 50%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none; /* Убираем артефакт */
             outline: none; /* Убираем выделение */
-            box-shadow: 0 0 0 0 transparent; /* Убираем лишний бордер */
+            box-shadow: none; /* Убираем лишний бордер */
         }
 
         .social-links a:hover {
@@ -417,4 +417,3 @@
     </script>
 </body>
 </html>
-
