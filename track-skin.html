@@ -368,7 +368,7 @@
             text-align: center;
         }
 
-        /* Гамбургер-меню */
+        /* Hamburger Menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -415,6 +415,7 @@
         }
 
         .mobile-menu.active {
+            display: flex;
             transform: translateX(0);
         }
 
@@ -431,7 +432,7 @@
             color: #00FFFF;
         }
 
-        /* Медиа-запросы для адаптивности */
+        /* Media Queries */
         @media (max-width: 768px) {
             header {
                 flex-direction: row;
@@ -547,7 +548,7 @@
     <div class="particle"></div>
     <header>
         <div class="logo">Singlish</div>
-        <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger" role="button" aria-label="Toggle menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -565,11 +566,11 @@
         </div>
     </header>
     <div class="mobile-menu">
-        <a href="./index.html" onclick="toggleMenu()">Home</a>
-        <a href="./courses.html" onclick="toggleMenu()">Courses</a>
-        <a href="./about.html" onclick="toggleMenu()">About Us</a>
-        <a href="./reviews.html" onclick="toggleMenu()">Reviews</a>
-        <a href="#" onclick="toggleMenu()">Contacts</a>
+        <a href="./index.html">Home</a>
+        <a href="./courses.html">Courses</a>
+        <a href="./about.html">About Us</a>
+        <a href="./reviews.html">Reviews</a>
+        <a href="./contact.html">Contacts</a>
     </div>
     <div class="track-content">
         <h1><span>Skin</span></h1>
@@ -940,14 +941,21 @@
         });
     </script>
 
-    <!-- Скрипт для гамбургер-меню -->
+    <!-- Hamburger Menu Script -->
     <script>
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
         function toggleMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const mobile-menu = document.querySelector('.mobile-menu');
-            hamburger.classList.toggle('active');
+            const isActive = hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93918ce9ec5057ae',t:'MTc0NjEyNjMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
