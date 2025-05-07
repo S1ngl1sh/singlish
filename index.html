@@ -19,9 +19,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Adjusted to place footer at bottom */
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             padding: 20px;
         }
@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 30; /* Increased to stay above mobile-menu */
+            z-index: 30;
             flex-wrap: wrap;
         }
 
@@ -193,7 +193,7 @@
             width: 30px;
             height: 20px;
             cursor: pointer;
-            z-index: 31; /* Increased to stay above mobile-menu */
+            z-index: 31;
         }
 
         .hamburger span {
@@ -229,16 +229,16 @@
             z-index: 15;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
-            pointer-events: none; /* Allow clicks to pass through */
+            pointer-events: none;
         }
 
         .mobile-menu.active {
             transform: translateX(0);
-            pointer-events: auto; /* Enable clicks when active */
+            pointer-events: auto;
         }
 
         .mobile-menu a, .mobile-menu button {
-            pointer-events: auto; /* Ensure links and buttons are clickable */
+            pointer-events: auto;
         }
 
         .mobile-menu a {
@@ -260,6 +260,30 @@
             font-size: 1.5rem;
             width: 150px;
             text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            width: 100%;
+            padding: 15px 20px;
+            color: #d1d5db;
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+            font-weight: 300;
+            z-index: 10;
+        }
+
+        footer a {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
         }
 
         /* Media Queries for Responsiveness */
@@ -297,6 +321,11 @@
             .particle {
                 display: none;
             }
+
+            footer {
+                padding: 10px 15px;
+                font-size: clamp(0.7rem, 2vw, 0.8rem);
+            }
         }
 
         @media (max-width: 480px) {
@@ -322,6 +351,10 @@
                 padding: 8px 15px;
                 font-size: clamp(1rem, 3vw, 1.25rem);
                 width: 120px;
+            }
+
+            footer {
+                padding: 8px 10px;
             }
         }
 
@@ -383,6 +416,9 @@
         <p>Stop struggling with boring textbooks! Groove your way to fluency with catchy lyrics, rhythm, and melody. Because let’s face it—you’ll remember that chorus way longer than any grammar rule. Hit play, sing along, and watch your English skills drop like the hottest beat.</p>
         <a href="./courses.html" class="start-button">Start Jamming</a>
     </div>
+    <footer>
+        Made with ❤️ and powered by <a href="https://x.ai/grok" target="_blank">Grok</a>
+    </footer>
 
     <!-- XLSX Processing Script -->
     <script type="text/javascript">
