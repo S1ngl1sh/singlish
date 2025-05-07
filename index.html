@@ -77,6 +77,8 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         nav a {
@@ -90,6 +92,11 @@
 
         nav a:hover, nav a.active {
             color: #00FFFF;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
         }
 
         .sign-up, .sign-out {
@@ -261,6 +268,10 @@
                 display: none;
             }
 
+            .auth-buttons {
+                display: none;
+            }
+
             .hamburger {
                 display: flex;
             }
@@ -345,6 +356,10 @@
             <a href="./reviews.html">Reviews</a>
             <a href="./contact.html">Contacts</a>
         </nav>
+        <div class="auth-buttons" id="authButtons">
+            <button class="sign-up" id="signUpButton">Sign Up</button>
+            <button class="sign-out" id="signOutButton" style="display: none;">Sign Out</button>
+        </div>
     </header>
     <div class="mobile-menu">
         <a href="./index.html" class="active">Home</a>
@@ -353,8 +368,8 @@
         <a href="./reviews.html">Reviews</a>
         <a href="./contact.html">Contacts</a>
         <div id="mobileAuthButtons">
-            <button class="sign-up" id="signUpButton">Sign Up</button>
-            <button class="sign-out" id="signOutButton" style="display: none;">Sign Out</button>
+            <button class="sign-up" id="mobileSignUpButton">Sign Up</button>
+            <button class="sign-out" id="mobileSignOutButton" style="display: none;">Sign Out</button>
         </div>
     </div>
     <div class="main-content">
@@ -426,7 +441,9 @@
 
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
+            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
             signUpButton.disabled = true;
+            mobileSignUpButton.disabled = true;
             try {
                 console.log("Starting sign-in process...");
                 const result = await signInWithPopup(auth, provider);
@@ -444,13 +461,16 @@
                 }
             } finally {
                 signUpButton.disabled = false;
+                mobileSignUpButton.disabled = false;
                 console.log("Sign-in process completed.");
             }
         };
 
         window.signOut = async () => {
             const signOutButton = document.getElementById("signOutButton");
+            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
             signOutButton.disabled = true;
+            mobileSignOutButton.disabled = true;
             try {
                 await signOut(auth);
                 updateAuthButtons(false);
@@ -460,14 +480,19 @@
                 alert(`Failed to sign out: ${error.message}`);
             } finally {
                 signOutButton.disabled = false;
+                mobileSignOutButton.disabled = false;
             }
         };
 
         function updateAuthButtons(isSignedIn) {
             const signUpButton = document.getElementById("signUpButton");
             const signOutButton = document.getElementById("signOutButton");
-            signUpButton.style.display = isSignedIn ? "none" : "block";
-            signOutButton.style.display = isSignedIn ? "block" : "none";
+            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
+            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
+            signUpButton.style.display = isSignedIn ? "none" : "inline-block";
+            signOutButton.style.display = isSignedIn ? "inline-block" : "none";
+            mobileSignUpButton.style.display = isSignedIn ? "none" : "block";
+            mobileSignOutButton.style.display = isSignedIn ? "block" : "none";
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -498,12 +523,12 @@
         }
 
         // Add event listeners for auth buttons in mobile menu
-        document.getElementById('signUpButton').addEventListener('click', () => {
+        document.getElementById('mobileSignUpButton').addEventListener('click', () => {
             signInWithGoogle();
             toggleMenu();
         });
 
-        document.getElementById('signOutButton').addEventListener('click', () => {
+        document.getElementById('mobileSignOutButton').addEventListener('click', () => {
             signOut();
             toggleMenu();
         });
