@@ -493,8 +493,8 @@
             <a href="./contact.html">Contacts</a>
         </nav>
         <div id="authButtons">
-            <button class="sign-up" id="signUpButton">Sign Up</button>
-            <button class="sign-out" id="signOutButton" style="display: none;">Sign Out</button>
+            <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </header>
     <div class="mobile-menu">
@@ -504,8 +504,8 @@
         <a href="./reviews.html" class="active">Reviews</a>
         <a href="./contact.html">Contacts</a>
         <div id="mobileAuthButtons">
-            <button class="sign-up" id="mobileSignUpButton">Sign Up</button>
-            <button class="sign-out" id="mobileSignOutButton" style="display: none;">Sign Out</button>
+            <button class="sign-up" id="mobileSignUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="mobileSignOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </div>
     <div class="reviews-content">
@@ -555,12 +555,11 @@
         }
     </script>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase Authentication -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
@@ -574,14 +573,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
-
-        // Enable Firestore offline persistence
-        enableIndexedDbPersistence(db)
-            .catch((error) => {
-                console.error("Error enabling Firestore persistence:", error);
-            });
 
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
@@ -646,6 +638,19 @@
                 console.log("No user is signed in.");
             }
         });
+    </script>
+
+    <!-- Firebase Firestore -->
+    <script type="module">
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const db = getFirestore();
+
+        // Enable Firestore offline persistence
+        enableIndexedDbPersistence(db)
+            .catch((error) => {
+                console.error("Error enabling Firestore persistence:", error);
+            });
 
         window.submitReview = async () => {
             const reviewText = document.getElementById("reviewText").value.trim();
