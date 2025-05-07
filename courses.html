@@ -25,7 +25,6 @@
             overflow-x: hidden;
             position: relative;
             padding: 20px;
-            padding-bottom: 60px;
         }
 
         .particle {
@@ -302,32 +301,6 @@
             text-align: center;
         }
 
-        /* Footer */
-        footer {
-            position: absolute;
-            bottom: 0;
-            text-align: center;
-            width: 100%;
-            padding: 15px 20px;
-            color: #d1d5db;
-            font-size: clamp(0.75rem, 2vw, 0.875rem);
-            font-weight: 300;
-            z-index: 10;
-        }
-
-        footer a {
-            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s ease;
-        }
-
-        footer a:hover {
-            opacity: 0.8;
-        }
-
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             header {
@@ -373,15 +346,6 @@
             .artist-card img {
                 height: 180px;
             }
-
-            body {
-                padding-bottom: 50px;
-            }
-
-            footer {
-                padding: 10px 15px;
-                font-size: clamp(0.7rem, 2vw, 0.8rem);
-            }
         }
 
         @media (max-width: 480px) {
@@ -412,14 +376,6 @@
                 padding: 8px 15px;
                 font-size: clamp(1rem, 3vw, 1.25rem);
                 width: 120px;
-            }
-
-            body {
-                padding-bottom: 40px;
-            }
-
-            footer {
-                padding: 8px 10px;
             }
         }
 
@@ -500,9 +456,6 @@
             </div>
         </div>
     </div>
-    <footer>
-        Made with 🤍 and powered by <a href="https://x.ai/grok" target="_blank">Grok</a>
-    </footer>
 
     <!-- XLSX Processing Script -->
     <script type="text/javascript">
