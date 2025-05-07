@@ -54,10 +54,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 30;
+            z-index: 15;
             flex-wrap: wrap;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .logo {
@@ -80,8 +78,6 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            flex-grow: 1;
-            justify-content: center;
         }
 
         nav a {
@@ -95,11 +91,6 @@
 
         nav a:hover, nav a.active {
             color: #00FFFF;
-        }
-
-        .auth-buttons {
-            display: flex;
-            align-items: center;
         }
 
         .sign-up, .sign-out {
@@ -201,12 +192,13 @@
         }
 
         .hamburger {
+            display: none;
             flex-direction: column;
             justify-content: space-between;
             width: 30px;
             height: 20px;
             cursor: pointer;
-            z-index: 31;
+            z-index: 20;
         }
 
         .hamburger span {
@@ -286,7 +278,7 @@
                 display: none;
             }
 
-            .auth-buttons {
+            #authButtons {
                 display: none;
             }
 
@@ -338,6 +330,11 @@
                 font-size: clamp(1rem, 3vw, 1.25rem);
                 width: 120px;
             }
+
+            .sign-up, .sign-out {
+                padding: 6px 12px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+            }
         }
 
         @media (min-width: 769px) {
@@ -377,9 +374,9 @@
             <a href="./reviews.html">Reviews</a>
             <a href="./contact.html">Contacts</a>
         </nav>
-        <div class="auth-buttons" id="authButtons">
-            <button class="sign-up" id="signUpButton">Sign Up</button>
-            <button class="sign-out" id="signOutButton" style="display: none;">Sign Out</button>
+        <div id="authButtons">
+            <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </header>
     <div class="mobile-menu">
@@ -389,8 +386,8 @@
         <a href="./reviews.html">Reviews</a>
         <a href="./contact.html">Contacts</a>
         <div id="mobileAuthButtons">
-            <button class="sign-up" id="mobileSignUpButton">Sign Up</button>
-            <button class="sign-out" id="mobileSignOutButton" style="display: none;">Sign Out</button>
+            <button class="sign-up" id="mobileSignUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="mobileSignOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </div>
     <div class="main-content">
@@ -448,6 +445,7 @@
     </script>
 
     <!-- Firebase SDK -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -512,14 +510,10 @@
         };
 
         function updateAuthButtons(isSignedIn) {
-            const signUpButton = document.getElementById("signUpButton");
-            const signOutButton = document.getElementById("signOutButton");
-            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
-            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
-            signUpButton.style.display = isSignedIn ? "none" : "inline-block";
-            signOutButton.style.display = isSignedIn ? "inline-block" : "none";
-            mobileSignUpButton.style.display = isSignedIn ? "none" : "block";
-            mobileSignOutButton.style.display = isSignedIn ? "block" : "none";
+            document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
+            document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
+            document.getElementById("mobileSignUpButton").style.display = isSignedIn ? "none" : "block";
+            document.getElementById("mobileSignOutButton").style.display = isSignedIn ? "block" : "none";
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -549,7 +543,6 @@
             hamburger.setAttribute('aria-expanded', isActive);
         }
 
-        // Add event listeners for auth buttons in mobile menu
         document.getElementById('mobileSignUpButton').addEventListener('click', () => {
             signInWithGoogle();
             toggleMenu();
@@ -560,6 +553,5 @@
             toggleMenu();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c2940e8ff84507',t:'MTc0NjY0MDQyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
