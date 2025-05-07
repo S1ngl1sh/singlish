@@ -24,6 +24,7 @@
             overflow-x: hidden;
             position: relative;
             padding: 20px;
+            padding-bottom: 60px;
         }
 
         .particle {
@@ -53,8 +54,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 15;
+            z-index: 30;
             flex-wrap: wrap;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .logo {
@@ -77,6 +80,8 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         nav a {
@@ -90,6 +95,11 @@
 
         nav a:hover, nav a.active {
             color: #00FFFF;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
         }
 
         .sign-up, .sign-out {
@@ -150,6 +160,28 @@
             color: transparent;
         }
 
+        .review-signup-message {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            text-align: center;
+        }
+
+        .review-signup-message.active {
+            display: block;
+        }
+
+        .review-signup-message p {
+            font-size: clamp(1rem, 4vw, 1.25rem);
+            font-weight: 500;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #fff 0%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
         .review-form {
             display: none;
             margin-bottom: 40px;
@@ -203,6 +235,20 @@
             cursor: not-allowed;
         }
 
+        .reviews-error {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            text-align: center;
+            font-size: clamp(0.875rem, 3vw, 1rem);
+            font-weight: 500;
+            color: #ff4d4d;
+        }
+
+        .reviews-error.active {
+            display: block;
+        }
+
         .reviews-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -242,13 +288,12 @@
         }
 
         .hamburger {
-            display: none;
             flex-direction: column;
             justify-content: space-between;
             width: 30px;
             height: 20px;
             cursor: pointer;
-            z-index: 20;
+            z-index: 31;
         }
 
         .hamburger span {
@@ -284,10 +329,16 @@
             z-index: 15;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
+            pointer-events: none;
         }
 
         .mobile-menu.active {
             transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .mobile-menu a, .mobile-menu button {
+            pointer-events: auto;
         }
 
         .mobile-menu a {
@@ -303,6 +354,14 @@
             color: #00FFFF;
         }
 
+        .mobile-menu .sign-up, .mobile-menu .sign-out {
+            margin: 15px 0;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            width: 150px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: row;
@@ -311,6 +370,10 @@
             }
 
             nav {
+                display: none;
+            }
+
+            .auth-buttons {
                 display: none;
             }
 
@@ -347,6 +410,14 @@
                 font-size: clamp(1.5rem, 8vw, 2.5rem);
             }
 
+            .review-signup-message p {
+                font-size: clamp(0.875rem, 3vw, 1rem);
+            }
+
+            .reviews-error {
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+            }
+
             .review-form, .reviews-list {
                 max-width: 90%;
             }
@@ -370,6 +441,12 @@
 
             .review-card .date {
                 font-size: 12px;
+            }
+
+            .mobile-menu .sign-up, .mobile-menu .sign-out {
+                padding: 8px 15px;
+                font-size: clamp(1rem, 3vw, 1.25rem);
+                width: 120px;
             }
         }
 
@@ -402,7 +479,7 @@
     <div class="particle"></div>
     <header>
         <div class="logo">Singlish</div>
-        <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger" role="button" aria-label="Toggle menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -414,24 +491,32 @@
             <a href="./reviews.html" class="active">Reviews</a>
             <a href="./contact.html">Contacts</a>
         </nav>
-        <div id="authButtons">
-            <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
-            <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
+        <div class="auth-buttons" id="authButtons">
+            <button class="sign-up" id="signUpButton">Sign Up</button>
+            <button class="sign-out" id="signOutButton" style="display: none;">Sign Out</button>
         </div>
     </header>
     <div class="mobile-menu">
-        <a href="./index.html" onclick="toggleMenu()">Home</a>
-        <a href="./courses.html" onclick="toggleMenu()">Courses</a>
-        <a href="./about.html" onclick="toggleMenu()">About Us</a>
-        <a href="./reviews.html" class="active" onclick="toggleMenu()">Reviews</a>
-        <a href="./contact.html" onclick="toggleMenu()">Contacts</a>
+        <a href="./index.html">Home</a>
+        <a href="./courses.html">Courses</a>
+        <a href="./about.html">About Us</a>
+        <a href="./reviews.html" class="active">Reviews</a>
+        <a href="./contact.html">Contacts</a>
+        <div id="mobileAuthButtons">
+            <button class="sign-up" id="mobileSignUpButton">Sign Up</button>
+            <button class="sign-out" id="mobileSignOutButton" style="display: none;">Sign Out</button>
+        </div>
     </div>
     <div class="reviews-content">
         <h1>Reviews</h1>
+        <div class="review-signup-message active" id="reviewSignUpMessage">
+            <p>Sign up to leave a review</p>
+        </div>
         <div class="review-form" id="reviewForm">
             <textarea id="reviewText" placeholder="Write your review here..." maxlength="500"></textarea>
             <button id="submitReview" onclick="submitReview()">Submit Review</button>
         </div>
+        <div class="reviews-error" id="reviewsError"></div>
         <div class="reviews-list" id="reviewsList"></div>
     </div>
 
@@ -441,39 +526,31 @@
         var gk_xlsxFileLookup = {};
         var gk_fileData = {};
         function filledCell(cell) {
-          return cell !== '' && cell != null;
+            return cell !== '' && cell != null;
         }
         function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
                 }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
             }
-        }
-        return gk_fileData[filename] || "";
+            return gk_fileData[filename] || "";
         }
     </script>
 
@@ -481,7 +558,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
@@ -498,9 +575,17 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // Enable Firestore offline persistence
+        enableIndexedDbPersistence(db)
+            .catch((error) => {
+                console.error("Error enabling Firestore persistence:", error);
+            });
+
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
+            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
             signUpButton.disabled = true;
+            mobileSignUpButton.disabled = true;
             try {
                 console.log("Starting sign-in process...");
                 const result = await signInWithPopup(auth, provider);
@@ -518,13 +603,16 @@
                 }
             } finally {
                 signUpButton.disabled = false;
+                mobileSignUpButton.disabled = false;
                 console.log("Sign-in process completed.");
             }
         };
 
         window.signOut = async () => {
             const signOutButton = document.getElementById("signOutButton");
+            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
             signOutButton.disabled = true;
+            mobileSignOutButton.disabled = true;
             try {
                 await signOut(auth);
                 updateAuthButtons(false);
@@ -534,13 +622,23 @@
                 alert(`Failed to sign out: ${error.message}`);
             } finally {
                 signOutButton.disabled = false;
+                mobileSignOutButton.disabled = false;
             }
         };
 
         function updateAuthButtons(isSignedIn) {
-            document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
-            document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
-            document.getElementById("reviewForm").classList.toggle("active", isSignedIn);
+            const signUpButton = document.getElementById("signUpButton");
+            const signOutButton = document.getElementById("signOutButton");
+            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
+            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
+            const reviewForm = document.getElementById("reviewForm");
+            const reviewSignUpMessage = document.getElementById("reviewSignUpMessage");
+            signUpButton.style.display = isSignedIn ? "none" : "inline-block";
+            signOutButton.style.display = isSignedIn ? "inline-block" : "none";
+            mobileSignUpButton.style.display = isSignedIn ? "none" : "block";
+            mobileSignOutButton.style.display = isSignedIn ? "block" : "none";
+            reviewForm.classList.toggle("active", isSignedIn);
+            reviewSignUpMessage.classList.toggle("active", !isSignedIn);
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -571,7 +669,7 @@
                     await addDoc(collection(db, "reviews"), {
                         userName: user.displayName || "Anonymous",
                         text: reviewText,
-                        timestamp: new Date()
+                        timestamp: serverTimestamp()
                     });
                     document.getElementById("reviewText").value = "";
                     console.log("Review submitted successfully.");
@@ -579,7 +677,7 @@
                     alert("You must be signed in to submit a review.");
                 }
             } catch (error) {
-                console.error("Error submitting review:", error);
+                console.error("Error submitting review:", error.code, error.message);
                 alert(`Failed to submit review: ${error.message}`);
             } finally {
                 submitButton.disabled = false;
@@ -587,31 +685,63 @@
         };
 
         const reviewsList = document.getElementById("reviewsList");
+        const reviewsError = document.getElementById("reviewsError");
         const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
-            reviewsList.innerHTML = "";
-            snapshot.forEach((doc) => {
-                const review = doc.data();
-                const reviewCard = document.createElement("div");
-                reviewCard.className = "review-card";
-                reviewCard.innerHTML = `
-                    <h3>${review.userName}</h3>
-                    <p>${review.text}</p>
-                    <div class="date">${new Date(review.timestamp.toDate()).toLocaleString()}</div>
-                `;
-                reviewsList.appendChild(reviewCard);
+        try {
+            onSnapshot(q, (snapshot) => {
+                reviewsList.innerHTML = "";
+                reviewsError.classList.remove("active");
+                snapshot.forEach((doc) => {
+                    const review = doc.data();
+                    const reviewCard = document.createElement("div");
+                    reviewCard.className = "review-card";
+                    reviewCard.innerHTML = `
+                        <h3>${review.userName}</h3>
+                        <p>${review.text}</p>
+                        <div class="date">${new Date(review.timestamp.toDate()).toLocaleString()}</div>
+                    `;
+                    reviewsList.appendChild(reviewCard);
+                });
+                console.log("Reviews loaded successfully.");
+            }, (error) => {
+                console.error("Error loading reviews:", error.code, error.message);
+                reviewsError.classList.add("active");
+                reviewsError.textContent = "Unable to load reviews. Please try again later.";
             });
-        });
+        } catch (error) {
+            console.error("Error setting up reviews listener:", error.code, error.message);
+            reviewsError.classList.add("active");
+            reviewsError.textContent = "Unable to load reviews. Please try again later.";
+        }
     </script>
 
     <!-- Hamburger Menu Script -->
     <script>
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
         function toggleMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            hamburger.classList.toggle('active');
+            const isActive = hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
         }
+
+        // Add event listeners for auth buttons in mobile menu
+        document.getElementById('mobileSignUpButton').addEventListener('click', () => {
+            signInWithGoogle();
+            toggleMenu();
+        });
+
+        document.getElementById('mobileSignOutButton').addEventListener('click', () => {
+            signOut();
+            toggleMenu();
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93916f6a0cb03d59',t:'MTc0NjEyNTExOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9391996cbc5f8268',t:'MTc0NjEyNjgzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c2a20cef1544f7',t:'MTc0NjY0MDk5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
