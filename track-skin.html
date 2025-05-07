@@ -329,11 +329,34 @@
             font-size: 14px;
             cursor: pointer;
             outline: none;
+            width: 120px;
         }
 
         .question select:focus {
             background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
             color: #fff;
+        }
+
+        .question select.correct {
+            background: #26A69A;
+            border: 1px solid #26A69A;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(38, 166, 154, 0.6);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .question select.incorrect {
+            background: #EF5350;
+            border: 1px solid #EF5350;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(239, 83, 80, 0.6);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .question select option {
@@ -467,6 +490,10 @@
             .audio-player, .exercise-container {
                 max-width: 90%;
             }
+
+            .question select {
+                width: 100px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -509,6 +536,7 @@
             .question select {
                 font-size: 12px;
                 padding: 4px;
+                width: 100px;
             }
 
             .check-answers {
@@ -570,7 +598,7 @@
         <a href="./courses.html">Courses</a>
         <a href="./about.html">About Us</a>
         <a href="./reviews.html">Reviews</a>
-        <a href="./contact.html">Contacts</a>
+        <a href="contact.html">Contacts</a>
     </div>
     <div class="track-content">
         <h1><span>Skin</span></h1>
@@ -931,10 +959,21 @@
 
         checkBtn.addEventListener('click', () => {
             let correct = 0;
+            // Reset previous highlights
+            document.querySelectorAll('.question select').forEach(select => {
+                select.classList.remove('correct', 'incorrect');
+            });
+            // Check each answer and apply highlighting
             for (let i = 1; i <= 16; i++) {
-                const selected = document.querySelector(`select[name="q${i}"]`).value;
-                if (selected && selected === answers[i - 1]) {
-                    correct++;
+                const select = document.querySelector(`select[name="q${i}"]`);
+                const selected = select.value;
+                if (selected) {
+                    if (selected === answers[i - 1]) {
+                        select.classList.add('correct');
+                        correct++;
+                    } else {
+                        select.classList.add('incorrect');
+                    }
                 }
             }
             resultEl.textContent = `You got ${correct}/16 correct!`;
@@ -957,5 +996,5 @@
             hamburger.setAttribute('aria-expanded', isActive);
         }
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c1875e6dc14566',t:'MTc0NjYyOTQxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
