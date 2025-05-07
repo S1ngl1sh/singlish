@@ -19,11 +19,12 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Adjusted to place footer at bottom */
+            justify-content: center;
             align-items: center;
             overflow-x: hidden;
             position: relative;
             padding: 20px;
+            padding-bottom: 60px;
         }
 
         .particle {
@@ -264,6 +265,8 @@
 
         /* Footer */
         footer {
+            position: absolute;
+            bottom: 0;
             text-align: center;
             width: 100%;
             padding: 15px 20px;
@@ -322,6 +325,10 @@
                 display: none;
             }
 
+            body {
+                padding-bottom: 50px;
+            }
+
             footer {
                 padding: 10px 15px;
                 font-size: clamp(0.7rem, 2vw, 0.8rem);
@@ -351,6 +358,10 @@
                 padding: 8px 15px;
                 font-size: clamp(1rem, 3vw, 1.25rem);
                 width: 120px;
+            }
+
+            body {
+                padding-bottom: 40px;
             }
 
             footer {
@@ -417,7 +428,7 @@
         <a href="./courses.html" class="start-button">Start Jamming</a>
     </div>
     <footer>
-        Made with ❤️ and powered by <a href="https://x.ai/grok" target="_blank">Grok</a>
+        Made with 🤍 and powered by <a href="https://x.ai/grok" target="_blank">Grok</a>
     </footer>
 
     <!-- XLSX Processing Script -->
