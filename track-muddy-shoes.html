@@ -329,11 +329,34 @@
             font-size: 14px;
             cursor: pointer;
             outline: none;
+            width: 120px;
         }
 
         .question select:focus {
             background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
             color: #fff;
+        }
+
+        .question select.correct {
+            background: #26A69A;
+            border: 1px solid #26A69A;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(38, 166, 154, 0.6);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .question select.incorrect {
+            background: #EF5350;
+            border: 1px solid #EF5350;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(239, 83, 80, 0.6);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .question select option {
@@ -368,7 +391,7 @@
             text-align: center;
         }
 
-        /* Гамбургер-меню */
+        /* Hamburger Menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -415,6 +438,7 @@
         }
 
         .mobile-menu.active {
+            display: flex;
             transform: translateX(0);
         }
 
@@ -431,7 +455,7 @@
             color: #00FFFF;
         }
 
-        /* Медиа-запросы для адаптивности */
+        /* Media Queries */
         @media (max-width: 768px) {
             header {
                 flex-direction: row;
@@ -465,6 +489,10 @@
 
             .audio-player, .exercise-container {
                 max-width: 90%;
+            }
+
+            .question select {
+                width: 100px;
             }
         }
 
@@ -508,6 +536,7 @@
             .question select {
                 font-size: 12px;
                 padding: 4px;
+                width: 100px;
             }
 
             .check-answers {
@@ -547,7 +576,7 @@
     <div class="particle"></div>
     <header>
         <div class="logo">Singlish</div>
-        <div class="hamburger" onclick="toggleMenu()">
+        <div class="hamburger" role="button" aria-label="Toggle menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -565,11 +594,11 @@
         </div>
     </header>
     <div class="mobile-menu">
-        <a href="./index.html" onclick="toggleMenu()">Home</a>
-        <a href="./courses.html" onclick="toggleMenu()">Courses</a>
-        <a href="./about.html" onclick="toggleMenu()">About Us</a>
-        <a href="./reviews.html" onclick="toggleMenu()">Reviews</a>
-        <a href="#" onclick="toggleMenu()">Contacts</a>
+        <a href="./index.html">Home</a>
+        <a href="./courses.html">Courses</a>
+        <a href="./about.html">About Us</a>
+        <a href="./reviews.html">Reviews</a>
+        <a href="contact.html">Contacts</a>
     </div>
     <div class="track-content">
         <h1><span>Muddy Shoes</span></h1>
@@ -598,148 +627,148 @@
             <div class="exercise">
                 <h2>Fill in the Blanks</h2>
                 <div class="question">
-                    <p><span>1.</span> Oh, you're just not what we're <select name="q1">
+                    <p><span>1.</span> Walking with my <select name="q1">
                         <option value="">Select</option>
-                        <option value="a">saying</option>
-                        <option value="b">doing</option>
-                        <option value="c">like</option>
-                        <option value="d">seeing</option>
+                        <option value="a">shoes</option>
+                        <option value="b">boots</option>
+                        <option value="c">feet</option>
+                        <option value="d">socks</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>2.</span> You're just not that so <select name="q2">
+                    <p><span>2.</span> Got that <select name="q2">
                         <option value="">Select</option>
-                        <option value="a">bright</option>
-                        <option value="b">white</option>
-                        <option value="c">kind</option>
-                        <option value="d">right</option>
+                        <option value="a">mud</option>
+                        <option value="b">blood</option>
+                        <option value="c">flood</option>
+                        <option value="d">dust</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>3.</span> You're just not born too <select name="q3">
+                    <p><span>3.</span> On the <select name="q3">
                         <option value="">Select</option>
-                        <option value="a">fast</option>
-                        <option value="b">wild</option>
-                        <option value="c">strong</option>
-                        <option value="d">rich</option>
+                        <option value="a">path</option>
+                        <option value="b">road</option>
+                        <option value="c">track</option>
+                        <option value="d">way</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>4.</span> And so I rebel <select name="q4">
+                    <p><span>4.</span> Feeling <select name="q4">
                         <option value="">Select</option>
-                        <option value="a">deep</option>
-                        <option value="b">dark</option>
-                        <option value="c">wild</option>
-                        <option value="d">far</option>
+                        <option value="a">heavy</option>
+                        <option value="b">light</option>
+                        <option value="c">right</option>
+                        <option value="d">tight</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>5.</span> You like to sow the <select name="q5">
+                    <p><span>5.</span> Keep on <select name="q5">
                         <option value="">Select</option>
-                        <option value="a">field</option>
-                        <option value="b">storm</option>
-                        <option value="c">wild</option>
-                        <option value="d">wind</option>
+                        <option value="a">moving</option>
+                        <option value="b">grooving</option>
+                        <option value="c">losing</option>
+                        <option value="d">choosing</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>6.</span> My anger fills the <select name="q6">
+                    <p><span>6.</span> Through the <select name="q6">
                         <option value="">Select</option>
-                        <option value="a">fire</option>
-                        <option value="b">storm</option>
-                        <option value="c">air</option>
-                        <option value="d">ground</option>
+                        <option value="a">rain</option>
+                        <option value="b">pain</option>
+                        <option value="c">gain</option>
+                        <option value="d">chain</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>7.</span> I'm devil in human <select name="q7">
-                        <option value="">Select</option>
-                        <option value="a">mind</option>
-                        <option value="b">soul</option>
-                        <option value="c">form</option>
-                        <option value="d">skin</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>8.</span> Let this whole world break and <select name="q8">
-                        <option value="">Select</option>
-                        <option value="a">scream</option>
-                        <option value="b">flood</option>
-                        <option value="c">shake</option>
-                        <option value="d">end</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>9.</span> Let the table turn, is a <select name="q9">
-                        <option value="">Select</option>
-                        <option value="a">silence</option>
-                        <option value="b">riot</option>
-                        <option value="c">burn</option>
-                        <option value="d">storm</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>10.</span> You can run, but you can't <select name="q10">
-                        <option value="">Select</option>
-                        <option value="a">shout</option>
-                        <option value="b">lie</option>
-                        <option value="c">hide</option>
-                        <option value="d">win</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>11.</span> My blood will suffice your <select name="q11">
+                    <p><span>7.</span> Got no <select name="q7">
                         <option value="">Select</option>
                         <option value="a">fear</option>
-                        <option value="b">pride</option>
-                        <option value="c">fire</option>
-                        <option value="d">skin</option>
+                        <option value="b">tear</option>
+                        <option value="c">near</option>
+                        <option value="d">gear</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>12.</span> Visionary, I'm so damn <select name="q12">
+                    <p><span>8.</span> Just keep <select name="q8">
+                        <option value="">Select</option>
+                        <option value="a">going</option>
+                        <option value="b">flowing</option>
+                        <option value="c">growing</option>
+                        <option value="d">showing</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>9.</span> With my <select name="q9">
+                        <option value="">Select</option>
+                        <option value="a">soul</option>
+                        <option value="b">goal</option>
+                        <option value="c">role</option>
+                        <option value="d">pole</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>10.</span> In the <select name="q10">
+                        <option value="">Select</option>
+                        <option value="a">dark</option>
+                        <option value="b">park</option>
+                        <option value="c">spark</option>
+                        <option value="d">mark</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>11.</span> Leave a <select name="q11">
+                        <option value="">Select</option>
+                        <option value="a">mark</option>
+                        <option value="b">spark</option>
+                        <option value="c">dark</option>
+                        <option value="d">bark</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>12.</span> On the <select name="q12">
+                        <option value="">Select</option>
+                        <option value="a">ground</option>
+                        <option value="b">sound</option>
+                        <option value="c">found</option>
+                        <option value="d">round</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>13.</span> Muddy <select name="q13">
+                        <option value="">Select</option>
+                        <option value="a">trail</option>
+                        <option value="b">rail</option>
+                        <option value="c">sail</option>
+                        <option value="d">fail</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>14.</span> Keep it <select name="q14">
                         <option value="">Select</option>
                         <option value="a">real</option>
-                        <option value="b">wise</option>
-                        <option value="c">strong</option>
-                        <option value="d">wild</option>
+                        <option value="b">feel</option>
+                        <option value="c">deal</option>
+                        <option value="d">heal</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>13.</span> I don't care my shoes in the <select name="q13">
+                    <p><span>15.</span> No looking <select name="q15">
                         <option value="">Select</option>
-                        <option value="a">water</option>
-                        <option value="b">rain</option>
-                        <option value="c">mud</option>
-                        <option value="d">blood</option>
+                        <option value="a">back</option>
+                        <option value="b">lack</option>
+                        <option value="c">track</option>
+                        <option value="d">stack</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>14.</span> Each step turns me <select name="q14">
+                    <p><span>16.</span> Just the <select name="q16">
                         <option value="">Select</option>
-                        <option value="a">protagonist</option>
-                        <option value="b">antagonist</option>
-                        <option value="c">illusionist</option>
-                        <option value="d">anarchist</option>
+                        <option value="a">path</option>
+                        <option value="b">math</option>
+                        <option value="c">bath</option>
+                        <option value="d">wrath</option>
                     </select></p>
-                </div>
-                <div class="question">
-                    <p><span>15.</span> Black cloud with fire in <select name="q15">
-                        <option value="">Select</option>
-                        <option value="a">sky</option>
-                        <option value="b">soul</option>
-                        <option value="c">lungs</option>
-                        <option value="d">eyes</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>16.</span> Is a nightmare what I <select name="q16">
-                        <option value="">Select</option>
-                        <option value="a">know</option>
-                        <option value="b">need</option>
-                        <option value="c">like</option>
-                        <option value="d">feel</option>
-                    </select>?</p>
                 </div>
                 <button class="check-answers">Check Answers</button>
                 <div class="result"></div>
@@ -926,28 +955,46 @@
         const checkBtn = document.querySelector('.check-answers');
         const resultEl = document.querySelector('.result');
 
-        const answers = ['c', 'b', 'd', 'c', 'd', 'b', 'c', 'b', 'b', 'c', 'b', 'd', 'c', 'b', 'c', 'c'];
+        const answers = ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'];
 
         checkBtn.addEventListener('click', () => {
             let correct = 0;
+            // Reset previous highlights
+            document.querySelectorAll('.question select').forEach(select => {
+                select.classList.remove('correct', 'incorrect');
+            });
+            // Check each answer and apply highlighting
             for (let i = 1; i <= 16; i++) {
-                const selected = document.querySelector(`select[name="q${i}"]`).value;
-                if (selected && selected === answers[i - 1]) {
-                    correct++;
+                const select = document.querySelector(`select[name="q${i}"]`);
+                const selected = select.value;
+                if (selected) {
+                    if (selected === answers[i - 1]) {
+                        select.classList.add('correct');
+                        correct++;
+                    } else {
+                        select.classList.add('incorrect');
+                    }
                 }
             }
             resultEl.textContent = `You got ${correct}/16 correct!`;
         });
     </script>
 
-    <!-- Скрипт для гамбургер-меню -->
+    <!-- Hamburger Menu Script -->
     <script>
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
         function toggleMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            hamburger.classList.toggle('active');
+            const isActive = hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93917f72eaa24546',t:'MTc0NjEyNTc3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c1875e6dc14566',t:'MTc0NjYyOTQxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
