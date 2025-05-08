@@ -292,7 +292,7 @@
 
         .exercise-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             margin: 20px 0;
         }
 
@@ -370,6 +370,60 @@
         .question select option {
             background: #333;
             color: #fff;
+        }
+
+        .word-order .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .word-order .drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            min-height: 40px;
+            background: #333;
+            border: 2px solid #00FFFF;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .word-order .word-tile {
+            background: #444;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: move;
+            font-size: 14px;
+            user-select: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .word-order .word-tile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 255, 255, 0.3);
+        }
+
+        .word-order .word-tile.dragging {
+            opacity: 0.5;
+            transform: scale(1.1);
+        }
+
+        .word-order .word-tile.correct {
+            background: #26A69A;
+            border: 1px solid #26A69A;
+            box-shadow: 0 0 8px rgba(38, 166, 154, 0.6);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        .word-order .word-tile.incorrect {
+            background: #EF5350;
+            border: 1px solid #EF5350;
+            box-shadow: 0 0 8px rgba(239, 83, 80, 0.6);
+            animation: pulse 0.5s ease-in-out;
         }
 
         .check-answers {
@@ -517,6 +571,16 @@
             .question select {
                 width: 150px;
             }
+
+            .word-order .word-list, .word-order .drop-zone {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .word-order .word-tile {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -560,6 +624,11 @@
                 font-size: 12px;
                 padding: 4px;
                 width: 120px;
+            }
+
+            .word-order .word-tile {
+                font-size: 12px;
+                padding: 6px 10px;
             }
 
             .check-answers {
@@ -910,6 +979,127 @@
                 <button class="check-answers" id="checkVocab">Check Answers</button>
                 <div class="result" id="resultVocab"></div>
             </div>
+            <div class="exercise word-order">
+                <h2>Word Order</h2>
+                <div class="question">
+                    <p><span>1.</span> Arrange the words: <strong>I / wild / rebel / so / And</strong></p>
+                    <div class="word-list" data-question="1">
+                        <span class="word-tile" draggable="true">I</span>
+                        <span class="word-tile" draggable="true">wild</span>
+                        <span class="word-tile" draggable="true">rebel</span>
+                        <span class="word-tile" draggable="true">so</span>
+                        <span class="word-tile" draggable="true">And</span>
+                    </div>
+                    <div class="drop-zone" data-question="1"></div>
+                </div>
+                <div class="question">
+                    <p><span>2.</span> Arrange the words: <strong>form / in / human / devil / I'm</strong></p>
+                    <div class="word-list" data-question="2">
+                        <span class="word-tile" draggable="true">form</span>
+                        <span class="word-tile" draggable="true">in</span>
+                        <span class="word-tile" draggable="true">human</span>
+                        <span class="word-tile" draggable="true">devil</span>
+                        <span class="word-tile" draggable="true">I'm</span>
+                    </div>
+                    <div class="drop-zone" data-question="2"></div>
+                </div>
+                <div class="question">
+                    <p><span>3.</span> Arrange the words: <strong>can't / but / You / hide / run / can / you</strong></p>
+                    <div class="word-list" data-question="3">
+                        <span class="word-tile" draggable="true">can't</span>
+                        <span class="word-tile" draggable="true">but</span>
+                        <span class="word-tile" draggable="true">You</span>
+                        <span class="word-tile" draggable="true">hide</span>
+                        <span class="word-tile" draggable="true">run</span>
+                        <span class="word-tile" draggable="true">can</span>
+                        <span class="word-tile" draggable="true">you</span>
+                    </div>
+                    <div class="drop-zone" data-question="3"></div>
+                </div>
+                <div class="question">
+                    <p><span>4.</span> Arrange the words: <strong>storm / fills / anger / My / the</strong></p>
+                    <div class="word-list" data-question="4">
+                        <span class="word-tile" draggable="true">storm</span>
+                        <span class="word-tile" draggable="true">fills</span>
+                        <span class="word-tile" draggable="true">anger</span>
+                        <span class="word-tile" draggable="true">My</span>
+                        <span class="word-tile" draggable="true">the</span>
+                    </div>
+                    <div class="drop-zone" data-question="4"></div>
+                </div>
+                <div class="question">
+                    <p><span>5.</span> Arrange the words: <strong>bitch / my / suck / blood / likes / to / That</strong></p>
+                    <div class="word-list" data-question="5">
+                        <span class="word-tile" draggable="true">bitch</span>
+                        <span class="word-tile" draggable="true">my</span>
+                        <span class="word-tile" draggable="true">suck</span>
+                        <span class="word-tile" draggable="true">blood</span>
+                        <span class="word-tile" draggable="true">likes</span>
+                        <span class="word-tile" draggable="true">to</span>
+                        <span class="word-tile" draggable="true">That</span>
+                    </div>
+                    <div class="drop-zone" data-question="5"></div>
+                </div>
+                <div class="question">
+                    <p><span>6.</span> Arrange the words: <strong>the / Let / turn / table</strong></p>
+                    <div class="word-list" data-question="6">
+                        <span class="word-tile" draggable="true">the</span>
+                        <span class="word-tile" draggable="true">Let</span>
+                        <span class="word-tile" draggable="true">turn</span>
+                        <span class="word-tile" draggable="true">table</span>
+                    </div>
+                    <div class="drop-zone" data-question="6"></div>
+                </div>
+                <div class="question">
+                    <p><span>7.</span> Arrange the words: <strong>shoes / mud / in / my / care / don't / I</strong></p>
+                    <div class="word-list" data-question="7">
+                        <span class="word-tile" draggable="true">shoes</span>
+                        <span class="word-tile" draggable="true">mud</span>
+                        <span class="word-tile" draggable="true">in</span>
+                        <span class="word-tile" draggable="true">my</span>
+                        <span class="word-tile" draggable="true">care</span>
+                        <span class="word-tile" draggable="true">don't</span>
+                        <span class="word-tile" draggable="true">I</span>
+                    </div>
+                    <div class="drop-zone" data-question="7"></div>
+                </div>
+                <div class="question">
+                    <p><span>8.</span> Arrange the words: <strong>child / oh / I'm / motherfucker / a / so</strong></p>
+                    <div class="word-list" data-question="8">
+                        <span class="word-tile" draggable="true">child</span>
+                        <span class="word-tile" draggable="true">oh</span>
+                        <span class="word-tile" draggable="true">I'm</span>
+                        <span class="word-tile" draggable="true">motherfucker</span>
+                        <span class="word-tile" draggable="true">a</span>
+                        <span class="word-tile" draggable="true">so</span>
+                    </div>
+                    <div class="drop-zone" data-question="8"></div>
+                </div>
+                <div class="question">
+                    <p><span>9.</span> Arrange the words: <strong>everything / you / give / I'll</strong></p>
+                    <div class="word-list" data-question="9">
+                        <span class="word-tile" draggable="true">everything</span>
+                        <span class="word-tile" draggable="true">you</span>
+                        <span class="word-tile" draggable="true">give</span>
+                        <span class="word-tile" draggable="true">I'll</span>
+                    </div>
+                    <div class="drop-zone" data-question="9"></div>
+                </div>
+                <div class="question">
+                    <p><span>10.</span> Arrange the words: <strong>I'll / child / so / oh / be / that</strong></p>
+                    <div class="word-list" data-question="10">
+                        <span class="word-tile" draggable="true">I'll</span>
+                        <span class="word-tile" draggable="true">child</span>
+                        <span class="word-tile" draggable="true">so</span>
+                        <span class="word-tile" draggable="true">oh</span>
+                        <span class="word-tile" draggable="true">be</span>
+                        <span class="word-tile" draggable="true">that</span>
+                    </div>
+                    <div class="drop-zone" data-question="10"></div>
+                </div>
+                <button class="check-answers" id="checkWordOrder">Check Answers</button>
+                <div class="result" id="resultWordOrder"></div>
+            </div>
         </div>
     </div>
 
@@ -1151,6 +1341,126 @@
             }
             resultVocabEl.textContent = `You got ${correct}/10 correct!`;
         });
+
+        // Word Order (Drag and Drop)
+        const checkWordOrderBtn = document.getElementById('checkWordOrder');
+        const resultWordOrderEl = document.getElementById('resultWordOrder');
+
+        const wordOrderAnswers = [
+            'And so I rebel wild',
+            "I'm devil in human form",
+            "You can run but you can't hide",
+            'My anger fills the storm',
+            'That bitch likes to suck my blood',
+            'Let the table turn',
+            "I don't care my shoes in the mud",
+            "I'm a motherfucker oh so child",
+            "I'll give you everything",
+            "I'll be that oh so child"
+        ];
+
+        // Initialize drag and drop
+        function initializeDragAndDrop() {
+            const wordTiles = document.querySelectorAll('.word-tile');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            const wordLists = document.querySelectorAll('.word-list');
+
+            wordTiles.forEach(tile => {
+                tile.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', e.target.textContent);
+                    e.target.classList.add('dragging');
+                });
+
+                tile.addEventListener('dragend', (e) => {
+                    e.target.classList.remove('dragging');
+                });
+            });
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const word = e.dataTransfer.getData('text/plain');
+                    const questionNum = zone.dataset.question;
+                    const sourceList = document.querySelector(`.word-list[data-question="${questionNum}"]`);
+                    const sourceTile = Array.from(sourceList.children).find(tile => tile.textContent === word);
+
+                    if (sourceTile) {
+                        const newTile = sourceTile.cloneNode(true);
+                        newTile.addEventListener('dragstart', (e) => {
+                            e.dataTransfer.setData('text/plain', e.target.textContent);
+                            e.target.classList.add('dragging');
+                        });
+                        newTile.addEventListener('dragend', (e) => {
+                            e.target.classList.remove('dragging');
+                        });
+                        zone.appendChild(newTile);
+                        sourceTile.remove();
+                        // Remove dragging class to prevent lingering effects
+                        newTile.classList.remove('dragging');
+                    }
+                });
+            });
+
+            wordLists.forEach(list => {
+                list.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                list.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const word = e.dataTransfer.getData('text/plain');
+                    const questionNum = list.dataset.question;
+                    const sourceZone = document.querySelector(`.drop-zone[data-question="${questionNum}"]`);
+                    const sourceTile = Array.from(sourceZone.children).find(tile => tile.textContent === word);
+
+                    if (sourceTile) {
+                        const newTile = sourceTile.cloneNode(true);
+                        newTile.addEventListener('dragstart', (e) => {
+                            e.dataTransfer.setData('text/plain', e.target.textContent);
+                            e.target.classList.add('dragging');
+                        });
+                        newTile.addEventListener('dragend', (e) => {
+                            e.target.classList.remove('dragging');
+                        });
+                        list.appendChild(newTile);
+                        sourceTile.remove();
+                        // Remove dragging class to prevent lingering effects
+                        newTile.classList.remove('dragging');
+                    }
+                });
+            });
+        }
+
+        // Check answers for Word Order
+        checkWordOrderBtn.addEventListener('click', () => {
+            let correct = 0;
+            document.querySelectorAll('.word-order .word-tile').forEach(tile => {
+                tile.classList.remove('correct', 'incorrect');
+            });
+
+            for (let i = 1; i <= 10; i++) {
+                const dropZone = document.querySelector(`.drop-zone[data-question="${i}"]`);
+                const userAnswer = Array.from(dropZone.children)
+                    .map(tile => tile.textContent)
+                    .join(' ');
+
+                if (userAnswer) {
+                    const isCorrect = userAnswer.toLowerCase() === wordOrderAnswers[i - 1].toLowerCase();
+                    dropZone.querySelectorAll('.word-tile').forEach(tile => {
+                        tile.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    });
+                    if (isCorrect) correct++;
+                }
+            }
+            resultWordOrderEl.textContent = `You got ${correct}/10 correct!`;
+        });
+
+        // Initialize drag and drop when page loads
+        initializeDragAndDrop();
     </script>
 
     <!-- Hamburger Menu Script -->
