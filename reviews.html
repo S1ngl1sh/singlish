@@ -653,24 +653,31 @@
     <!-- Firebase Firestore -->
     <script type="module">
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const db = getFirestore();
+        const auth = getAuth();
 
-        // Enable Firestore offline persistence
+        // Enable Firestore offline persistence with detailed error handling
         enableIndexedDbPersistence(db)
             .catch((error) => {
-                console.error("Error enabling Firestore persistence:", error);
+                console.error("Ошибка при включении оффлайн-поддержки Firestore:", error.code, error.message);
+                if (error.code === 'failed-precondition') {
+                    console.warn("Оффлайн-поддержка не включена: несколько вкладок открыты.");
+                } else if (error.code === 'unimplemented') {
+                    console.warn("Оффлайн-поддержка не поддерживается в этом браузере.");
+                }
             });
 
         window.submitReview = async () => {
             const reviewText = document.getElementById("reviewText").value.trim();
             const submitButton = document.getElementById("submitReview");
             if (!reviewText) {
-                alert("Please write a review before submitting.");
+                alert("Пожалуйста, напишите отзыв перед отправкой.");
                 return;
             }
             if (reviewText.length > 500) {
-                alert("Review must be 500 characters or less.");
+                alert("Отзыв должен содержать не более 500 символов.");
                 return;
             }
             submitButton.disabled = true;
@@ -678,18 +685,24 @@
                 const user = auth.currentUser;
                 if (user) {
                     await addDoc(collection(db, "reviews"), {
-                        userName: user.displayName || "Anonymous",
+                        userName: user.displayName || "Аноним",
                         text: reviewText,
                         timestamp: serverTimestamp()
                     });
                     document.getElementById("reviewText").value = "";
-                    console.log("Review submitted successfully.");
+                    console.log("Отзыв успешно отправлен.");
                 } else {
-                    alert("You must be signed in to submit a review.");
+                    alert("Вы должны войти в систему, чтобы отправить отзыв.");
                 }
             } catch (error) {
-                console.error("Error submitting review:", error.code, error.message);
-                alert(`Failed to submit review: ${error.message}`);
+                console.error("Ошибка при отправке отзыва:", error.code, error.message);
+                let errorMessage = "Не удалось отправить отзыв. Пожалуйста, попробуйте позже.";
+                if (error.code === "permission-denied") {
+                    errorMessage = "Нет прав для отправки отзыва. Проверьте настройки Firebase.";
+                } else if (error.code === "unavailable") {
+                    errorMessage = "Firestore недоступен. Проверьте подключение к сети.";
+                }
+                alert(errorMessage);
             } finally {
                 submitButton.disabled = false;
             }
@@ -706,23 +719,31 @@
                     const review = doc.data();
                     const reviewCard = document.createElement("div");
                     reviewCard.className = "review-card";
+                    // Проверка валидности timestamp
+                    const date = review.timestamp && review.timestamp.toDate ? new Date(review.timestamp.toDate()).toLocaleString() : "Дата неизвестна";
                     reviewCard.innerHTML = `
-                        <h3>${review.userName}</h3>
+                        <h3>${review.userName || "Аноним"}</h3>
                         <p>${review.text}</p>
-                        <div class="date">${new Date(review.timestamp.toDate()).toLocaleString()}</div>
+                        <div class="date">${date}</div>
                     `;
                     reviewsList.appendChild(reviewCard);
                 });
-                console.log("Reviews loaded successfully.");
+                console.log("Отзывы успешно загружены.");
             }, (error) => {
-                console.error("Error loading reviews:", error.code, error.message);
+                console.error("Ошибка при загрузке отзывов:", error.code, error.message);
                 reviewsError.classList.add("active");
-                reviewsError.textContent = "Unable to load reviews. Please try again later.";
+                let errorMessage = "Не удалось загрузить отзывы. Пожалуйста, попробуйте позже.";
+                if (error.code === "permission-denied") {
+                    errorMessage = "Нет прав для чтения отзывов. Проверьте настройки Firebase.";
+                } else if (error.code === "unavailable") {
+                    errorMessage = "Firestore недоступен. Проверьте подключение к сети.";
+                }
+                reviewsError.textContent = errorMessage;
             });
         } catch (error) {
-            console.error("Error setting up reviews listener:", error.code, error.message);
+            console.error("Ошибка при настройке слушателя отзывов:", error.code, error.message);
             reviewsError.classList.add("active");
-            reviewsError.textContent = "Unable to load reviews. Please try again later.";
+            reviewsError.textContent = "Не удалось загрузить отзывы. Пожалуйста, попробуйте позже.";
         }
     </script>
 
@@ -752,5 +773,6 @@
             toggleMenu();
         });
     </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c8e0ae998644e1',t:'MTc0NjcwNjQ3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
