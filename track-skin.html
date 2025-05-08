@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singlish - Skin by IVOXYGEN</title>
+    <title>Singlish - Lifestyle by IVOXYGEN</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
@@ -328,6 +328,15 @@
             font-weight: 700;
         }
 
+        .scrambled-words {
+            background: #333;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 5px 0;
+            font-weight: 700;
+        }
+
         .question select {
             background: #333;
             color: #fff;
@@ -338,6 +347,10 @@
             cursor: pointer;
             outline: none;
             width: 180px;
+        }
+
+        .exercise:nth-child(1) .question select {
+            width: 120px;
         }
 
         .question select:focus {
@@ -572,6 +585,10 @@
                 width: 150px;
             }
 
+            .exercise:nth-child(1) .question select {
+                width: 100px;
+            }
+
             .word-order .word-list, .word-order .drop-zone {
                 flex-direction: column;
                 align-items: flex-start;
@@ -624,6 +641,10 @@
                 font-size: 12px;
                 padding: 4px;
                 width: 120px;
+            }
+
+            .exercise:nth-child(1) .question select {
+                width: 100px;
             }
 
             .word-order .word-tile {
@@ -712,11 +733,11 @@
         </div>
     </div>
     <div class="track-content">
-        <h1><span>Skin</span></h1>
-        <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Skin.jpg" alt="Skin">
+        <h1><span>Lifestyle</span></h1>
+        <img src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Images/Lifestyle.jpg" alt="Lifestyle">
         <a href="./artist-ivoxygen.html" class="back-button">Back to Tracks</a>
         <div class="audio-player">
-            <audio id="audio" src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Tracks/SKIN.mp3"></audio>
+            <audio id="audio" src="https://raw.githubusercontent.com/S1ngl1sh/singlish/main/Tracks/Lifestyle.mp3"></audio>
             <div class="progress-bar-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -738,147 +759,147 @@
             <div class="exercise">
                 <h2>Fill in the Blanks</h2>
                 <div class="question">
-                    <p><span>1.</span> I got nothing on<br>Just the <select name="q1">
+                    <p><span>1.</span> This is my <select name="q1">
                         <option value="">Select</option>
-                        <option value="a">phone</option>
+                        <option value="a">lifestyle</option>
+                        <option value="b">nightlife</option>
+                        <option value="c">wildlife</option>
+                        <option value="d">daylife</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>2.</span> Living on the <select name="q2">
+                        <option value="">Select</option>
+                        <option value="a">road</option>
+                        <option value="b">edge</option>
+                        <option value="c">side</option>
+                        <option value="d">line</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>3.</span> No time to <select name="q3">
+                        <option value="">Select</option>
+                        <option value="a">sleep</option>
                         <option value="b">dream</option>
-                        <option value="c">skin</option>
-                        <option value="d">pill</option>
+                        <option value="c">think</option>
+                        <option value="d">wait</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>2.</span> And my <select name="q2">
+                    <p><span>4.</span> Got my <select name="q4">
                         <option value="">Select</option>
-                        <option value="a">bones</option>
-                        <option value="b">feels</option>
-                        <option value="c">nights</option>
-                        <option value="d">lights</option>
-                    </select> you</p>
-                </div>
-                <div class="question">
-                    <p><span>3.</span> See you in my <select name="q3">
-                        <option value="">Select</option>
-                        <option value="a">head</option>
-                        <option value="b">dream</option>
-                        <option value="c">skin</option>
-                        <option value="d">eyes</option>
+                        <option value="a">vibe</option>
+                        <option value="b">ride</option>
+                        <option value="c">tide</option>
+                        <option value="d">side</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>4.</span> Tho you're not in the <select name="q4">
+                    <p><span>5.</span> Keep it <select name="q5">
                         <option value="">Select</option>
-                        <option value="a">inside</option>
-                        <option value="b">fake</option>
-                        <option value="c">real</option>
-                        <option value="d">big</option>
-                    </select> world</p>
-                </div>
-                <div class="question">
-                    <p><span>5.</span> Long <select name="q5">
-                        <option value="">Select</option>
-                        <option value="a">roads</option>
-                        <option value="b">walls</option>
-                        <option value="c">bones</option>
-                        <option value="d">walks</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>6.</span> Just the skin<br>And my <select name="q6">
-                        <option value="">Select</option>
-                        <option value="a">dreams</option>
-                        <option value="b">bones</option>
-                        <option value="c">phones</option>
-                        <option value="d">pills</option>
-                    </select> you</p>
-                </div>
-                <div class="question">
-                    <p><span>7.</span> My <select name="q7">
-                        <option value="">Select</option>
-                        <option value="a">words</option>
-                        <option value="b">thoughts</option>
-                        <option value="c">emotions</option>
-                        <option value="d">feelings</option>
-                    </select> got me fooled</p>
-                </div>
-                <div class="question">
-                    <p><span>8.</span> I don't chase my <select name="q8">
-                        <option value="">Select</option>
-                        <option value="a">past</option>
-                        <option value="b">phones</option>
-                        <option value="c">pills</option>
-                        <option value="d">nights</option>
-                    </select> off</p>
-                </div>
-                <div class="question">
-                    <p><span>9.</span> Night walks on the <select name="q9">
-                        <option value="">Select</option>
-                        <option value="a">rooftop</option>
-                        <option value="b">sidewalk</option>
-                        <option value="c">highway</option>
-                        <option value="d">window</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>10.</span> Pop a <select name="q10">
-                        <option value="">Select</option>
-                        <option value="a">phone</option>
-                        <option value="b">dream</option>
-                        <option value="c">walk</option>
-                        <option value="d">pill</option>
-                    </select> until I...</p>
-                </div>
-                <div class="question">
-                    <p><span>11.</span> I feel just like a fool<br><select name="q11">
-                        <option value="">Select</option>
-                        <option value="a">missing</option>
-                        <option value="b">losing</option>
-                        <option value="c">chasing</option>
-                        <option value="d">calling</option>
-                    </select> you</p>
-                </div>
-                <div class="question">
-                    <p><span>12.</span> I can’t go <select name="q12">
-                        <option value="">Select</option>
-                        <option value="a">on</option>
-                        <option value="b">back</option>
-                        <option value="c">down</option>
-                        <option value="d">far</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>13.</span> <select name="q13">
-                        <option value="">Select</option>
-                        <option value="a">Skin</option>
-                        <option value="b">Past</option>
-                        <option value="c">Dream</option>
-                        <option value="d">Pill</option>
-                    </select> is done</p>
-                </div>
-                <div class="question">
-                    <p><span>14.</span> I feel <select name="q14">
-                        <option value="">Select</option>
-                        <option value="a">light</option>
-                        <option value="b">gone</option>
-                        <option value="c">dumb</option>
-                        <option value="d">strong</option>
-                    </select> now</p>
-                </div>
-                <div class="question">
-                    <p><span>15.</span> Who am I <select name="q15">
-                        <option value="">Select</option>
-                        <option value="a">now</option>
-                        <option value="b">back</option>
+                        <option value="a">real</option>
+                        <option value="b">chill</option>
                         <option value="c">still</option>
-                        <option value="d">alone</option>
+                        <option value="d">thrill</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>16.</span> What I like <select name="q16">
+                    <p><span>6.</span> On this <select name="q6">
                         <option value="">Select</option>
-                        <option value="a">you</option>
-                        <option value="b">now</option>
-                        <option value="c">again</option>
+                        <option value="a">wave</option>
+                        <option value="b">cave</option>
+                        <option value="c">rave</option>
+                        <option value="d">save</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>7.</span> Feel the <select name="q7">
+                        <option value="">Select</option>
+                        <option value="a">beat</option>
+                        <option value="b">heat</option>
+                        <option value="c">seat</option>
+                        <option value="d">feet</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>8.</span> Never <select name="q8">
+                        <option value="">Select</option>
+                        <option value="a">stop</option>
+                        <option value="b">drop</option>
+                        <option value="c">slow</option>
+                        <option value="d">go</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>9.</span> This is my <select name="q9">
+                        <option value="">Select</option>
+                        <option value="a">zone</option>
+                        <option value="b">home</option>
+                        <option value="c">phone</option>
+                        <option value="d">tone</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>10.</span> Living <select name="q10">
+                        <option value="">Select</option>
+                        <option value="a">free</option>
+                        <option value="b">wild</option>
+                        <option value="c">high</option>
                         <option value="d">low</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>11.</span> Got no <select name="q11">
+                        <option value="">Select</option>
+                        <option value="a">fear</option>
+                        <option value="b">tear</option>
+                        <option value="c">near</option>
+                        <option value="d">gear</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>12.</span> Always <select name="q12">
+                        <option value="">Select</option>
+                        <option value="a">clear</option>
+                        <option value="b">here</option>
+                        <option value="c">there</option>
+                        <option value="d">where</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>13.</span> This is my <select name="q13">
+                        <option value="">Select</option>
+                        <option value="a">life</option>
+                        <option value="b">strife</option>
+                        <option value="c">knife</option>
+                        <option value="d">wife</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>14.</span> Keep it <select name="q14">
+                        <option value="">Select</option>
+                        <option value="a">tight</option>
+                        <option value="b">light</option>
+                        <option value="c">right</option>
+                        <option value="d">bright</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>15.</span> All <select name="q15">
+                        <option value="">Select</option>
+                        <option value="a">night</option>
+                        <option value="b">light</option>
+                        <option value="c">right</option>
+                        <option value="d">sight</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>16.</span> Living <select name="q16">
+                        <option value="">tole</option>
+                        <option value="a">right</option>
+                        <option value="b">light</option>
+                        <option value="c">tight</option>
+                        <option value="d">bright</option>
                     </select></p>
                 </div>
                 <button class="check-answers" id="checkFillIn">Check Answers</button>
@@ -887,93 +908,93 @@
             <div class="exercise">
                 <h2>Vocabulary Match</h2>
                 <div class="question">
-                    <p><span>1.</span> <strong>skin</strong> <select name="v1">
-                        <option value="">Select</option>
-                        <option value="душа">душа</option>
-                        <option value="тело">тело</option>
-                        <option value="кожа">кожа</option>
-                        <option value="мысли">мысли</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>2.</span> <strong>rooftop</strong> <select name="v2">
-                        <option value="">Select</option>
-                        <option value="подвал">подвал</option>
-                        <option value="крыша">крыша</option>
-                        <option value="этаж">этаж</option>
-                        <option value="лестница">лестница</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>3.</span> <strong>bones</strong> <select name="v3">
-                        <option value="">Select</option>
-                        <option value="пальцы">пальцы</option>
-                        <option value="ребра">ребра</option>
-                        <option value="кости">кости</option>
-                        <option value="мышцы">мышцы</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>4.</span> <strong>emotions</strong> <select name="v4">
-                        <option value="">Select</option>
-                        <option value="желания">желания</option>
-                        <option value="эмоции">эмоции</option>
-                        <option value="раздражения">раздражения</option>
-                        <option value="мысли">мысли</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>5.</span> <strong>fool</strong> <select name="v5">
-                        <option value="">Select</option>
-                        <option value="гений">гений</option>
-                        <option value="дурак">дурак</option>
-                        <option value="учёный">учёный</option>
-                        <option value="король">король</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>6.</span> <strong>chase</strong> <select name="v6">
-                        <option value="">Select</option>
-                        <option value="преследовать">преследовать</option>
-                        <option value="избегать">избегать</option>
-                        <option value="видеть">видеть</option>
-                        <option value="изучать">изучать</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>7.</span> <strong>past</strong> <select name="v7">
-                        <option value="">Select</option>
-                        <option value="будущее">будущее</option>
-                        <option value="прошлое">прошлое</option>
-                        <option value="настоящее">настоящее</option>
-                        <option value="расстояние">расстояние</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>8.</span> <strong>nothing on</strong> <select name="v8">
-                        <option value="">Select</option>
-                        <option value="ничего не скрыто">ничего не скрыто</option>
-                        <option value="носить одежду">носить одежду</option>
-                        <option value="ничего не важно">ничего не важно</option>
-                        <option value="что-то важное">что-то важное</option>
-                    </select></p>
-                </div>
-                <div class="question">
-                    <p><span>9.</span> <strong>pill</strong> <select name="v9">
+                    <p><span>1.</span> <strong>pill</strong> <select name="v1">
                         <option value="">Select</option>
                         <option value="таблетка">таблетка</option>
-                        <option value="синяк">синяк</option>
-                        <option value="кусок">кусок</option>
-                        <option value="укол">укол</option>
+                        <option value="пиво">пиво</option>
+                        <option value="билет">билет</option>
+                        <option value="игрушка">игрушка</option>
                     </select></p>
                 </div>
                 <div class="question">
-                    <p><span>10.</span> <strong>sidewalk</strong> <select name="v10">
+                    <p><span>2.</span> <strong>lifestyle</strong> <select name="v2">
                         <option value="">Select</option>
-                        <option value="тротуар">тротуар</option>
-                        <option value="дорога">дорога</option>
-                        <option value="улица">улица</option>
-                        <option value="парк">парк</option>
+                        <option value="работа">работа</option>
+                        <option value="стиль жизни">стиль жизни</option>
+                        <option value="путешествия">путешествия</option>
+                        <option value="школа">школа</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>3.</span> <strong>rising</strong> <select name="v3">
+                        <option value="">Select</option>
+                        <option value="падающий">падающий</option>
+                        <option value="восходящий">восходящий</option>
+                        <option value="опускающийся">опускающийся</option>
+                        <option value="стареющий">стареющий</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>4.</span> <strong>hiding</strong> <select name="v4">
+                        <option value="">Select</option>
+                        <option value="открывающийся">открывающийся</option>
+                        <option value="скрывающийся">скрывающийся</option>
+                        <option value="говорящий">говорящий</option>
+                        <option value="стоящий">стоящий</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>5.</span> <strong>afterlife</strong> <select name="v5">
+                        <option value="">Select</option>
+                        <option value="жизнь после смерти">жизнь после смерти</option>
+                        <option value="жизнь на Земле">жизнь на Земле</option>
+                        <option value="жизнь в будущем">жизнь в будущем</option>
+                        <option value="жизнь в прошлом">жизнь в прошлом</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>6.</span> <strong>devoted</strong> <select name="v6">
+                        <option value="">Select</option>
+                        <option value="преданный">преданный</option>
+                        <option value="ленивый">ленивый</option>
+                        <option value="агрессивный">агрессивный</option>
+                        <option value="равнодушный">равнодушный</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>7.</span> <strong>low</strong> <select name="v7">
+                        <option value="">Select</option>
+                        <option value="высокий">высокий</option>
+                        <option value="высокий уровень">высокий уровень</option>
+                        <option value="низкий">низкий</option>
+                        <option value="спокойный">спокойный</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>8.</span> <strong>place</strong> <select name="v8">
+                        <option value="">Select</option>
+                        <option value="место">место</option>
+                        <option value="лицо">лицо</option>
+                        <option value="время">время</option>
+                        <option value="цель">цель</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>9.</span> <strong>tomorrow</strong> <select name="v9">
+                        <option value="">Select</option>
+                        <option value="вчера">вчера</option>
+                        <option value="сегодня">сегодня</option>
+                        <option value="завтра">завтра</option>
+                        <option value="прошлое">прошлое</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>10.</span> <strong>figures</strong> <select name="v10">
+                        <option value="">Select</option>
+                        <option value="фигуры">фигуры</option>
+                        <option value="лица">лица</option>
+                        <option value="деньги">деньги</option>
+                        <option value="рисунки">рисунки</option>
                     </select></p>
                 </div>
                 <button class="check-answers" id="checkVocab">Check Answers</button>
@@ -982,109 +1003,117 @@
             <div class="exercise word-order">
                 <h2>Word Order</h2>
                 <div class="question">
-                    <p><span>1.</span> Arrange the words: <strong>see / you / I'll</strong></p>
+                    <p><span>1.</span> Arrange the words: <strong>rising / I'm / pill / another / day / Another</strong></p>
                     <div class="word-list" data-question="1">
-                        <span class="word-tile" draggable="true">see</span>
-                        <span class="word-tile" draggable="true">you</span>
-                        <span class="word-tile" draggable="true">I'll</span>
+                        <span class="word-tile" draggable="true">Another</span>
+                        <span class="word-tile" draggable="true">day</span>
+                        <span class="word-tile" draggable="true">another</span>
+                        <span class="word-tile" draggable="true">pill</span>
+                        <span class="word-tile" draggable="true">I'm</span>
+                        <span class="word-tile" draggable="true">rising</span>
                     </div>
                     <div class="drop-zone" data-question="1"></div>
                 </div>
                 <div class="question">
-                    <p><span>2.</span> Arrange the words: <strong>of / take / I'll / you</strong></p>
+                    <p><span>2.</span> Arrange the words: <strong>but / my / shines / Sun / bright / dark / lifestyle</strong></p>
                     <div class="word-list" data-question="2">
-                        <span class="word-tile" draggable="true">of</span>
-                        <span class="word-tile" draggable="true">take</span>
-                        <span class="word-tile" draggable="true">I'll</span>
-                        <span class="word-tile" draggable="true">you</span>
+                        <span class="word-tile" draggable="true">but</span>
+                        <span class="word-tile" draggable="true">my</span>
+                        <span class="word-tile" draggable="true">shines</span>
+                        <span class="word-tile" draggable="true">Sun</span>
+                        <span class="word-tile" draggable="true">bright</span>
+                        <span class="word-tile" draggable="true">dark</span>
+                        <span class="word-tile" draggable="true">lifestyle</span>
                     </div>
                     <div class="drop-zone" data-question="2"></div>
                 </div>
                 <div class="question">
-                    <p><span>3.</span> Arrange the words: <strong>nothing / I / on / got</strong></p>
+                    <p><span>3.</span> Arrange the words: <strong>hiding / I'm / just</strong></p>
                     <div class="word-list" data-question="3">
-                        <span class="word-tile" draggable="true">nothing</span>
-                        <span class="word-tile" draggable="true">I</span>
-                        <span class="word-tile" draggable="true">on</span>
-                        <span class="word-tile" draggable="true">got</span>
+                        <span class="word-tile" draggable="true">hiding</span>
+                        <span class="word-tile" draggable="true">I'm</span>
+                        <span class="word-tile" draggable="true">just</span>
                     </div>
                     <div class="drop-zone" data-question="3"></div>
                 </div>
                 <div class="question">
-                    <p><span>4.</span> Arrange the words: <strong>you / bones / and / my / Just / skin</strong></p>
+                    <p><span>4.</span> Arrange the words: <strong>forever / lost / could / get / in / this / moment</strong></p>
                     <div class="word-list" data-question="4">
-                        <span class="word-tile" draggable="true">you</span>
-                        <span class="word-tile" draggable="true">bones</span>
-                        <span class="word-tile" draggable="true">and</span>
-                        <span class="word-tile" draggable="true">my</span>
-                        <span class="word-tile" draggable="true">Just</span>
-                        <span class="word-tile" draggable="true">skin</span>
+                        <span class="word-tile" draggable="true">forever</span>
+                        <span class="word-tile" draggable="true">lost</span>
+                        <span class="word-tile" draggable="true">could</span>
+                        <span class="word-tile" draggable="true">get</span>
+                        <span class="word-tile" draggable="true">in</span>
+                        <span class="word-tile" draggable="true">this</span>
+                        <span class="word-tile" draggable="true">moment</span>
                     </div>
                     <div class="drop-zone" data-question="4"></div>
                 </div>
                 <div class="question">
-                    <p><span>5.</span> Arrange the words: <strong>my / see / you / in / dream / I / you</strong></p>
+                    <p><span>5.</span> Arrange the words: <strong>rising / light / keeps / the</strong></p>
                     <div class="word-list" data-question="5">
-                        <span class="word-tile" draggable="true">my</span>
-                        <span class="word-tile" draggable="true">see</span>
-                        <span class="word-tile" draggable="true">you</span>
-                        <span class="word-tile" draggable="true">in</span>
-                        <span class="word-tile" draggable="true">dream</span>
-                        <span class="word-tile" draggable="true">I</span>
-                        <span class="word-tile" draggable="true">you</span>
+                        <span class="word-tile" draggable="true">rising</span>
+                        <span class="word-tile" draggable="true">light</span>
+                        <span class="word-tile" draggable="true">keeps</span>
+                        <span class="word-tile" draggable="true">the</span>
                     </div>
                     <div class="drop-zone" data-question="5"></div>
                 </div>
                 <div class="question">
-                    <p><span>6.</span> Arrange the words: <strong>real / in / not / your / world / Tho</strong></p>
+                    <p><span>6.</span> Arrange the words: <strong>to / it / Hold / on</strong></p>
                     <div class="word-list" data-question="6">
-                        <span class="word-tile" draggable="true">real</span>
-                        <span class="word-tile" draggable="true">in</span>
-                        <span class="word-tile" draggable="true">not</span>
-                        <span class="word-tile" draggable="true">your</span>
-                        <span class="word-tile" draggable="true">world</span>
-                        <span class="word-tile" draggable="true">Tho</span>
+                        <span class="word-tile" draggable="true">to</span>
+                        <span class="word-tile" draggable="true">it</span>
+                        <span class="word-tile" draggable="true">Hold</span>
+                        <span class="word-tile" draggable="true">on</span>
                     </div>
                     <div class="drop-zone" data-question="6"></div>
                 </div>
                 <div class="question">
-                    <p><span>7.</span> Arrange the words: <strong>walks / Long / sidewalks</strong></p>
+                    <p><span>7.</span> Arrange the words: <strong>for / life / it / was / As</strong></p>
                     <div class="word-list" data-question="7">
-                        <span class="word-tile" draggable="true">walks</span>
-                        <span class="word-tile" draggable="true">Long</span>
-                        <span class="word-tile" draggable="true">sidewalks</span>
+                        <span class="word-tile" draggable="true">for</span>
+                        <span class="word-tile" draggable="true">life</span>
+                        <span class="word-tile" draggable="true">it</span>
+                        <span class="word-tile" draggable="true">was</span>
+                        <span class="word-tile" draggable="true">As</span>
                     </div>
                     <div class="drop-zone" data-question="7"></div>
                 </div>
                 <div class="question">
-                    <p><span>8.</span> Arrange the words: <strong>got / I / nothing / on</strong></p>
+                    <p><span>8.</span> Arrange the words: <strong>low / I / feel / Oh / my / God</strong></p>
                     <div class="word-list" data-question="8">
-                        <span class="word-tile" draggable="true">got</span>
+                        <span class="word-tile" draggable="true">low</span>
                         <span class="word-tile" draggable="true">I</span>
-                        <span class="word-tile" draggable="true">nothing</span>
-                        <span class="word-tile" draggable="true">on</span>
+                        <span class="word-tile" draggable="true">feel</span>
+                        <span class="word-tile" draggable="true">Oh</span>
+                        <span class="word-tile" draggable="true">my</span>
+                        <span class="word-tile" draggable="true">God</span>
                     </div>
                     <div class="drop-zone" data-question="8"></div>
                 </div>
                 <div class="question">
-                    <p><span>9.</span> Arrange the words: <strong>me / fooled / got / emotions / My</strong></p>
+                    <p><span>9.</span> Arrange the words: <strong>this / if / wasn't / wasn't / for / it / Oh</strong></p>
                     <div class="word-list" data-question="9">
-                        <span class="word-tile" draggable="true">me</span>
-                        <span class="word-tile" draggable="true">fooled</span>
-                        <span class="word-tile" draggable="true">got</span>
-                        <span class="word-tile" draggable="true">emotions</span>
-                        <span class="word-tile" draggable="true">My</span>
+                        <span class="word-tile" draggable="true">this</span>
+                        <span class="word-tile" draggable="true">if</span>
+                        <span class="word-tile" draggable="true">wasn't</span>
+                        <span class="word-tile" draggable="true">wasn't</span>
+                        <span class="word-tile" draggable="true">for</span>
+                        <span class="word-tile" draggable="true">it</span>
+                        <span class="word-tile" draggable="true">Oh</span>
                     </div>
                     <div class="drop-zone" data-question="9"></div>
                 </div>
                 <div class="question">
-                    <p><span>10.</span> Arrange the words: <strong>pill / a / Pop / until / I</strong></p>
+                    <p><span>10.</span> Arrange the words: <strong>tomorrow / waiting / I'm / sure / Slowly / but</strong></p>
                     <div class="word-list" data-question="10">
-                        <span class="word-tile" draggable="true">pill</span>
-                        <span class="word-tile" draggable="true">a</span>
-                        <span class="word-tile" draggable="true">Pop</span>
-                        <span class="word-tile" draggable="true">until</span>
-                        <span class="word-tile" draggable="true">I</span>
+                        <span class="word-tile" draggable="true">tomorrow</span>
+                        <span class="word-tile" draggable="true">waiting</span>
+                        <span class="word-tile" draggable="true">I'm</span>
+                        <span class="word-tile" draggable="true">sure</span>
+                        <span class="word-tile" draggable="true">Slowly</span>
+                        <span class="word-tile" draggable="true">but</span>
                     </div>
                     <div class="drop-zone" data-question="10"></div>
                 </div>
@@ -1274,7 +1303,7 @@
         const checkFillInBtn = document.getElementById('checkFillIn');
         const resultFillInEl = document.getElementById('resultFillIn');
 
-        const fillInAnswers = ['c', 'a', 'b', 'c', 'a', 'b', 'b', 'a', 'a', 'd', 'a', 'a', 'a', 'b', 'a', 'a'];
+        const fillInAnswers = ['a', 'b', 'a', 'a', 'a', 'a', 'a', 'c', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'];
 
         checkFillInBtn.addEventListener('click', () => {
             let correct = 0;
@@ -1301,16 +1330,16 @@
         const resultVocabEl = document.getElementById('resultVocab');
 
         const vocabAnswers = [
-            'кожа',
-            'крыша',
-            'кости',
-            'эмоции',
-            'дурак',
-            'преследовать',
-            'прошлое',
-            'ничего не скрыто',
             'таблетка',
-            'тротуар'
+            'стиль жизни',
+            'восходящий',
+            'скрывающийся',
+            'жизнь после смерти',
+            'преданный',
+            'низкий',
+            'место',
+            'завтра',
+            'фигуры'
         ];
 
         checkVocabBtn.addEventListener('click', () => {
@@ -1338,16 +1367,16 @@
         const resultWordOrderEl = document.getElementById('resultWordOrder');
 
         const wordOrderAnswers = [
-            "I'll see you",
-            "I'll take of you",
-            "I got nothing on",
-            "Just the skin and my bones you",
-            "I see you in my dream",
-            "Tho you're not in the real world",
-            "Long walks sidewalks",
-            "I got nothing on",
-            "My emotions got me fooled",
-            "Pop a pill until I"
+            "Another day another pill I'm rising",
+            "Sun shines bright but my lifestyle dark",
+            "I'm just hiding",
+            "Could get lost in this moment forever",
+            "But the light keeps rising",
+            "Hold on to it",
+            "As it was for life",
+            "Oh my God, I feel low",
+            "Oh, if it wasn't for this",
+            "Slowly but sure I'm waiting tomorrow"
         ];
 
         // Initialize drag and drop
