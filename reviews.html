@@ -260,6 +260,7 @@
             padding: 20px;
             box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
             transition: transform 0.3s ease;
+            position: relative;
         }
 
         .review-card:hover {
@@ -283,6 +284,99 @@
             font-size: 14px;
             color: #a5f3fc;
             margin-top: 10px;
+        }
+
+        .review-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .review-actions button {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 8px 15px;
+            color: #fff;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .review-actions button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .review-actions button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .review-actions .delete-btn {
+            background: linear-gradient(90deg, #ff4d4d 0%, #e63939 100%);
+        }
+
+        .review-edit-form {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .review-edit-form.active {
+            display: block;
+        }
+
+        .review-edit-form textarea {
+            width: 100%;
+            height: 80px;
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #00FFFF;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 14px;
+            resize: vertical;
+            outline: none;
+        }
+
+        .review-edit-form textarea:focus {
+            border-color: #00CED1;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .review-edit-form .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .review-edit-form button {
+            background: linear-gradient(90deg, #00FFFF 0%, #00CED1 100%);
+            border: none;
+            padding: 8px 15px;
+            color: #fff;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .review-edit-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .review-edit-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .review-edit-form .cancel-btn {
+            background: linear-gradient(90deg, #666 0%, #555 100%);
         }
 
         .hamburger {
@@ -442,6 +536,20 @@
                 font-size: 12px;
             }
 
+            .review-actions button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .review-edit-form textarea {
+                font-size: 12px;
+            }
+
+            .review-edit-form button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
             .mobile-menu .sign-up, .mobile-menu .sign-out {
                 padding: 8px 15px;
                 font-size: clamp(1rem, 3vw, 1.25rem);
@@ -467,10 +575,6 @@
         @media (min-width: 1200px) {
             .reviews-content {
                 max-width: 1200px;
-            }
-
-            .reviews-image img {
-                height: 500px;
             }
 
             .reviews-content h1 {
@@ -558,7 +662,7 @@
                     csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
                     return csv;
                 } catch (e) {
-                    console.error(e);
+                    console.error("XLSX processing error:", e);
                     return "";
                 }
             }
@@ -622,7 +726,7 @@
                 updateAuthButtons(false);
                 console.log("Sign-out successful.");
             } catch (error) {
-                console.error("Sign-out error:", error);
+                console.error("Sign-out error:", error.code, error.message);
                 alert(`Failed to sign out: ${error.message}`);
             } finally {
                 signOutButton.disabled = false;
@@ -652,19 +756,20 @@
 
     <!-- Firebase Firestore -->
     <script type="module">
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const db = getFirestore();
 
         // Enable Firestore offline persistence
         enableIndexedDbPersistence(db)
             .catch((error) => {
-                console.error("Error enabling Firestore persistence:", error);
+                console.error("Error enabling Firestore persistence:", error.code, error.message);
             });
 
         window.submitReview = async () => {
             const reviewText = document.getElementById("reviewText").value.trim();
             const submitButton = document.getElementById("submitReview");
+            const reviewsError = document.getElementById("reviewsError");
             if (!reviewText) {
                 alert("Please write a review before submitting.");
                 return;
@@ -676,23 +781,99 @@
             submitButton.disabled = true;
             try {
                 const user = auth.currentUser;
-                if (user) {
-                    await addDoc(collection(db, "reviews"), {
-                        userName: user.displayName || "Anonymous",
-                        text: reviewText,
-                        timestamp: serverTimestamp()
-                    });
-                    document.getElementById("reviewText").value = "";
-                    console.log("Review submitted successfully.");
-                } else {
+                if (!user) {
                     alert("You must be signed in to submit a review.");
+                    return;
                 }
+                await addDoc(collection(db, "reviews"), {
+                    userName: user.displayName || "Anonymous",
+                    userId: user.uid,
+                    text: reviewText,
+                    timestamp: serverTimestamp()
+                });
+                document.getElementById("reviewText").value = "";
+                console.log("Review submitted successfully.");
             } catch (error) {
                 console.error("Error submitting review:", error.code, error.message);
-                alert(`Failed to submit review: ${error.message}`);
+                reviewsError.classList.add("active");
+                reviewsError.textContent = `Failed to submit review: ${error.message}`;
             } finally {
                 submitButton.disabled = false;
             }
+        };
+
+        window.deleteReview = async (reviewId) => {
+            const reviewsError = document.getElementById("reviewsError");
+            if (!confirm("Are you sure you want to delete this review?")) return;
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    alert("You must be signed in to delete a review.");
+                    return;
+                }
+                await deleteDoc(doc(db, "reviews", reviewId));
+                console.log("Review deleted successfully.");
+            } catch (error) {
+                console.error("Error deleting review:", error.code, error.message);
+                reviewsError.classList.add("active");
+                reviewsError.textContent = `Failed to delete review: ${error.message}`;
+            }
+        };
+
+        window.editReview = (reviewId, currentText) => {
+            const reviewCard = document.querySelector(`.review-card[data-id="${reviewId}"]`);
+            const editForm = reviewCard.querySelector('.review-edit-form');
+            const reviewText = reviewCard.querySelector('.review-text');
+            const reviewActions = reviewCard.querySelector('.review-actions');
+            editForm.classList.add('active');
+            reviewText.style.display = 'none';
+            reviewActions.style.display = 'none';
+            editForm.querySelector('textarea').value = currentText;
+        };
+
+        window.saveReview = async (reviewId) => {
+            const reviewCard = document.querySelector(`.review-card[data-id="${reviewId}"]`);
+            const editText = reviewCard.querySelector('.review-edit-form textarea').value.trim();
+            const saveButton = reviewCard.querySelector('.save-btn');
+            const reviewsError = document.getElementById("reviewsError");
+            if (!editText) {
+                alert("Review cannot be empty.");
+                return;
+            }
+            if (editText.length > 500) {
+                alert("Review must be 500 characters or less.");
+                return;
+            }
+            saveButton.disabled = true;
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    alert("You must be signed in to edit a review.");
+                    return;
+                }
+                await updateDoc(doc(db, "reviews", reviewId), {
+                    text: editText,
+                    timestamp: serverTimestamp()
+                });
+                console.log("Review updated successfully.");
+                cancelEdit(reviewId);
+            } catch (error) {
+                console.error("Error updating review:", error.code, error.message);
+                reviewsError.classList.add("active");
+                reviewsError.textContent = `Failed to update review: ${error.message}`;
+            } finally {
+                saveButton.disabled = false;
+            }
+        };
+
+        window.cancelEdit = (reviewId) => {
+            const reviewCard = document.querySelector(`.review-card[data-id="${reviewId}"]`);
+            const editForm = reviewCard.querySelector('.review-edit-form');
+            const reviewText = reviewCard.querySelector('.review-text');
+            const reviewActions = reviewCard.querySelector('.review-actions');
+            editForm.classList.remove('active');
+            reviewText.style.display = 'block';
+            reviewActions.style.display = 'flex';
         };
 
         const reviewsList = document.getElementById("reviewsList");
@@ -702,14 +883,32 @@
             onSnapshot(q, (snapshot) => {
                 reviewsList.innerHTML = "";
                 reviewsError.classList.remove("active");
+                const user = auth.currentUser;
                 snapshot.forEach((doc) => {
                     const review = doc.data();
+                    const reviewId = doc.id;
+                    const isOwnReview = user && review.userId === user.uid;
                     const reviewCard = document.createElement("div");
                     reviewCard.className = "review-card";
+                    reviewCard.setAttribute("data-id", reviewId);
+                    const timestamp = review.timestamp ? new Date(review.timestamp.toDate()).toLocaleString() : 'Pending';
                     reviewCard.innerHTML = `
                         <h3>${review.userName}</h3>
-                        <p>${review.text}</p>
-                        <div class="date">${new Date(review.timestamp.toDate()).toLocaleString()}</div>
+                        <p class="review-text">${review.text}</p>
+                        <div class="date">${timestamp}</div>
+                        ${isOwnReview ? `
+                        <div class="review-actions">
+                            <button onclick="editReview('${reviewId}', '${review.text.replace(/'/g, "\\'")}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteReview('${reviewId}')">Delete</button>
+                        </div>
+                        <div class="review-edit-form">
+                            <textarea maxlength="500">${review.text}</textarea>
+                            <div class="action-buttons">
+                                <button class="save-btn" onclick="saveReview('${reviewId}')">Save</button>
+                                <button class="cancel-btn" onclick="cancelEdit('${reviewId}')">Cancel</button>
+                            </div>
+                        </div>
+                        ` : ''}
                     `;
                     reviewsList.appendChild(reviewCard);
                 });
