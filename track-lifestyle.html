@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 15;
+            z-index: 30;
             flex-wrap: wrap;
         }
 
@@ -77,6 +77,8 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         nav a {
@@ -90,6 +92,11 @@
 
         nav a:hover, nav a.active {
             color: #00FFFF;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
         }
 
         .sign-up, .sign-out {
@@ -391,7 +398,6 @@
             text-align: center;
         }
 
-        /* Hamburger Menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -399,7 +405,7 @@
             width: 30px;
             height: 20px;
             cursor: pointer;
-            z-index: 20;
+            z-index: 31;
         }
 
         .hamburger span {
@@ -435,11 +441,16 @@
             z-index: 15;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
+            pointer-events: none;
         }
 
         .mobile-menu.active {
-            display: flex;
             transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .mobile-menu a, .mobile-menu button {
+            pointer-events: auto;
         }
 
         .mobile-menu a {
@@ -455,7 +466,14 @@
             color: #00FFFF;
         }
 
-        /* Media Queries */
+        .mobile-menu .sign-up, .mobile-menu .sign-out {
+            margin: 15px 0;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            width: 150px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: row;
@@ -464,6 +482,10 @@
             }
 
             nav {
+                display: none;
+            }
+
+            .auth-buttons {
                 display: none;
             }
 
@@ -549,6 +571,21 @@
                 font-size: clamp(0.75rem, 2.5vw, 0.875rem);
                 margin-top: 10px;
             }
+
+            .logo {
+                font-size: clamp(1.25rem, 4vw, 1.5rem);
+            }
+
+            .mobile-menu .sign-up, .mobile-menu .sign-out {
+                padding: 8px 15px;
+                font-size: clamp(1rem, 3vw, 1.25rem);
+                width: 120px;
+            }
+
+            .sign-up, .sign-out {
+                padding: 6px 12px;
+                font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+            }
         }
 
         @media (min-width: 769px) {
@@ -586,9 +623,9 @@
             <a href="./courses.html">Courses</a>
             <a href="./about.html">About Us</a>
             <a href="./reviews.html">Reviews</a>
-            <a href="contact.html">Contact Us</a>
+            <a href="./contact.html">Contacts</a>
         </nav>
-        <div id="authButtons">
+        <div class="auth-buttons" id="authButtons">
             <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
             <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
@@ -598,7 +635,11 @@
         <a href="./courses.html">Courses</a>
         <a href="./about.html">About Us</a>
         <a href="./reviews.html">Reviews</a>
-        <a href="contact.html">Contacts</a>
+        <a href="./contact.html">Contacts</a>
+        <div id="mobileAuthButtons">
+            <button class="sign-up" id="mobileSignUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="mobileSignOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
+        </div>
     </div>
     <div class="track-content">
         <h1><span>Lifestyle</span></h1>
@@ -686,7 +727,7 @@
                         <option value="a">beat</option>
                         <option value="b">heat</option>
                         <option value="c">seat</option>
-                        <option value="d">feet</option>
+                        <option value="d"> feet</option>
                     </select></p>
                 </div>
                 <div class="question">
@@ -790,22 +831,14 @@
                     var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
                     var firstSheetName = workbook.SheetNames[0];
                     var worksheet = workbook.Sheets[firstSheetName];
-
-                    // Convert sheet to JSON to filter blank rows
                     var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                    // Filter out blank rows (rows where all cells are empty, null, or undefined)
                     var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                    // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
                     var headerRowIndex = filteredData.findIndex((row, index) =>
                         row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
                     );
-                    // Fallback
                     if (headerRowIndex === -1 || headerRowIndex > 25) {
                         headerRowIndex = 0;
                     }
-
-                    // Convert filtered JSON back to CSV
                     var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
                     csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
                     return csv;
@@ -839,7 +872,9 @@
 
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
+            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
             signUpButton.disabled = true;
+            mobileSignUpButton.disabled = true;
             try {
                 console.log("Starting sign-in process...");
                 const result = await signInWithPopup(auth, provider);
@@ -857,13 +892,16 @@
                 }
             } finally {
                 signUpButton.disabled = false;
+                mobileSignUpButton.disabled = false;
                 console.log("Sign-in process completed.");
             }
         };
 
         window.signOut = async () => {
             const signOutButton = document.getElementById("signOutButton");
+            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
             signOutButton.disabled = true;
+            mobileSignOutButton.disabled = true;
             try {
                 await signOut(auth);
                 updateAuthButtons(false);
@@ -873,12 +911,15 @@
                 alert(`Failed to sign out: ${error.message}`);
             } finally {
                 signOutButton.disabled = false;
+                mobileSignOutButton.disabled = false;
             }
         };
 
         function updateAuthButtons(isSignedIn) {
             document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
             document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
+            document.getElementById("mobileSignUpButton").style.display = isSignedIn ? "none" : "block";
+            document.getElementById("mobileSignOutButton").style.display = isSignedIn ? "block" : "none";
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -959,11 +1000,9 @@
 
         checkBtn.addEventListener('click', () => {
             let correct = 0;
-            // Reset previous highlights
             document.querySelectorAll('.question select').forEach(select => {
                 select.classList.remove('correct', 'incorrect');
             });
-            // Check each answer and apply highlighting
             for (let i = 1; i <= 16; i++) {
                 const select = document.querySelector(`select[name="q${i}"]`);
                 const selected = select.value;
@@ -995,6 +1034,16 @@
             mobileMenu.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', isActive);
         }
+
+        document.getElementById('mobileSignUpButton').addEventListener('click', () => {
+            signInWithGoogle();
+            toggleMenu();
+        });
+
+        document.getElementById('mobileSignOutButton').addEventListener('click', () => {
+            signOut();
+            toggleMenu();
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c1875e6dc14566',t:'MTc0NjYyOTQxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
