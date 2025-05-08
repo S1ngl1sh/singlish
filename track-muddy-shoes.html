@@ -301,6 +301,7 @@
             border-radius: 5px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
 
         .exercise h2 {
@@ -336,7 +337,7 @@
             font-size: 14px;
             cursor: pointer;
             outline: none;
-            width: 120px;
+            width: 180px;
         }
 
         .question select:focus {
@@ -514,7 +515,7 @@
             }
 
             .question select {
-                width: 100px;
+                width: 150px;
             }
         }
 
@@ -558,7 +559,7 @@
             .question select {
                 font-size: 12px;
                 padding: 4px;
-                width: 100px;
+                width: 120px;
             }
 
             .check-answers {
@@ -811,8 +812,103 @@
                         <option value="d">wrath</option>
                     </select></p>
                 </div>
-                <button class="check-answers">Check Answers</button>
-                <div class="result"></div>
+                <button class="check-answers" id="checkFillIn">Check Answers</button>
+                <div class="result" id="resultFillIn"></div>
+            </div>
+            <div class="exercise">
+                <h2>Vocabulary Match</h2>
+                <div class="question">
+                    <p><span>1.</span> <strong>rebel</strong> <select name="v1">
+                        <option value="">Select</option>
+                        <option value="мириться">мириться</option>
+                        <option value="бунтовать">бунтовать</option>
+                        <option value="скрываться">скрываться</option>
+                        <option value="подчиняться">подчиняться</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>2.</span> <strong>sow the wind</strong> <select name="v2">
+                        <option value="">Select</option>
+                        <option value="сеять ветер">сеять ветер</option>
+                        <option value="ловить момент">ловить момент</option>
+                        <option value="кричать в толпу">кричать в толпу</option>
+                        <option value="открыться миру">открыться миру</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>3.</span> <strong>blasphemous</strong> <select name="v3">
+                        <option value="">Select</option>
+                        <option value="богобоязненный">богобоязненный</option>
+                        <option value="святой">святой</option>
+                        <option value="кощунственный">кощунственный</option>
+                        <option value="равнодушный">равнодушный</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>4.</span> <strong>devil in human form</strong> <select name="v4">
+                        <option value="">Select</option>
+                        <option value="демон во сне">демон во сне</option>
+                        <option value="дьявол в человеческом обличье">дьявол в человеческом обличье</option>
+                        <option value="призрак в облаке">призрак в облаке</option>
+                        <option value="безумный гений">безумный гений</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>5.</span> <strong>antagonist</strong> <select name="v5">
+                        <option value="">Select</option>
+                        <option value="союзник">союзник</option>
+                        <option value="главный герой">главный герой</option>
+                        <option value="противник">противник</option>
+                        <option value="рассказчик">рассказчик</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>6.</span> <strong>snitch</strong> <select name="v6">
+                        <option value="">Select</option>
+                        <option value="грубиян">грубиян</option>
+                        <option value="доносчик">доносчик</option>
+                        <option value="подражатель">подражатель</option>
+                        <option value="хитрец">хитрец</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>7.</span> <strong>visionary</strong> <select name="v7">
+                        <option value="">Select</option>
+                        <option value="слепой">слепой</option>
+                        <option value="мечтатель">мечтатель</option>
+                        <option value="ученик">ученик</option>
+                        <option value="критик">критик</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>8.</span> <strong>upside world</strong> <select name="v8">
+                        <option value="">Select</option>
+                        <option value="подземный мир">подземный мир</option>
+                        <option value="обычный порядок">обычный порядок</option>
+                        <option value="перевёрнутый мир">перевёрнутый мир</option>
+                        <option value="роскошная жизнь">роскошная жизнь</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>9.</span> <strong>shoes in the mud</strong> <select name="v9">
+                        <option value="">Select</option>
+                        <option value="в грязной обуви">в грязной обуви</option>
+                        <option value="в новых кроссовках">в новых кроссовках</option>
+                        <option value="босиком">босиком</option>
+                        <option value="с потерянными ботинками">с потерянными ботинками</option>
+                    </select></p>
+                </div>
+                <div class="question">
+                    <p><span>10.</span> <strong>let the table turn</strong> <select name="v10">
+                        <option value="">Select</option>
+                        <option value="накрыть на стол">накрыть на стол</option>
+                        <option value="сменить местами роли">сменить местами роли</option>
+                        <option value="уйти с ужина">уйти с ужина</option>
+                        <option value="разбить всё вокруг">разбить всё вокруг</option>
+                    </select></p>
+                </div>
+                <button class="check-answers" id="checkVocab">Check Answers</button>
+                <div class="result" id="resultVocab"></div>
             </div>
         </div>
     </div>
@@ -964,7 +1060,7 @@
         playPauseBtn.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
-                playPauseBtn.innerHTML = '< Levant class="fas fa-pause"></i>';
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
             } else {
                 audio.pause();
                 playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -993,21 +1089,22 @@
 
     <!-- Exercise Script -->
     <script>
-        const checkBtn = document.querySelector('.check-answers');
-        const resultEl = document.querySelector('.result');
+        // Fill in the Blanks
+        const checkFillInBtn = document.getElementById('checkFillIn');
+        const resultFillInEl = document.getElementById('resultFillIn');
 
-        const answers = ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'];
+        const fillInAnswers = ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'];
 
-        checkBtn.addEventListener('click', () => {
+        checkFillInBtn.addEventListener('click', () => {
             let correct = 0;
-            document.querySelectorAll('.question select').forEach(select => {
+            document.querySelectorAll('.exercise:nth-child(1) .question select').forEach(select => {
                 select.classList.remove('correct', 'incorrect');
             });
             for (let i = 1; i <= 16; i++) {
                 const select = document.querySelector(`select[name="q${i}"]`);
                 const selected = select.value;
                 if (selected) {
-                    if (selected === answers[i - 1]) {
+                    if (selected === fillInAnswers[i - 1]) {
                         select.classList.add('correct');
                         correct++;
                     } else {
@@ -1015,7 +1112,44 @@
                     }
                 }
             }
-            resultEl.textContent = `You got ${correct}/16 correct!`;
+            resultFillInEl.textContent = `You got ${correct}/16 correct!`;
+        });
+
+        // Vocabulary Match
+        const checkVocabBtn = document.getElementById('checkVocab');
+        const resultVocabEl = document.getElementById('resultVocab');
+
+        const vocabAnswers = [
+            'бунтовать',
+            'сеять ветер',
+            'кощунственный',
+            'дьявол в человеческом обличье',
+            'противник',
+            'доносчик',
+            'мечтатель',
+            'перевёрнутый мир',
+            'в грязной обуви',
+            'сменить местами роли'
+        ];
+
+        checkVocabBtn.addEventListener('click', () => {
+            let correct = 0;
+            document.querySelectorAll('.exercise:nth-child(2) .question select').forEach(select => {
+                select.classList.remove('correct', 'incorrect');
+            });
+            for (let i = 1; i <= 10; i++) {
+                const select = document.querySelector(`select[name="v${i}"]`);
+                const selected = select.value;
+                if (selected) {
+                    if (selected === vocabAnswers[i - 1]) {
+                        select.classList.add('correct');
+                        correct++;
+                    } else {
+                        select.classList.add('incorrect');
+                    }
+                }
+            }
+            resultVocabEl.textContent = `You got ${correct}/10 correct!`;
         });
     </script>
 
