@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singlish - Improve English Through Music</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -22,9 +23,15 @@
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
             padding: 20px;
             padding-bottom: 60px;
+            scrollbar-width: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
         }
 
         .particle {
@@ -186,7 +193,6 @@
             box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
         }
 
-        /* Hamburger Menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -263,7 +269,6 @@
             text-align: center;
         }
 
-        /* Footer */
         footer {
             position: absolute;
             bottom: 0;
@@ -289,7 +294,6 @@
             opacity: 0.8;
         }
 
-        /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             header {
                 flex-direction: row;
@@ -407,8 +411,8 @@
             <a href="./contact.html">Contacts</a>
         </nav>
         <div class="auth-buttons" id="authButtons">
-            <button class="sign-up" id="signUpButton">Sign Up</button>
-            <button class="sign-out" id="signOutButton" style="display: none;">Sign Out</button>
+            <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
+            <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
     </header>
     <div class="mobile-menu">
@@ -445,22 +449,14 @@
                     var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
                     var firstSheetName = workbook.SheetNames[0];
                     var worksheet = workbook.Sheets[firstSheetName];
-
-                    // Convert sheet to JSON to filter blank rows
                     var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                    // Filter out blank rows (rows where all cells are empty, null, or undefined)
                     var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                    // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
                     var headerRowIndex = filteredData.findIndex((row, index) =>
                         row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
                     );
-                    // Fallback
                     if (headerRowIndex === -1 || headerRowIndex > 25) {
                         headerRowIndex = 0;
                     }
-
-                    // Convert filtered JSON back to CSV
                     var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
                     csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
                     return csv;
@@ -538,14 +534,10 @@
         };
 
         function updateAuthButtons(isSignedIn) {
-            const signUpButton = document.getElementById("signUpButton");
-            const signOutButton = document.getElementById("signOutButton");
-            const mobileSignUpButton = document.getElementById("mobileSignUpButton");
-            const mobileSignOutButton = document.getElementById("mobileSignOutButton");
-            signUpButton.style.display = isSignedIn ? "none" : "inline-block";
-            signOutButton.style.display = isSignedIn ? "inline-block" : "none";
-            mobileSignUpButton.style.display = isSignedIn ? "none" : "block";
-            mobileSignOutButton.style.display = isSignedIn ? "block" : "none";
+            document.getElementById("signUpButton").style.display = isSignedIn ? "none" : "inline-block";
+            document.getElementById("signOutButton").style.display = isSignedIn ? "inline-block" : "none";
+            document.getElementById("mobileSignUpButton").style.display = isSignedIn ? "none" : "block";
+            document.getElementById("mobileSignOutButton").style.display = isSignedIn ? "block" : "none";
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -575,7 +567,6 @@
             hamburger.setAttribute('aria-expanded', isActive);
         }
 
-        // Add event listeners for auth buttons in mobile menu
         document.getElementById('mobileSignUpButton').addEventListener('click', () => {
             signInWithGoogle();
             toggleMenu();
@@ -586,6 +577,5 @@
             toggleMenu();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c1b55daa42bf7d',t:'MTc0NjYzMTMwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
