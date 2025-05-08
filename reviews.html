@@ -670,10 +670,11 @@
         }
     </script>
 
-    <!-- Firebase Authentication -->
+    <!-- Firebase Authentication and Firestore -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAAaoH4unLDHNq8TlpZh7skZ3WdKa-gPzA",
@@ -688,6 +689,13 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
+        const db = getFirestore();
+
+        // Enable Firestore offline persistence
+        enableIndexedDbPersistence(db)
+            .catch((error) => {
+                console.error("Error enabling Firestore persistence:", error.code, error.message);
+            });
 
         window.signInWithGoogle = async () => {
             const signUpButton = document.getElementById("signUpButton");
@@ -752,19 +760,6 @@
                 console.log("No user is signed in.");
             }
         });
-    </script>
-
-    <!-- Firebase Firestore -->
-    <script type="module">
-        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        const db = getFirestore();
-
-        // Enable Firestore offline persistence
-        enableIndexedDbPersistence(db)
-            .catch((error) => {
-                console.error("Error enabling Firestore persistence:", error.code, error.message);
-            });
 
         window.submitReview = async () => {
             const reviewText = document.getElementById("reviewText").value.trim();
