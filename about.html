@@ -54,7 +54,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 15;
+            z-index: 30;
             flex-wrap: wrap;
         }
 
@@ -78,6 +78,8 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         nav a {
@@ -91,6 +93,11 @@
 
         nav a:hover, nav a.active {
             color: #00FFFF;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
         }
 
         .sign-up, .sign-out {
@@ -198,7 +205,7 @@
             width: 30px;
             height: 20px;
             cursor: pointer;
-            z-index: 20;
+            z-index: 31;
         }
 
         .hamburger span {
@@ -278,7 +285,7 @@
                 display: none;
             }
 
-            #authButtons {
+            .auth-buttons {
                 display: none;
             }
 
@@ -374,7 +381,7 @@
             <a href="./reviews.html">Reviews</a>
             <a href="./contact.html">Contacts</a>
         </nav>
-        <div id="authButtons">
+        <div class="auth-buttons" id="authButtons">
             <button class="sign-up" id="signUpButton" onclick="signInWithGoogle()">Sign Up</button>
             <button class="sign-out" id="signOutButton" onclick="signOut()" style="display: none;">Sign Out</button>
         </div>
@@ -445,7 +452,6 @@
     </script>
 
     <!-- Firebase SDK -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
